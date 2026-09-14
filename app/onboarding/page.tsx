@@ -162,9 +162,9 @@ export default function OnboardingPage() {
               <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white drop-shadow-lg">
                 Génesis del <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Sistema</span>
               </h2>
-              <p className="text-zinc-400 text-sm font-light tracking-wide max-w-sm mx-auto">
-                Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.
-              </p>
+              <div className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto flex flex-col items-center justify-center text-center">
+                <span>Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.</span>
+              </div>
             </div>
 
             <button 
