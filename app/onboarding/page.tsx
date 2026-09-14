@@ -2,344 +2,188 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { HudNavigation } from "../../components/hud-navigation"
-import { SafeSignInButton, SafeSignUpButton } from "../../components/clerk-safe"
 
 const developerRepos = [
-  { name: "werkdeck-platform", language: "TypeScript", stars: 42, updated: "updated 2d ago" },
-  { name: "signal-processor", language: "Rust", stars: 18, updated: "updated 5d ago" },
-  { name: "infra-blueprints", language: "HCL", stars: 9, updated: "updated 1w ago" },
+  { name: "werkdeck-platform", language: "TypeScript", stars: 42, updated: "2d ago" },
+  { name: "signal-processor", language: "Rust", stars: 18, updated: "5d ago" },
+  { name: "infra-blueprints", language: "HCL", stars: 9, updated: "1w ago" },
 ]
-
-const developerSteps = ["CONNECT", "SELECT REPOS", "PROFILE"]
-const companySteps = ["IDENTITY", "STACK", "BUDGET"]
 
 export default function OnboardingPage() {
   const router = useRouter()
   const [flow, setFlow] = useState<"developer" | "company">("developer")
   const [step, setStep] = useState(1)
-  const [githubConnected, setGithubConnected] = useState(false)
   const [selectedRepos, setSelectedRepos] = useState<string[]>(["werkdeck-platform"])
-  const [role, setRole] = useState("Full-Stack Engineer")
-  const [seniority, setSeniority] = useState("Senior")
-  const [companyEmail, setCompanyEmail] = useState("")
-  const [companyName, setCompanyName] = useState("")
-  const [stack, setStack] = useState("")
-  const [budget, setBudget] = useState("")
   const [isAnalyzing, setIsAnalyzing] = useState(false)
 
-  const steps = flow === "developer" ? developerSteps : companySteps
-  const toggleRepo = (name: string) =>
+  const toggleRepo = (name: string) => {
     setSelectedRepos((current) =>
       current.includes(name) ? current.filter((repo) => repo !== name) : [...current, name]
     )
-  const next = () => setStep((current) => Math.min(current + 1, 3))
+  }
+
+  const handleNext = () => setStep((current) => Math.min(current + 1, 3))
+
+  const handleGenerateScore = () => {
+    setIsAnalyzing(true)
+    // Redirige al Dashboard automáticamente tras completar la sincronización
+    setTimeout(() => {
+      router.push("/dashboard")
+    }, 2000)
+  }
 
   return (
-    <main className="onboarding-page">
-      <header className="onboarding-header">
-        <a href="/" className="onboarding-brand">
-          WERKDECK <span>● ONBOARDING</span>
-        </a>
-        <div className="onboarding-status">
-          <button type="button" onClick={() => router.push("/")}>
-            SIGN IN
-          </button>
-          <i /> SYSTEM READY <b>SECURE SESSION</b>
+    <div className="min-h-screen w-full bg-black text-white font-sans antialiased selection:bg-emerald-500 selection:text-black flex flex-col relative overflow-hidden">
+      
+      {/* Immersive OASIS Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.05)_0%,transparent_70%)] z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)] z-0 pointer-events-none" />
+
+      {/* Minimalist Top HUD */}
+      <header className="absolute top-0 w-full px-8 py-8 flex justify-between items-center z-20">
+        <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase flex items-center gap-3">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981]" />
+          Initialization Sequence
+        </div>
+        <div className="font-mono text-[10px] tracking-[0.2em] text-emerald-400/70 uppercase">
+          Step 0{step} / 03
         </div>
       </header>
 
-      <div className="onboarding-progress" aria-label={`Onboarding progress step ${step} of 3`}>
-        <div className="progress-track">
-          <span style={{ width: `${(step / 3) * 100}%` }} />
-        </div>
-        {steps.map((label, index) => (
-          <div
-            key={label}
-            className={`progress-step ${step === index + 1 ? "active" : ""} ${
-              step > index + 1 ? "complete" : ""
-            }`}
-          >
-            <b>0{index + 1}</b>
-            <span>{label}</span>
+      {/* The Central Monolith */}
+      <main className="flex-1 flex flex-col items-center justify-center relative z-10 w-full max-w-2xl mx-auto px-6 mt-10">
+        
+        {/* Step 1: Identity & Role */}
+        {step === 1 && (
+          <div className="w-full text-center space-y-10 animate-in fade-in zoom-in-95 duration-700">
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white">
+                Sincroniza tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Identidad</span>
+              </h1>
+              <p className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto">
+                Selecciona tu nodo de acceso. El sistema adaptará el entorno según tu objetivo en la red.
+              </p>
+            </div>
+
+            {/* Apple-Style Segmented Control */}
+            <div className="flex p-1.5 bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 rounded-full max-w-sm mx-auto shadow-2xl">
+              <button
+                onClick={() => setFlow("developer")}
+                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
+                  flow === "developer" ? "bg-emerald-500 text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
+                }`}
+              >
+                Developer
+              </button>
+              <button
+                onClick={() => setFlow("company")}
+                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
+                  flow === "company" ? "bg-white text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
+                }`}
+              >
+                Company
+              </button>
+            </div>
+
+            <button 
+              onClick={handleNext}
+              className="mt-8 group relative bg-white text-black hover:bg-emerald-400 font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-500 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(16,185,129,0.3)]"
+            >
+              <span>{flow === "developer" ? "Conectar GitHub Signal" : "Configurar Entidad"}</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </button>
           </div>
-        ))}
+        )}
+
+        {/* Step 2: Calibrate Signal (Developer Flow Example) */}
+        {step === 2 && flow === "developer" && (
+          <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white">
+                Calibrando <span className="text-emerald-400">Señal</span>
+              </h2>
+              <p className="text-zinc-400 text-sm font-light tracking-wide">
+                Selecciona los repositorios que formarán la base de tu ProofScore.
+              </p>
+            </div>
+
+            <div className="space-y-3 max-w-md mx-auto">
+              {developerRepos.map((repo) => (
+                <div 
+                  key={repo.name}
+                  onClick={() => toggleRepo(repo.name)}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 flex items-center justify-between backdrop-blur-sm ${
+                    selectedRepos.includes(repo.name) 
+                      ? "bg-emerald-950/30 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
+                      : "bg-zinc-950/50 border-zinc-800/50 hover:border-zinc-700"
+                  }`}
+                >
+                  <div>
+                    <h3 className={`font-mono text-sm ${selectedRepos.includes(repo.name) ? "text-emerald-400" : "text-zinc-300"}`}>
+                      {repo.name}
+                    </h3>
+                    <p className="text-xs text-zinc-600 mt-1 font-sans">{repo.language} • {repo.updated}</p>
+                  </div>
+                  <div className={`h-4 w-4 rounded-full border flex items-center justify-center transition-colors ${
+                    selectedRepos.includes(repo.name) ? "border-emerald-500 bg-emerald-500" : "border-zinc-700"
+                  }`}>
+                    {selectedRepos.includes(repo.name) && <div className="h-1.5 w-1.5 bg-black rounded-full" />}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-center pt-6">
+              <button 
+                onClick={handleNext}
+                disabled={selectedRepos.length === 0}
+                className="bg-white text-black hover:bg-emerald-400 disabled:opacity-50 disabled:hover:bg-white font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-4 rounded-full transition-all duration-500"
+              >
+                Confirmar Selección
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 3: Genesis / ProofScore Generation */}
+        {step === 3 && (
+          <div className="w-full text-center space-y-10 animate-in zoom-in-95 duration-1000">
+            <div className="relative w-32 h-32 mx-auto flex items-center justify-center">
+              <div className={`absolute inset-0 border-[1px] rounded-full transition-all duration-1000 ${isAnalyzing ? 'border-emerald-500 animate-[spin_2s_linear_infinite]' : 'border-zinc-800'}`} />
+              <div className={`absolute inset-2 border-[1px] border-dashed rounded-full transition-all duration-1000 ${isAnalyzing ? 'border-emerald-400/50 animate-[spin_3s_linear_infinite_reverse]' : 'border-zinc-800/50'}`} />
+              <span className="font-mono text-[10px] text-emerald-400 tracking-[0.2em] uppercase">
+                {isAnalyzing ? "Syncing..." : "Ready"}
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white drop-shadow-lg">
+                Génesis del <span className="text-emerald-400">Sistema</span>
+              </h2>
+              <p className="text-zinc-400 text-sm font-light max-w-sm mx-auto">
+                Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.
+              </p>
+            </div>
+
+            <button 
+              onClick={handleGenerateScore}
+              disabled={isAnalyzing}
+              className="relative group bg-emerald-500 hover:bg-emerald-400 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-5 rounded-full transition-all duration-500 overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.3)] disabled:opacity-80"
+            >
+              <span className="relative z-10">{isAnalyzing ? "CREANDO ACCESO..." : "ENTRAR AL OASIS"}</span>
+            </button>
+          </div>
+        )}
+      </main>
+
+      {/* Ultra-Thin Progress Line at Bottom */}
+      <div className="absolute bottom-0 left-0 h-[2px] bg-zinc-900 w-full">
+        <div 
+          className="h-full bg-emerald-500 transition-all duration-1000 ease-in-out shadow-[0_0_15px_#10b981]"
+          style={{ width: `${(step / 3) * 100}%` }}
+        />
       </div>
 
-      <section className="onboarding-layout">
-        <aside className="onboarding-aside">
-          <p className="hud-kicker">INITIALIZE / {flow === "developer" ? "DEVELOPER" : "COMPANY"}</p>
-          <h1>
-            {flow === "developer" ? (
-              <>
-                Build your
-                <br />
-                <em>ProofScore.</em>
-              </>
-            ) : (
-              <>
-                Find your next
-                <br />
-                <em>signal.</em>
-              </>
-            )}
-          </h1>
-          <p className="onboarding-aside-copy">
-            {flow === "developer"
-              ? "Connect your work. We analyze the signal, not the noise."
-              : "Tell us what you are building. We will surface the people who can build it."}
-          </p>
-          <div className="flow-switch" role="tablist" aria-label="Choose onboarding flow">
-            <button
-              type="button"
-              className={flow === "developer" ? "active" : ""}
-              onClick={() => {
-                setFlow("developer")
-                setStep(1)
-              }}
-              role="tab"
-              aria-selected={flow === "developer"}
-            >
-              DEVELOPER
-            </button>
-            <button
-              type="button"
-              className={flow === "company" ? "active" : ""}
-              onClick={() => {
-                setFlow("company")
-                setStep(1)
-              }}
-              role="tab"
-              aria-selected={flow === "company"}
-            >
-              COMPANY
-            </button>
-          </div>
-        </aside>
-
-        <section className="onboarding-panel" aria-live="polite">
-          <div className="panel-meta">
-            <span>FLOW / {flow.toUpperCase()}</span>
-            <span>STEP 0{step} / 03</span>
-          </div>
-
-          {flow === "developer" ? (
-            <>
-              {step === 1 && (
-                <div className="onboarding-step">
-                  <p className="step-index">01 / SOURCE ACCESS</p>
-                  <h2>
-                    Connect your
-                    <br />
-                    <strong>GitHub signal.</strong>
-                  </h2>
-                  <p className="step-copy">
-                    Read-only access. No commits. No noise. Just the public work that proves how you think.
-                  </p>
-                 {githubConnected ? (
-                  <div className="connected-state">
-                    <span>●</span>
-                    <div>
-                      <strong>GITHUB CONNECTED</strong>
-                      <small>werkdeck / verified OAuth session</small>
-                    </div>
-                    <b>OK</b>
-                  </div>
-                ) : (
-                  <SafeSignUpButton>
-                    <span
-                      className="primary-onboarding"
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => setGithubConnected(true)}
-                    >
-                      <span>GH</span> CONTINUE WITH GITHUB <b>↗</b>
-                    </span>
-                  </SafeSignUpButton>
-                )}
-                  <button type="button" className="text-action" onClick={next}>
-                    {githubConnected ? "CONTINUE TO REPOSITORIES" : "I'LL DO THIS LATER"} <span>→</span>
-                  </button>
-                </div>
-              )}
-
-              {step === 2 && (
-                <div className="onboarding-step">
-                  <p className="step-index">02 / SELECT EVIDENCE</p>
-                  <h2>
-                    Select repositories
-                    <br />
-                    <strong>to audit.</strong>
-                  </h2>
-                  <p className="step-copy">
-                    Choose the public repositories that best represent your technical range.
-                  </p>
-                  <div className="repo-list">
-                    {developerRepos.map((repo) => (
-                      <label
-                        key={repo.name}
-                        className={`repo-row ${selectedRepos.includes(repo.name) ? "selected" : ""}`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedRepos.includes(repo.name)}
-                          onChange={() => toggleRepo(repo.name)}
-                        />
-                        <span className="fake-check">✓</span>
-                        <span className="repo-info">
-                          <strong>{repo.name}</strong>
-                          <small>
-                            {repo.language} · {repo.stars} stars · {repo.updated}
-                          </small>
-                        </span>
-                        <span className="repo-arrow">↗</span>
-                      </label>
-                    ))}
-                  </div>
-                  <button type="button" className="primary-onboarding" onClick={next}>
-                    CONTINUE TO PROFILE <b>→</b>
-                  </button>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div className="onboarding-step">
-                  <p className="step-index">03 / PROFESSIONAL SIGNAL</p>
-                  <h2>
-                    Define your
-                    <br />
-                    <strong>developer profile.</strong>
-                  </h2>
-                  <p className="step-copy">This frames the signal we surface to companies.</p>
-                  <div className="field-grid">
-                    <label>
-                      PRIMARY ROLE
-                      <select value={role} onChange={(e) => setRole(e.target.value)}>
-                        <option>Full-Stack Engineer</option>
-                        <option>Lead Architect</option>
-                        <option>Backend Engineer</option>
-                        <option>Infrastructure Engineer</option>
-                      </select>
-                    </label>
-                    <label>
-                      SENIORITY
-                      <select value={seniority} onChange={(e) => setSeniority(e.target.value)}>
-                        <option>Senior</option>
-                        <option>Staff</option>
-                        <option>Lead</option>
-                        <option>Principal</option>
-                      </select>
-                    </label>
-                  </div>
-                  <button
-                    type="button"
-                    className="primary-onboarding"
-                    disabled={isAnalyzing}
-                    onClick={() => {
-                      setIsAnalyzing(true)
-                      window.setTimeout(() => router.push("/dashboard/feed"), 1500)
-                    }}
-                  >
-                    {isAnalyzing ? (
-                      <>
-                        <span className="onboarding-spinner" aria-hidden="true" /> ANALYZING REPOSITORIES &
-                        COMMITS...
-                      </>
-                    ) : (
-                      <>
-                        GENERATE PROOFSCORE INITIAL <b>↗</b>
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="onboarding-step company-step">
-              {step === 1 ? (
-                <>
-                  <p className="step-index">01 / IDENTITY</p>
-                  <h2>
-                    Recruit with
-                    <br />
-                    <strong>evidence.</strong>
-                  </h2>
-                  <p className="step-copy">Tell us who is building the next signal.</p>
-                  <div className="company-fields">
-                    <label>
-                      CORPORATE EMAIL
-                      <input
-                        type="email"
-                        placeholder="you@company.com"
-                        value={companyEmail}
-                        onChange={(e) => setCompanyEmail(e.target.value)}
-                      />
-                    </label>
-                    <label>
-                      COMPANY NAME
-                      <input
-                        placeholder="Company / team name"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
-                      />
-                    </label>
-                  </div>
-                  <button type="button" className="primary-onboarding" onClick={() => setStep(2)}>
-                    CONTINUE TO STACK <b>→</b>
-                  </button>
-                </>
-              ) : (
-                <>
-                  <p className="step-index">02 / STACK & BUDGET</p>
-                  <h2>
-                    Define your
-                    <br />
-                    <strong>search signal.</strong>
-                  </h2>
-                  <p className="step-copy">Calibrate the technical profile you need to find.</p>
-                  <div className="company-fields">
-                    <label>
-                      TECHNICAL STACK
-                      <input
-                        placeholder="TypeScript, Go, AWS..."
-                        value={stack}
-                        onChange={(e) => setStack(e.target.value)}
-                      />
-                    </label>
-                    <label>
-                      HIRING BUDGET
-                      <select value={budget} onChange={(e) => setBudget(e.target.value)}>
-                        <option value="">Select range</option>
-                        <option>$80k — $120k</option>
-                        <option>$120k — $180k</option>
-                        <option>$180k+</option>
-                      </select>
-                    </label>
-                  </div>
-                  <button
-                    type="button"
-                    className="primary-onboarding"
-                    onClick={() => router.push("/dashboard/feed")}
-                  >
-                    SAVE COMPANY SIGNAL <b>→</b>
-                  </button>
-                  <button type="button" className="text-action" onClick={() => setStep(1)}>
-                    ← BACK TO IDENTITY
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-
-          <div className="panel-foot">
-            <span>
-              <i /> ENCRYPTED / GDPR READY
-            </span>
-            <span>WERKDECK ENGINE v1.0</span>
-          </div>
-        </section>
-      </section>
-      <HudNavigation />
-    </main>
+    </div>
   )
 }
