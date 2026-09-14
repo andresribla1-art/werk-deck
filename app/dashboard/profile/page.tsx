@@ -1,72 +1,108 @@
-"use client";
+"use client"
 
-export default function ProfilePage() {
-  const stats = {
-    proofScore: 890,
-    percentile: "Top 3%",
-    verifiedCommits: 342,
-    deployAccuracy: "98.4%",
-    activeBounties: 2,
-  };
+import { useRouter } from "next/navigation"
 
-  const repos = [
-    { name: "werkdeck/core-engine", role: "Owner", commits: 124, status: "Verified" },
-    { name: "autonomx/llm-router", role: "Contributor", commits: 45, status: "Verified" },
-    { name: "cybershield/sec-scanner", role: "Contributor", commits: 18, status: "Pending Audit" },
-  ];
+export default function ProofProfilePage() {
+  const router = useRouter()
 
   return (
-    <div className="space-y-6">
-      <div className="border-b border-zinc-800 pb-4">
-        <h1 className="text-xl font-bold text-emerald-400">// PROOF PROFILE & HUD</h1>
-        <p className="text-xs text-zinc-400 mt-1">
-          Métricas de ProofScore, repositorios conectados y mapa de ejecuciones analizadas.
-        </p>
-      </div>
+    <main className="min-h-screen bg-black font-sans text-white selection:bg-emerald-500 selection:text-black relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#030f06_1px,transparent_1px),linear-gradient(to_bottom,#030f06_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none opacity-50" />
 
-      {/* Grid de Métricas Principales */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-lg">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">ProofScore Global</span>
-          <span className="text-2xl font-bold text-emerald-400 font-mono">{stats.proofScore}</span>
-          <span className="text-[10px] text-zinc-400 block mt-1">{stats.percentile} entre desarrolladores</span>
+      {/* Header */}
+      <header className="relative z-50 flex items-center justify-between border-b border-zinc-900 bg-black/90 px-6 py-4 lg:px-12 backdrop-blur-md sticky top-0">
+        <div className="flex items-center gap-6">
+          <span 
+            onClick={() => router.push('/')} 
+            className="text-xl font-black tracking-widest cursor-pointer hover:text-emerald-400 transition-colors"
+          >
+            WERKDECK <span className="text-xs font-mono text-emerald-400 font-normal">// HUD_PROFILE</span>
+          </span>
+          <nav className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
+            <a href="/dashboard/feed" className="hover:text-white transition-colors">Execution Feed</a>
+            <a href="/dashboard/arenas" className="hover:text-white transition-colors">Arenas</a>
+            <a href="/dashboard/bidding" className="hover:text-white transition-colors">Talent Bidding</a>
+            <a href="/dashboard/profile" className="text-emerald-400 font-bold border-b border-emerald-400 pb-1">Proof Profile</a>
+            <a href="/dashboard/messages" className="hover:text-white transition-colors">Messages</a>
+          </nav>
         </div>
-        <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-lg">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">Commits Verificados</span>
-          <span className="text-2xl font-bold text-zinc-100 font-mono">{stats.verifiedCommits}</span>
-          <span className="text-[10px] text-emerald-500 block mt-1">100% Hash Validated</span>
+        <div className="flex items-center gap-4 font-mono text-xs">
+          <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+            PROOF_SCORE: 890
+          </span>
+          <div className="h-3 w-3 rounded-full bg-emerald-400 animate-pulse" />
         </div>
-        <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-lg">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">Deploy Success Rate</span>
-          <span className="text-2xl font-bold text-zinc-100 font-mono">{stats.deployAccuracy}</span>
-          <span className="text-[10px] text-zinc-400 block mt-1">Zero Rollbacks (Últimos 30d)</span>
-        </div>
-        <div className="bg-zinc-950 border border-zinc-800 p-4 rounded-lg">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">Arenas Ganadas</span>
-          <span className="text-2xl font-bold text-emerald-400 font-mono">{stats.activeBounties}</span>
-          <span className="text-[10px] text-zinc-400 block mt-1">2,300 USD Bounties</span>
-        </div>
-      </div>
+      </header>
 
-      {/* Repositorios Conectados */}
-      <div className="bg-zinc-950 border border-zinc-800 p-5 rounded-lg space-y-4">
-        <h2 className="text-xs font-bold text-zinc-300 uppercase tracking-wider">
-          Repositorios Vinculados
-        </h2>
-        <div className="space-y-2">
-          {repos.map((repo) => (
-            <div key={repo.name} className="flex justify-between items-center p-3 bg-zinc-900/50 rounded border border-zinc-850 text-xs font-mono">
-              <div className="space-y-0.5">
-                <span className="text-zinc-200 font-bold block">{repo.name}</span>
-                <span className="text-[10px] text-zinc-500">{repo.role} • {repo.commits} commits</span>
+      {/* Contenido Principal */}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-12">
+        <div className="mb-10 border-b border-zinc-900 pb-6">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-2 bg-emerald-500/10 border border-emerald-500/30 font-mono text-[10px] text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>IDENTIDAD CRIPTOGRÁFICA // PROOF PROFILE</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight uppercase">Panel de Autoridad Técnica</h1>
+          <p className="text-zinc-400 text-sm mt-1">Métricas inmutables de código, repositorios auditados y rendimiento verificado en el ecosistema global.</p>
+        </div>
+
+        {/* Widgets de Métricas HUD */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-mono mb-12">
+          <div className="border border-zinc-800 bg-zinc-950 p-6 relative">
+            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
+            <p className="text-zinc-500 text-[10px] mb-1">PROOFSCORE GLOBAL</p>
+            <p className="text-3xl font-black text-emerald-400">890</p>
+            <p className="text-zinc-400 text-xs mt-2">Top 3% entre desarrolladores</p>
+          </div>
+
+          <div className="border border-zinc-800 bg-zinc-950 p-6 relative">
+            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
+            <p className="text-zinc-500 text-[10px] mb-1">COMMITS VERIFICADOS</p>
+            <p className="text-3xl font-black text-white">342</p>
+            <p className="text-emerald-400 text-xs mt-2">100% Hash Validated</p>
+          </div>
+
+          <div className="border border-zinc-800 bg-zinc-950 p-6 relative">
+            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
+            <p className="text-zinc-500 text-[10px] mb-1">DEPLOY SUCCESS RATE</p>
+            <p className="text-3xl font-black text-white">98.4%</p>
+            <p className="text-zinc-400 text-xs mt-2">Zero Rollbacks (Últimos 30d)</p>
+          </div>
+
+          <div className="border border-zinc-800 bg-zinc-950 p-6 relative">
+            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
+            <p className="text-zinc-500 text-[10px] mb-1">ARENAS GANADAS</p>
+            <p className="text-3xl font-black text-white">2</p>
+            <p className="text-emerald-400 text-xs mt-2">2,300 USDC Bounties</p>
+          </div>
+        </div>
+
+        {/* Repositorios Vinculados */}
+        <div className="font-mono">
+          <h2 className="text-xs font-bold text-zinc-400 tracking-wider mb-4">// REPOSITORIOS CONECTADOS AL KERNEL</h2>
+          
+          <div className="space-y-4">
+            <div className="border border-zinc-800 bg-zinc-950 p-6 flex flex-wrap justify-between items-center gap-4">
+              <div>
+                <p className="text-white font-bold text-sm">werkdeck/core-engine</p>
+                <p className="text-zinc-500 text-xs mt-1">Owner • 124 commits validados • Pipeline CI/CD Activo</p>
               </div>
-              <span className={`px-2 py-0.5 rounded text-[10px] ${repo.status === 'Verified' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'}`}>
-                {repo.status}
+              <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                VERIFIED
               </span>
             </div>
-          ))}
+
+            <div className="border border-zinc-800 bg-zinc-950 p-6 flex flex-wrap justify-between items-center gap-4">
+              <div>
+                <p className="text-white font-bold text-sm">autonomx/llm-router</p>
+                <p className="text-zinc-500 text-xs mt-1">Contributor • 45 commits auditados</p>
+              </div>
+              <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                VERIFIED
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    </main>
+  )
 }

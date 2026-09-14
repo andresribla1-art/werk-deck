@@ -1,146 +1,138 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-interface FeedItem {
+interface Arena {
   id: string
-  dev: string
-  score: number
-  type: "DEPLOY" | "ARENA" | "PROOF"
-  repo: string
+  title: string
+  type: "AI-NATIVE" | "PURE CODE" | "SPONSORED BOUNTY"
+  difficulty: "EXTREME" | "HARD" | "INSANE"
+  reward: string
+  participants: number
   description: string
-  time: string
 }
 
-const mockFeed: FeedItem[] = [
+const arenasData: Arena[] = [
   {
     id: "1",
-    dev: "@felix_dev",
-    score: 890,
-    type: "DEPLOY",
-    repo: "werkdeck/core-engine",
-    description: "Passed 42 unit tests & security pipeline verification.",
-    time: "Hace 12 min",
+    title: "Zero-Latency Agentic Workflow Engine",
+    type: "AI-NATIVE",
+    difficulty: "EXTREME",
+    reward: "1,500 USDC",
+    participants: 48,
+    description: "Construye y optimiza un enrutador de agentes autónomos con latencia inferior a 50ms bajo carga concurrente."
   },
   {
     id: "2",
-    dev: "@alex_sec",
-    score: 915,
-    type: "ARENA",
-    repo: "rust-high-concurrency",
-    description: "Ranked #1 in Memory Optimization benchmark challenge.",
-    time: "Hace 45 min",
+    title: "Rust Memory Management & Garbage Collection",
+    type: "PURE CODE",
+    difficulty: "HARD",
+    reward: "800 USDC",
+    participants: 112,
+    description: "Resuelve fugas críticas de memoria en entornos de alto rendimiento utilizando concurrencia nativa en Rust."
   },
   {
     id: "3",
-    dev: "@sarah_ai",
-    score: 840,
-    type: "PROOF",
-    repo: "autonomx/llm-router",
-    description: "Merged PR #104 with 99.4% prompt evaluation score.",
-    time: "Hace 2 h",
-  },
+    title: "CyberShield Vulnerability Patch Challenge",
+    type: "SPONSORED BOUNTY",
+    difficulty: "INSANE",
+    reward: "2,500 EUR",
+    participants: 29,
+    description: "Auditoría de contratos inteligentes y blindaje de infraestructura contra ataques de denegación de servicio."
+  }
 ]
 
-export default function ExecutionFeedPage() {
+export default function ArenasPage() {
   const router = useRouter()
-  const [initializing, setInitializing] = useState(true)
-  const [logs, setLogs] = useState<string[]>([])
-
-  useEffect(() => {
-    const sequence = [
-      "> INITIALIZING_SECURE_NODE...",
-      "> FETCHING_PROOF_METRICS...",
-      "> SYNCING_REALTIME_FEED...",
-      "> SYSTEM READY."
-    ]
-    
-    sequence.forEach((log, index) => {
-      setTimeout(() => {
-        setLogs((prev) => [...prev, log])
-        if (index === sequence.length - 1) {
-          setTimeout(() => setInitializing(false), 400)
-        }
-      }, (index + 1) * 250)
-    })
-  }, [])
-
-  if (initializing) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-black font-mono text-emerald-400">
-        <div className="space-y-2 max-w-md w-full p-6 border border-emerald-500/20 bg-zinc-950">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 animate-ping rounded-full bg-emerald-400" />
-            <span className="text-xs tracking-widest text-zinc-400">WERKDECK KERNEL v1.0</span>
-          </div>
-          {logs.map((log, i) => (
-            <p key={i} className="text-xs tracking-wider">{log}</p>
-          ))}
-        </div>
-      </main>
-    )
-  }
+  const [activeArena, setActiveArena] = useState<string | null>(null)
 
   return (
-    <main className="min-h-screen bg-black font-sans text-white selection:bg-emerald-500 selection:text-black">
-      {/* Top Header Navigation */}
-      <header className="flex items-center justify-between border-b border-zinc-900 bg-black/80 px-6 py-4 lg:px-12 backdrop-blur-md sticky top-0 z-50">
+    <main className="min-h-screen bg-black font-sans text-white selection:bg-emerald-500 selection:text-black relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#030f06_1px,transparent_1px),linear-gradient(to_bottom,#030f06_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none opacity-50" />
+
+      {/* Header */}
+      <header className="relative z-50 flex items-center justify-between border-b border-zinc-900 bg-black/90 px-6 py-4 lg:px-12 backdrop-blur-md sticky top-0">
         <div className="flex items-center gap-6">
-          <span className="text-xl font-black tracking-widest">
-            WERKDECK <span className="text-xs font-mono text-emerald-400 font-normal">● LIVE</span>
+          <span 
+            onClick={() => router.push('/')} 
+            className="text-xl font-black tracking-widest cursor-pointer hover:text-emerald-400 transition-colors"
+          >
+            WERKDECK <span className="text-xs font-mono text-emerald-400 font-normal">// ARENAS_GRID</span>
           </span>
           <nav className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
-            <a href="/dashboard/feed" className="text-emerald-400 font-bold border-b border-emerald-400 pb-1">Execution Feed</a>
-            <a href="/dashboard/arenas" className="hover:text-white transition-colors">Arenas</a>
+            <a href="/dashboard/feed" className="hover:text-white transition-colors">Execution Feed</a>
+            <a href="/dashboard/arenas" className="text-emerald-400 font-bold border-b border-emerald-400 pb-1">Arenas</a>
             <a href="/dashboard/bidding" className="hover:text-white transition-colors">Talent Bidding</a>
             <a href="/dashboard/profile" className="hover:text-white transition-colors">Proof Profile</a>
             <a href="/dashboard/messages" className="hover:text-white transition-colors">Messages</a>
           </nav>
         </div>
         <div className="flex items-center gap-4 font-mono text-xs">
-          <span className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">PROOF_SCORE: 890</span>
+          <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+            PROOF_SCORE: 890
+          </span>
           <div className="h-3 w-3 rounded-full bg-emerald-400 animate-pulse" />
         </div>
       </header>
 
-      {/* Main Content Feed */}
-      <div className="mx-auto max-w-5xl px-6 py-12">
-        <div className="mb-8 border-b border-zinc-900 pb-4 flex justify-between items-end">
+      {/* Contenido Principal */}
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-12">
+        <div className="mb-10 border-b border-zinc-900 pb-6 flex flex-wrap justify-between items-end gap-4">
           <div>
-            <p className="font-mono text-xs tracking-widest text-emerald-400 font-bold uppercase mb-1">// EXECUTION FEED</p>
-            <h1 className="text-3xl font-extrabold tracking-tight">Timeline global en tiempo real.</h1>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-2 bg-emerald-500/10 border border-emerald-500/30 font-mono text-[10px] text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>COLISEO VIRTUAL // SANDBOXES AISLADOS</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight uppercase">Arenas de Competición Global</h1>
+            <p className="text-zinc-400 text-sm mt-1">Demuestra destreza técnica extrema, supera benchmarks en vivo y reclama recompensas económicas inmediatas.</p>
           </div>
-          <span className="font-mono text-xs text-zinc-500 hidden sm:inline">CERO SPAM · 100% CÓDIGO</span>
         </div>
 
-        {/* Feed List */}
-        <div className="space-y-4 font-mono text-xs">
-          {mockFeed.map((item) => (
+        {/* Tarjetas de Arenas */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
+          {arenasData.map((arena) => (
             <div 
-              key={item.id}
-              className="border border-zinc-800 bg-zinc-950/60 p-6 hover:border-emerald-500/40 transition-all duration-300 group"
+              key={arena.id}
+              className="border border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 relative group shadow-[0_0_20px_rgba(0,0,0,0.8)]"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3 border-b border-zinc-900 pb-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-white font-bold">{item.dev}</span>
-                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] border border-emerald-500/20">
-                    SCORE: {item.score}
+              {/* Esquinas HUD */}
+              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-emerald-400" />
+
+              <div>
+                <div className="flex justify-between items-center mb-4 text-[10px]">
+                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold">
+                    {arena.type}
                   </span>
+                  <span className="text-red-400 font-bold tracking-wider">{arena.difficulty}</span>
                 </div>
-                <span className="text-zinc-500 text-[10px]">{item.time}</span>
+
+                <h2 className="text-lg font-bold text-white mb-3 font-sans tracking-tight">
+                  {arena.title}
+                </h2>
+
+                <p className="text-zinc-400 font-sans text-xs mb-6 leading-relaxed">
+                  {arena.description}
+                </p>
               </div>
 
-              <div className="space-y-2">
-                <p className="text-emerald-400 font-bold flex items-center gap-2">
-                  <span>&gt;</span> {item.type === "DEPLOY" ? "DEPLOYED TO PRODUCTION" : item.type === "ARENA" ? "COMPLETED ARENA CHALLENGE" : "VERIFIED PROOF OF WORK"}
-                </p>
-                <div className="p-2.5 bg-black/90 border border-zinc-900 text-zinc-400">
-                  repo: <span className="text-white">{item.repo}</span>
+              <div className="space-y-4 pt-4 border-t border-zinc-900 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="text-zinc-500 text-[10px]">RECOMPENSA:</span>
+                  <span className="text-emerald-400 font-extrabold text-sm">{arena.reward}</span>
                 </div>
-                <p className="text-zinc-300 font-sans text-sm pt-1">
-                  {item.description}
-                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-zinc-500 text-[10px]">INSCRITOS:</span>
+                  <span className="text-white">{arena.participants} devs activos</span>
+                </div>
+
+                <button 
+                  onClick={() => alert(`> ACCEDIENDO AL SANDBOX SEGURO: ${arena.title}\n> INICIALIZANDO ENTORNO DE EJECUCIÓN...`)}
+                  className="w-full py-3 bg-emerald-400 text-black font-extrabold hover:bg-emerald-300 transition-all tracking-wider text-center shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
+                >
+                  &gt; ENTRAR AL SANDBOX
+                </button>
               </div>
             </div>
           ))}
