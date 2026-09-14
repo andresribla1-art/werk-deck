@@ -60,10 +60,10 @@ export default function OnboardingPage() {
                 Sincroniza tu <br className="md:hidden" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Identidad</span>
               </h1>
-              <p className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto text-center">
-                Selecciona tu nodo de acceso. El sistema adaptará el entorno <br className="hidden md:block" /> 
-                según tu objetivo en la red.
-              </p>
+              <div className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto flex flex-col items-center justify-center text-center">
+                <span>Selecciona tu nodo de acceso. El sistema adaptará el entorno</span> 
+                <span>según tu objetivo en la red.</span>
+              </div>
             </div>
 
             {/* Apple-Style Segmented Control (Fixed Contrast) */}
