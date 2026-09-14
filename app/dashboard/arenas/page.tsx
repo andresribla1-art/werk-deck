@@ -1,83 +1,88 @@
-"use client";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 interface Arena {
   id: string;
   title: string;
-  category: "Pure Code" | "AI-Native" | "Sponsored Bounty";
-  reward: string;
-  difficulty: "Hard" | "Extreme" | "Insane";
-  participants: number;
+  sponsor: string;
+  prize_pool: string;
+  participants_count: number;
+  status: string;
+  time_remaining: string;
+  tags: string[];
 }
 
 export default function ArenasPage() {
-  const arenas: Arena[] = [
-    {
-      id: "a1",
-      title: "Zero-Latency Agentic Workflow Engine",
-      category: "AI-Native",
-      reward: "1,500 USDC",
-      difficulty: "Extreme",
-      participants: 48,
-    },
-    {
-      id: "a2",
-      title: "Rust Memory Management & Garbage Collection Benchmark",
-      category: "Pure Code",
-      reward: "800 USDC",
-      difficulty: "Hard",
-      participants: 112,
-    },
-    {
-      id: "a3",
-      title: "CyberShield Vulnerability Patch Challenge",
-      category: "Sponsored Bounty",
-      reward: "2,500 EUR",
-      difficulty: "Insane",
-      participants: 29,
-    },
-  ];
+  const [arenas, setArenas] = useState<Arena[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchArenas() {
+      const { data, error } = await supabase
+        .from('arenas')
+        .select('*')
+        .order('participants_count', { ascending: false });
+
+      if (error) {
+        console.error('Error al cargar las arenas:', error);
+      } else {
+        setArenas(data || []);
+      }
+      setLoading(false);
+    }
+
+    fetchArenas();
+  }, []);
 
   return (
-    <div className="space-y-6">
-      <div className="border-b border-zinc-800 pb-4">
+    <div className="p-8 max-w-6xl space-y-6 font-mono">
+      <div className="space-y-1">
         <h1 className="text-xl font-bold text-emerald-400">// COMPETITION ARENAS</h1>
-        <p className="text-xs text-zinc-400 mt-1">
-          Entornos Sandbox aislados para resolver retos reales y elevar tu ProofScore.
+        <p className="text-xs text-zinc-400">
+          Demuestra tus habilidades en retos reales respaldados por empresas y escala en el ranking.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {arenas.map((arena) => (
-          <div
-            key={arena.id}
-            className="border border-zinc-800 bg-zinc-950 p-5 rounded-lg flex flex-col justify-between space-y-4 hover:border-emerald-500/50 transition-colors"
-          >
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/20">
-                  {arena.category}
-                </span>
-                <span className="text-xs font-bold text-zinc-400">{arena.difficulty}</span>
+      {loading ? (
+        <div className="text-xs text-emerald-500 py-12 text-center">CARGANDO_ARENAS_DESDE_SUPABASE...</div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {arenas.map((arena) => (
+            <div key={arena.id} className="border border-zinc-800 bg-zinc-950 p-5 rounded-md space-y-4 flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-emerald-500 font-bold">[{arena.sponsor}]</span>
+                  <span className="text-zinc-500">{arena.time_remaining}</span>
+                </div>
+                <h2 className="text-base font-bold text-white">{arena.title}</h2>
+                <div className="flex flex-wrap gap-1 pt-1">
+                  {arena.tags?.map((tag, idx) => (
+                    <span key={idx} className="text-[10px] bg-zinc-900 border border-zinc-800 text-zinc-400 px-2 py-0.5 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-sm font-bold text-zinc-100">{arena.title}</h3>
-            </div>
 
-            <div className="space-y-3 pt-3 border-t border-zinc-900">
-              <div className="flex justify-between text-xs">
-                <span className="text-zinc-500">Bounty / Reward</span>
-                <span className="font-bold text-emerald-400">{arena.reward}</span>
+              <div className="pt-4 border-t border-zinc-900 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-zinc-500 block text-[10px]">PRIZE POOL</span>
+                  <span className="text-emerald-400 font-bold">{arena.prize_pool}</span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 block text-[10px]">PARTICIPANTS</span>
+                  <span className="text-zinc-200">{arena.participants_count} DEVS</span>
+                </div>
+                <button className="border border-emerald-500 text-emerald-400 hover:bg-emerald-500/10 px-3 py-1.5 rounded text-xs">
+                  ENTER ARENA
+                </button>
               </div>
-              <div className="flex justify-between text-xs">
-                <span className="text-zinc-500">Participantes</span>
-                <span className="text-zinc-300">{arena.participants} devs</span>
-              </div>
-              <button className="w-full text-center py-2 bg-zinc-900 hover:bg-emerald-500 hover:text-black text-zinc-200 text-xs font-bold rounded transition-colors">
-                ENTER SANDBOX
-              </button>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
