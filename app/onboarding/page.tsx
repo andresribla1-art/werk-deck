@@ -89,7 +89,7 @@ export default function OnboardingPage() {
             {/* Main Call to Action (The Visual Magnet) */}
             <button 
               onClick={handleNext}
-              className="mt-8 group relative bg-emerald-400 hover:bg-emerald-300 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.25)] hover:shadow-[0_0_50px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3"
+              className="mt-8 group relative bg-emerald-400 hover:bg-emerald-300 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-300 shadow-[0_0_40px_rgba(16,185,129,0.3)] hover:shadow-[0_0_60px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3"
             >
               <span className="relative z-10">{flow === "developer" ? "Conectar GitHub Signal" : "Configurar Entidad"}</span>
               <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
