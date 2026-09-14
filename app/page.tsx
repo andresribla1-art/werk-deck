@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { SafeSignUpButton } from "../components/clerk-safe"
+import { SignInButton, SignUpButton } from "@clerk/nextjs"
 
 type Locale = "es" | "en"
 
@@ -22,6 +23,7 @@ const copy = {
     titleLine3: "VERIFICA.",
     subtitle: "Demuestra lo que has construido, no lo que afirmas.",
     connectGithub: "CONECTAR GITHUB",
+    emailAccount: "CREAR CUENTA / CORREO",
     startHiring: "EMPEZAR A CONTRATAR",
     telemetryTitle: "LIVE TELEMETRY / PROOF ENGINE",
     telemetryNotice: "Evaluación objetiva en tiempo real sobre repositorios reales.",
@@ -37,6 +39,7 @@ const copy = {
     titleLine3: "VERIFY.",
     subtitle: "Prove what you have built, not what you claim.",
     connectGithub: "CONNECT GITHUB",
+    emailAccount: "CREATE ACCOUNT / EMAIL",
     startHiring: "START HIRING",
     telemetryTitle: "LIVE TELEMETRY / PROOF ENGINE",
     telemetryNotice: "Objective real-time telemetry from actual production repos.",
@@ -117,11 +120,11 @@ export default function WerkDeckLanding() {
         <a href="#" className="flex items-center gap-3 text-xl font-black tracking-widest text-white">
           WERKDECK <span className="text-xs font-mono text-emerald-400 font-normal">● ONLINE</span>
         </a>
-        <SafeSignUpButton forceRedirectUrl="/dev/demo">
-          <button className="font-mono text-xs font-semibold tracking-wider text-zinc-300 hover:text-white transition-colors" type="button">
+        <SignInButton mode="modal">
+          <button className="font-mono text-xs font-semibold tracking-wider text-zinc-300 hover:text-white transition-colors cursor-pointer" type="button">
             {t.login}
           </button>
-        </SafeSignUpButton>
+        </SignInButton>
       </nav>
 
       {/* Hero Body */}
@@ -143,22 +146,34 @@ export default function WerkDeckLanding() {
           <div className="flex flex-wrap items-center gap-4 font-mono text-xs pt-2 text-zinc-400">
             <span>✓ GITHUB OAUTH</span>
             <span className="text-zinc-700">·</span>
-            <span>✓ READ-ONLY</span>
+            <span>✓ EMAIL & PASSWORD</span>
             <span className="text-zinc-700">·</span>
             <span>✓ GDPR READY</span>
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            {/* Opción 1: Conectar con GitHub (Directo al onboarding o demo) */}
             <SafeSignUpButton forceRedirectUrl="/dev/demo">
               <button
                 type="button"
-                className="flex items-center justify-center gap-3 bg-white hover:bg-zinc-200 text-black px-8 py-4 font-mono font-bold tracking-wider text-xs transition-colors border border-white"
+                className="flex items-center justify-center gap-3 bg-white hover:bg-zinc-200 text-black px-8 py-4 font-mono font-bold tracking-wider text-xs transition-colors border border-white cursor-pointer"
               >
                 <span className="border border-black/30 px-1 py-0.5 text-[10px]">GH</span>
                 {t.connectGithub}
               </button>
             </SafeSignUpButton>
+
+            {/* Opción 2: Crear cuenta o iniciar sesión con correo tradicional mediante modal de Clerk */}
+            <SignUpButton mode="modal">
+              <button
+                type="button"
+                className="flex items-center justify-center gap-3 bg-zinc-900 hover:bg-zinc-800 text-emerald-400 px-8 py-4 font-mono font-bold tracking-wider text-xs transition-colors border border-emerald-500/40 cursor-pointer"
+              >
+                <span>@</span>
+                {t.emailAccount}
+              </button>
+            </SignUpButton>
 
             <a
               href="#hirer"
