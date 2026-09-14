@@ -1,172 +1,50 @@
-"use client"
-
-import { useState } from "react"
-
-export default function TalentBiddingPage() {
-  const [currency, setCurrency] = useState("EUR")
-  const [salaryFloor, setSalaryFloor] = useState(85000)
-  const [saved, setSaved] = useState(false)
-
-  const bids = [
-    {
-      id: "bid-01",
-      company: "CyberShield Solutions",
-      role: "Senior SecOps Engineer",
-      location: "Full Remote (EU)",
-      amount: 95000,
-      status: "ACTIVE",
-      time: "Hace 2h"
-    },
-    {
-      id: "bid-02",
-      company: "AutonomX Systems",
-      role: "AI Integration Lead",
-      location: "Hybrid (Ingolstadt/Bavaria)",
-      amount: 110000,
-      status: "ACTIVE",
-      time: "Hace 5h"
-    },
-    {
-      id: "bid-03",
-      company: "DataCloud Global",
-      role: "Fullstack Rust/Next.js Dev",
-      location: "Full Remote",
-      amount: 78000,
-      status: "DISCARDED",
-      time: "Ayer"
-    }
-  ]
-
-  const handleSaveFloor = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2500)
-  }
-
+export default function TalentBidding() {
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-emerald-500 selection:text-black">
-      {/* 4K Cyber Grid Background */}
-      <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(to_right,#10b98108_1px,transparent_1px),linear-gradient(to_bottom,#10b98108_1px,transparent_1px)] bg-[size:3rem_3rem] z-0" />
+    <div className="min-h-screen bg-black text-zinc-400 p-8 font-sans flex flex-col md:flex-row gap-12">
+      <div className="flex-1 space-y-8">
+        <header>
+          <p className="text-emerald-500 font-mono text-xs tracking-[0.2em] mb-2 uppercase">// Subasta de Talento Viva</p>
+          <h1 className="text-4xl font-light text-white tracking-tight mb-2">Control de Suelo Salarial</h1>
+          <p className="text-sm font-light text-zinc-500">Ofertas inferiores a tu umbral son descartadas por el kernel. Cero negociaciones a ciegas.</p>
+        </header>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-        
-        {/* Header */}
-        <div className="border-b border-zinc-900 pb-6 mb-8">
-          <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>MERCADO GLOBAL // SUBASTA DE TALENTO VIVA</span>
+        <div className="bg-zinc-950 border border-emerald-900/30 p-10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500 to-transparent opacity-50"></div>
+          <label className="block font-mono text-xs text-zinc-500 mb-6 uppercase tracking-widest text-center">Define tu valor base (Anual)</label>
+          <div className="flex items-center justify-center gap-4">
+            <span className="text-4xl md:text-6xl text-zinc-700 font-light">€</span>
+            <input 
+              type="text" 
+              defaultValue="85000" 
+              className="bg-transparent text-5xl md:text-7xl font-mono text-white tracking-tighter outline-none border-b-2 border-zinc-800 focus:border-emerald-500 text-center w-full max-w-[300px] transition-colors"
+            />
           </div>
-          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight uppercase">
-            Control de Suelo Salarial
-          </h1>
-          <p className="text-sm text-zinc-400 mt-2">
-            Las ofertas corporativas inferiores a tu umbral son descartadas automáticamente por el kernel. Cero negociaciones a ciegas.
-          </p>
+          <button className="mt-12 w-full max-w-[300px] mx-auto block bg-emerald-500 text-black font-mono text-xs py-4 font-bold uppercase tracking-[0.2em] hover:bg-emerald-400 transition-colors">
+            Actualizar Umbral
+          </button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Left Column: Config Salary Floor */}
-          <div className="bg-zinc-950 border border-zinc-900 p-6 relative">
-            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-emerald-500" />
-            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-500" />
-
-            <h2 className="font-mono text-xs text-emerald-400 mb-6 uppercase tracking-wider flex items-center justify-between">
-              <span>// CONFIGURAR SUELO SALARIAL</span>
-              <span>🔒 KERNEL SECURE</span>
-            </h2>
-
-            <form onSubmit={handleSaveFloor} className="space-y-6">
-              <div>
-                <label className="block font-mono text-xs text-zinc-400 mb-2">MONEDA Y UMBRAL MÍNIMO (ANUAL)</label>
-                <div className="grid grid-cols-3 gap-2">
-                  <select 
-                    value={currency} 
-                    onChange={(e) => setCurrency(e.target.value)}
-                    className="bg-black border border-zinc-800 text-emerald-400 font-mono p-3 outline-none"
-                  >
-                    <option value="EUR">EUR (€)</option>
-                    <option value="USD">USD ($)</option>
-                    <option value="USDC">USDC</option>
-                  </select>
-                  <input 
-                    type="number" 
-                    value={salaryFloor}
-                    onChange={(e) => setSalaryFloor(Number(e.target.value))}
-                    className="col-span-2 bg-black border border-zinc-800 text-white font-mono p-3 outline-none focus:border-emerald-500"
-                  />
-                </div>
-              </div>
-
-              <div className="border border-zinc-900 bg-black p-4 space-y-2 font-mono text-xs text-zinc-400">
-                <p className="text-emerald-400 font-bold">REGLA ALGORÍTMICA ACTIVA:</p>
-                <p>Cualquier propuesta corporativa por debajo de <strong className="text-white">{currency} {salaryFloor.toLocaleString()}</strong> será bloqueada y rechazada de inmediato.</p>
-              </div>
-
-              <button 
-                type="submit"
-                className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold py-3 transition-colors uppercase tracking-wider"
-              >
-                {saved ? "✓ SUELO SALARIAL ACTUALIZADO" : "ACTUALIZAR UMBRAL EN LA RED"}
-              </button>
-            </form>
+      <div className="flex-1 flex flex-col">
+        <h4 className="font-mono text-xs text-emerald-500 tracking-widest mb-6">// TRANSMISIONES ENTRANTES (3)</h4>
+        <div className="space-y-4">
+          {/* Puja encriptada/desenfocada */}
+          <div className="group bg-zinc-950 border border-zinc-900 p-6 relative cursor-pointer">
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center group-hover:opacity-0 pointer-events-none transition-opacity duration-500 z-10">
+              <span className="font-mono text-xs text-emerald-500 tracking-widest animate-pulse">DESENCRIPTAR OFERTA</span>
+            </div>
+            <div className="flex justify-between items-start mb-2">
+              <span className="text-white font-medium">CyberShield Solutions</span>
+              <span className="text-emerald-400 font-mono text-lg tracking-tight">€95,000/año</span>
+            </div>
+            <p className="text-zinc-500 text-sm font-light mb-6">Senior SecOps Engineer · Full Remote (EU)</p>
+            <div className="flex justify-between items-center font-mono text-[10px] uppercase tracking-widest">
+              <button className="text-emerald-500 hover:text-emerald-300">Aceptar Puja →</button>
+              <button className="text-zinc-600 hover:text-red-500">Rechazar</button>
+            </div>
           </div>
-
-          {/* Right Column: Incoming Bids Stream */}
-          <div className="lg:col-span-2 space-y-4">
-            <h2 className="font-mono text-xs text-emerald-400 uppercase tracking-wider mb-2">
-              // PUJAS CORPORATIVAS RECIBIDAS (3)
-            </h2>
-
-            {bids.map((bid) => (
-              <div 
-                key={bid.id}
-                className={`p-5 bg-zinc-950 border transition-all ${bid.status === "ACTIVE" ? "border-zinc-900 hover:border-emerald-500/50" : "border-red-950/40 opacity-60"}`}
-              >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-2 font-mono text-xs text-zinc-400 mb-1">
-                      <strong className="text-white">{bid.company}</strong>
-                      <span>·</span>
-                      <span>{bid.time}</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-1">{bid.role}</h3>
-                    <span className="font-mono text-xs text-emerald-400/80 bg-emerald-950/40 border border-emerald-500/20 px-2 py-0.5">
-                      {bid.location}
-                    </span>
-                  </div>
-
-                  <div className="text-right flex flex-col items-start md:items-end justify-between">
-                    <span className={`font-mono text-xl font-bold ${bid.status === "ACTIVE" ? "text-emerald-400" : "text-red-400 line-through"}`}>
-                      {currency === "EUR" ? "€" : "$"}{bid.amount.toLocaleString()}/año
-                    </span>
-
-                    {bid.status === "ACTIVE" ? (
-                      <div className="flex items-center gap-2 mt-3 font-mono text-xs">
-                        <button 
-                          onClick={() => router.push("/dashboard/messages")}
-                          className="bg-emerald-500 text-black font-bold px-3 py-1.5 hover:bg-emerald-400 transition-colors"
-                        >
-                          ACEPTAR PUJA →
-                        </button>
-                        <button className="border border-zinc-800 text-zinc-400 px-3 py-1.5 hover:text-white transition-colors">
-                          RECHAZAR
-                        </button>
-                      </div>
-                    ) : (
-                      <span className="font-mono text-[10px] text-red-400 mt-2 bg-red-950/40 border border-red-900/50 px-2 py-1">
-                        DISCARDED // BAJO EL SUELO SALARIAL
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
         </div>
-
       </div>
     </div>
-  )
+  );
 }
