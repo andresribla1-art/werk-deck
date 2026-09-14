@@ -3,141 +3,282 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-interface Arena {
-  id: string
-  title: string
-  type: "AI-NATIVE" | "PURE CODE" | "SPONSORED BOUNTY"
-  difficulty: "EXTREME" | "HARD" | "INSANE"
-  reward: string
-  participants: number
-  description: string
-}
-
-const arenasData: Arena[] = [
-  {
-    id: "1",
-    title: "Zero-Latency Agentic Workflow Engine",
-    type: "AI-NATIVE",
-    difficulty: "EXTREME",
-    reward: "1,500 USDC",
-    participants: 48,
-    description: "Construye y optimiza un enrutador de agentes autónomos con latencia inferior a 50ms bajo carga concurrente."
-  },
-  {
-    id: "2",
-    title: "Rust Memory Management & Garbage Collection",
-    type: "PURE CODE",
-    difficulty: "HARD",
-    reward: "800 USDC",
-    participants: 112,
-    description: "Resuelve fugas críticas de memoria en entornos de alto rendimiento utilizando concurrencia nativa en Rust."
-  },
-  {
-    id: "3",
-    title: "CyberShield Vulnerability Patch Challenge",
-    type: "SPONSORED BOUNTY",
-    difficulty: "INSANE",
-    reward: "2,500 EUR",
-    participants: 29,
-    description: "Auditoría de contratos inteligentes y blindaje de infraestructura contra ataques de denegación de servicio."
-  }
-]
-
-export default function ArenasPage() {
+export default function ExecutionFeedPage() {
   const router = useRouter()
-  const [activeArena, setActiveArena] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<"all" | "deploys" | "arenas" | "bids">("all")
+  const [filterTech, setFilterTech] = useState<string>("ALL")
+
+  // Mock de eventos en vivo que simulan el coliseo global
+  const feedEvents = [
+    {
+      id: "ev-01",
+      type: "DEPLOY",
+      user: "alex_vortex",
+      score: 942,
+      avatarBg: "bg-emerald-950 text-emerald-400 border-emerald-500/50",
+      content: "Despliegue verificado en producción: enrutador de agentes con latencia < 15ms.",
+      target: "werkdeck/core-engine",
+      hash: "a4f89b2",
+      time: "Hace 2 min",
+      bounty: null,
+      badge: "CORE SW"
+    },
+    {
+      id: "ev-02",
+      type: "ARENA_WIN",
+      user: "cryptosec_ghost",
+      score: 910,
+      avatarBg: "bg-zinc-900 text-emerald-300 border-zinc-700",
+      content: "Victoria en Arena [CyberShield Vulnerability Patch]. Buffer overflow neutralizado con éxito.",
+      target: "Arena #03 - Insane",
+      hash: "7c210e4",
+      time: "Hace 14 min",
+      bounty: "2,500 EUR",
+      badge: "SECOPS"
+    },
+    {
+      id: "ev-03",
+      type: "BID_ACCEPTED",
+      user: "elena_rust",
+      score: 895,
+      avatarBg: "bg-emerald-900/40 text-emerald-400 border-emerald-500/30",
+      content: "Suelo salarial superado. Aceptó puja corporativa por AutonomX Systems.",
+      target: "110,000 EUR/año + B2B Global",
+      hash: "99ff11a",
+      time: "Hace 42 min",
+      bounty: "110k EUR",
+      badge: "VIBE CODER"
+    },
+    {
+      id: "ev-04",
+      type: "DEPLOY",
+      user: "satoshi_node",
+      score: 968,
+      avatarBg: "bg-black text-emerald-400 border-emerald-500",
+      content: "Optimizador de memoria en Rust integrado al kernel principal. Cero fugas de memoria detectadas.",
+      target: "werkdeck/memory-pool",
+      hash: "3b8812c",
+      time: "Hace 1 hora",
+      bounty: null,
+      badge: "CORE SW"
+    }
+  ]
+
+  const filteredEvents = feedEvents.filter(ev => {
+    if (activeTab === "deploys" && ev.type !== "DEPLOY") return false
+    if (activeTab === "arenas" && ev.type !== "ARENA_WIN") return false
+    if (activeTab === "bids" && ev.type !== "BID_ACCEPTED") return false
+    if (filterTech !== "ALL" && ev.badge !== filterTech) return false
+    return true
+  })
 
   return (
-    <main className="min-h-screen bg-black font-sans text-white selection:bg-emerald-500 selection:text-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#030f06_1px,transparent_1px),linear-gradient(to_bottom,#030f06_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none opacity-50" />
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-emerald-500 selection:text-black">
+      {/* 4K Cyber Grid Background Texture */}
+      <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(to_right,#10b98108_1px,transparent_1px),linear-gradient(to_bottom,#10b98108_1px,transparent_1px)] bg-[size:3rem_3rem] z-0" />
 
-      {/* Header */}
-      <header className="relative z-50 flex items-center justify-between border-b border-zinc-900 bg-black/90 px-6 py-4 lg:px-12 backdrop-blur-md sticky top-0">
-        <div className="flex items-center gap-6">
-          <span 
-            onClick={() => router.push('/')} 
-            className="text-xl font-black tracking-widest cursor-pointer hover:text-emerald-400 transition-colors"
-          >
-            WERKDECK <span className="text-xs font-mono text-emerald-400 font-normal">// ARENAS_GRID</span>
-          </span>
-          <nav className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
-            <a href="/dashboard/feed" className="hover:text-white transition-colors">Execution Feed</a>
-            <a href="/dashboard/arenas" className="text-emerald-400 font-bold border-b border-emerald-400 pb-1">Arenas</a>
-            <a href="/dashboard/bidding" className="hover:text-white transition-colors">Talent Bidding</a>
-            <a href="/dashboard/profile" className="hover:text-white transition-colors">Proof Profile</a>
-            <a href="/dashboard/messages" className="hover:text-white transition-colors">Messages</a>
-          </nav>
-        </div>
-        <div className="flex items-center gap-4 font-mono text-xs">
-          <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
-            PROOF_SCORE: 890
-          </span>
-          <div className="h-3 w-3 rounded-full bg-emerald-400 animate-pulse" />
-        </div>
-      </header>
-
-      {/* Contenido Principal */}
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-12">
-        <div className="mb-10 border-b border-zinc-900 pb-6 flex flex-wrap justify-between items-end gap-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+        
+        {/* HUD Header Banner */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-900 pb-6 mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-2 bg-emerald-500/10 border border-emerald-500/30 font-mono text-[10px] text-emerald-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>COLISEO VIRTUAL // SANDBOXES AISLADOS</span>
+            <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 mb-1">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>GRID_FEED // LIVE NETWORK TELEMETRY</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight uppercase">Arenas de Competición Global</h1>
-            <p className="text-zinc-400 text-sm mt-1">Demuestra destreza técnica extrema, supera benchmarks en vivo y reclama recompensas económicas inmediatas.</p>
+            <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight uppercase">
+              Muro de Ejecución Global
+            </h1>
+          </div>
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <div className="bg-zinc-950 border border-zinc-800 px-4 py-2 rounded-none text-zinc-400">
+              NODOS ACTIVOS: <strong className="text-emerald-400">2,462</strong>
+            </div>
+            <button 
+              onClick={() => router.push("/dashboard/arenas")}
+              className="bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-4 py-2 transition-colors uppercase tracking-wider flex items-center gap-2"
+            >
+              <span>⚡ ENTRAR A ARENAS</span>
+            </button>
           </div>
         </div>
 
-        {/* Tarjetas de Arenas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
-          {arenasData.map((arena) => (
-            <div 
-              key={arena.id}
-              className="border border-zinc-800 bg-zinc-950 p-6 flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 relative group shadow-[0_0_20px_rgba(0,0,0,0.8)]"
-            >
-              {/* Esquinas HUD */}
-              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400" />
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-emerald-400" />
-
-              <div>
-                <div className="flex justify-between items-center mb-4 text-[10px]">
-                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold">
-                    {arena.type}
-                  </span>
-                  <span className="text-red-400 font-bold tracking-wider">{arena.difficulty}</span>
-                </div>
-
-                <h2 className="text-lg font-bold text-white mb-3 font-sans tracking-tight">
-                  {arena.title}
-                </h2>
-
-                <p className="text-zinc-400 font-sans text-xs mb-6 leading-relaxed">
-                  {arena.description}
-                </p>
+        {/* Dashboard Layout: Main Feed & Live Stats Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          
+          {/* Left / Center Column: Feed (3 cols) */}
+          <div className="lg:col-span-3 space-y-6">
+            
+            {/* Control Filters */}
+            <div className="flex flex-wrap items-center justify-between gap-4 bg-zinc-950/80 border border-zinc-900 p-3">
+              <div className="flex items-center gap-2 font-mono text-xs">
+                <button 
+                  onClick={() => setActiveTab("all")} 
+                  className={`px-3 py-1.5 transition-colors uppercase ${activeTab === "all" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"}`}
+                >
+                  Todo el flujo
+                </button>
+                <button 
+                  onClick={() => setActiveTab("deploys")} 
+                  className={`px-3 py-1.5 transition-colors uppercase ${activeTab === "deploys" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"}`}
+                >
+                  Deploys
+                </button>
+                <button 
+                  onClick={() => setActiveTab("arenas")} 
+                  className={`px-3 py-1.5 transition-colors uppercase ${activeTab === "arenas" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"}`}
+                >
+                  Arenas
+                </button>
+                <button 
+                  onClick={() => setActiveTab("bids")} 
+                  className={`px-3 py-1.5 transition-colors uppercase ${activeTab === "bids" ? "bg-emerald-500 text-black font-bold" : "text-zinc-400 hover:text-white"}`}
+                >
+                  Subastas
+                </button>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-zinc-900 text-xs">
-                <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 text-[10px]">RECOMPENSA:</span>
-                  <span className="text-emerald-400 font-extrabold text-sm">{arena.reward}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 text-[10px]">INSCRITOS:</span>
-                  <span className="text-white">{arena.participants} devs activos</span>
-                </div>
-
-                <button 
-                  onClick={() => alert(`> ACCEDIENDO AL SANDBOX SEGURO: ${arena.title}\n> INICIALIZANDO ENTORNO DE EJECUCIÓN...`)}
-                  className="w-full py-3 bg-emerald-400 text-black font-extrabold hover:bg-emerald-300 transition-all tracking-wider text-center shadow-[0_0_20px_rgba(16,185,129,0.3)] cursor-pointer"
+              <div className="flex items-center gap-2 font-mono text-xs text-zinc-400">
+                <span>TRACK:</span>
+                <select 
+                  value={filterTech} 
+                  onChange={(e) => setFilterTech(e.target.value)}
+                  className="bg-black border border-zinc-800 text-emerald-400 px-2 py-1 outline-none font-mono"
                 >
-                  &gt; ENTRAR AL SANDBOX
+                  <option value="ALL">TODOS</option>
+                  <option value="CORE SW">CORE SW</option>
+                  <option value="SECOPS">SECOPS</option>
+                  <option value="VIBE CODER">VIBE CODER</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Event List with HUD Aesthetic */}
+            <div className="space-y-4">
+              {filteredEvents.map((ev) => (
+                <div 
+                  key={ev.id} 
+                  className="relative bg-zinc-950/90 border border-zinc-900 hover:border-emerald-500/50 transition-all p-5 group"
+                >
+                  {/* HUD Corner Accents */}
+                  <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                  <div className="flex items-start justify-between gap-4 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className={`h-10 w-10 flex items-center justify-center font-mono font-bold text-xs border ${ev.avatarBg}`}>
+                        {ev.user.substring(0, 2).toUpperCase()}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-sm text-white">@{ev.user}</span>
+                          <span className="font-mono text-[10px] bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5">
+                            SCORE: {ev.score}
+                          </span>
+                          <span className="font-mono text-[10px] bg-zinc-900 text-zinc-400 border border-zinc-800 px-1.5 py-0.5">
+                            {ev.badge}
+                          </span>
+                        </div>
+                        <span className="font-mono text-[10px] text-zinc-500">{ev.time}</span>
+                      </div>
+                    </div>
+                    {ev.bounty && (
+                      <span className="font-mono text-xs font-bold text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-2 py-1">
+                        BOUNTY: {ev.bounty}
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-sm text-zinc-300 font-sans mb-3 pl-13">
+                    {ev.content}
+                  </p>
+
+                  <div className="flex items-center justify-between border-t border-zinc-900/80 pt-3 mt-3 font-mono text-[11px] text-zinc-500">
+                    <div className="flex items-center gap-3">
+                      <span className="text-emerald-400/80">TARGET: {ev.target}</span>
+                      <span>·</span>
+                      <span>HASH: {ev.hash}</span>
+                    </div>
+                    <span className="text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                      VERIFICADO POR NODO // ↗
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Right Column: Global Telemetry & Quick Navigation Sidebar */}
+          <div className="space-y-6">
+            
+            {/* Network Status Card */}
+            <div className="bg-zinc-950 border border-zinc-900 p-5 space-y-4">
+              <div className="font-mono text-xs text-emerald-400 flex items-center justify-between border-b border-zinc-900 pb-2">
+                <span>// NETWORK STATUS</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+              </div>
+              <div className="space-y-3 font-mono text-xs">
+                <div className="flex justify-between text-zinc-400">
+                  <span>LATENCIA GLOBAL:</span>
+                  <span className="text-white">12ms</span>
+                </div>
+                <div className="flex justify-between text-zinc-400">
+                  <span>BLOQUES VALIDADOS:</span>
+                  <span className="text-emerald-400">#849,201</span>
+                </div>
+                <div className="flex justify-between text-zinc-400">
+                  <span>SUELDO MEDIO PUJAS:</span>
+                  <span className="text-white">€94,500</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions Card */}
+            <div className="bg-zinc-950 border border-zinc-900 p-5 space-y-4">
+              <div className="font-mono text-xs text-emerald-400 border-b border-zinc-900 pb-2">
+                <span>// ACCESOS RÁPIDOS AL OASIS</span>
+              </div>
+              <div className="space-y-2 font-mono text-xs">
+                <button 
+                  onClick={() => router.push("/dashboard/arenas")}
+                  className="w-full text-left bg-black hover:bg-emerald-950/30 border border-zinc-900 hover:border-emerald-500/50 p-3 text-zinc-300 hover:text-emerald-400 transition-all flex items-center justify-between"
+                >
+                  <span>⚔️ Coliseo de Arenas</span>
+                  <span>→</span>
+                </button>
+                <button 
+                  onClick={() => router.push("/dashboard/bidding")}
+                  className="w-full text-left bg-black hover:bg-emerald-950/30 border border-zinc-900 hover:border-emerald-500/50 p-3 text-zinc-300 hover:text-emerald-400 transition-all flex items-center justify-between"
+                >
+                  <span>💰 Subasta de Talento</span>
+                  <span>→</span>
+                </button>
+                <button 
+                  onClick={() => router.push("/dashboard/profile")}
+                  className="w-full text-left bg-black hover:bg-emerald-950/30 border border-zinc-900 hover:border-emerald-500/50 p-3 text-zinc-300 hover:text-emerald-400 transition-all flex items-center justify-between"
+                >
+                  <span>🎯 Proof Profile HUD</span>
+                  <span>→</span>
                 </button>
               </div>
             </div>
-          ))}
+
+            {/* Protocol Notice */}
+            <div className="border border-emerald-500/20 bg-emerald-950/10 p-4 font-mono text-[11px] text-zinc-400 space-y-2">
+              <p className="text-emerald-400 font-bold">ZERO-SPAM PROTOCOL ACTIVE</p>
+              <p className="leading-relaxed">
+                Cualquier publicación no respaldada por un hash de código verificado o despliegue real es rechazada automáticamente por el kernel de la red.
+              </p>
+            </div>
+
+          </div>
+
         </div>
+
       </div>
-    </main>
+    </div>
   )
 }
