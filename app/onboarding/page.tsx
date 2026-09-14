@@ -26,7 +26,6 @@ export default function OnboardingPage() {
 
   const handleGenerateScore = () => {
     setIsAnalyzing(true)
-    // Redirige al Dashboard automáticamente tras completar la sincronización
     setTimeout(() => {
       router.push("/dashboard")
     }, 2000)
@@ -58,26 +57,27 @@ export default function OnboardingPage() {
           <div className="w-full text-center space-y-10 animate-in fade-in zoom-in-95 duration-700">
             <div className="space-y-4">
               <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white">
-                Sincroniza tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Identidad</span>
+                Sincroniza tu <br className="md:hidden" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Identidad</span>
               </h1>
               <p className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto">
                 Selecciona tu nodo de acceso. El sistema adaptará el entorno según tu objetivo en la red.
               </p>
             </div>
 
-            {/* Apple-Style Segmented Control */}
+            {/* Apple-Style Segmented Control (Fixed Contrast) */}
             <div className="flex p-1.5 bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 rounded-full max-w-sm mx-auto shadow-2xl">
               <button
                 onClick={() => setFlow("developer")}
-                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
-                  flow === "developer" ? "bg-emerald-500 text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
+                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
+                  flow === "developer" ? "bg-white text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >
                 Developer
               </button>
               <button
                 onClick={() => setFlow("company")}
-                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
+                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
                   flow === "company" ? "bg-white text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >
@@ -85,25 +85,26 @@ export default function OnboardingPage() {
               </button>
             </div>
 
+            {/* Main Call to Action (The Visual Magnet) */}
             <button 
               onClick={handleNext}
-              className="mt-8 group relative bg-white text-black hover:bg-emerald-400 font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-500 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(16,185,129,0.3)]"
+              className="mt-8 group relative bg-emerald-400 hover:bg-emerald-300 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.25)] hover:shadow-[0_0_50px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3"
             >
-              <span>{flow === "developer" ? "Conectar GitHub Signal" : "Configurar Entidad"}</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <span className="relative z-10">{flow === "developer" ? "Conectar GitHub Signal" : "Configurar Entidad"}</span>
+              <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
             </button>
           </div>
         )}
 
-        {/* Step 2: Calibrate Signal (Developer Flow Example) */}
+        {/* Step 2: Calibrate Signal (Developer Flow) */}
         {step === 2 && flow === "developer" && (
           <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white">
-                Calibrando <span className="text-emerald-400">Señal</span>
+                Calibrando <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Señal</span>
               </h2>
-              <p className="text-zinc-400 text-sm font-light tracking-wide">
-                Selecciona los repositorios que formarán la base de tu ProofScore.
+              <p className="text-zinc-400 text-sm font-light tracking-wide max-w-sm mx-auto">
+                Selecciona los repositorios que formarán la base criptográfica de tu ProofScore.
               </p>
             </div>
 
@@ -137,7 +138,7 @@ export default function OnboardingPage() {
               <button 
                 onClick={handleNext}
                 disabled={selectedRepos.length === 0}
-                className="bg-white text-black hover:bg-emerald-400 disabled:opacity-50 disabled:hover:bg-white font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-4 rounded-full transition-all duration-500"
+                className="bg-white text-black hover:bg-emerald-400 disabled:opacity-50 disabled:hover:bg-white font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-4 rounded-full transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,129,0.3)]"
               >
                 Confirmar Selección
               </button>
@@ -158,9 +159,9 @@ export default function OnboardingPage() {
 
             <div className="space-y-4">
               <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white drop-shadow-lg">
-                Génesis del <span className="text-emerald-400">Sistema</span>
+                Génesis del <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Sistema</span>
               </h2>
-              <p className="text-zinc-400 text-sm font-light max-w-sm mx-auto">
+              <p className="text-zinc-400 text-sm font-light tracking-wide max-w-sm mx-auto">
                 Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.
               </p>
             </div>
