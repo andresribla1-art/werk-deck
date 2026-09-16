@@ -1,74 +1,92 @@
 import React from 'react';
-import { Lock, Check } from 'lucide-react';
+import { Lock, ShieldCheck, ArrowUpRight } from 'lucide-react';
 
 export default function TalentBidding() {
   return (
-    <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
-      <div className="max-w-[1440px] mx-auto">
-        <header className="mb-8 pb-6 border-b border-zinc-800/80">
-          <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest font-bold block mb-1">
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans p-6 md:p-8">
+      <div className="max-w-[1440px] mx-auto space-y-8">
+        <header className="pb-6 border-b border-zinc-800/80">
+          <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.2em] font-bold block mb-1">
             TALENT DISCOVERY ENGINE
           </span>
           <h1 className="text-4xl font-extrabold text-white tracking-tight">Control Salarial & Pujas</h1>
-          <p className="text-zinc-400 text-sm mt-2 max-w-2xl leading-relaxed">
+          <p className="text-zinc-400 text-sm mt-2 max-w-2xl leading-relaxed font-normal">
             Define tu umbral mínimo. El kernel rechazará automáticamente cualquier subasta corporativa que no iguale o supere este valor.
           </p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Input Box - Absolute zero collision architecture */}
-          <div className="lg:col-span-7 bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl">
-            <h2 className="text-lg font-bold text-white mb-6 font-mono flex items-center gap-2">
-              <Lock className="w-4 h-4 text-emerald-400" />
-              UMBRAL MÍNIMO CONFIGURADO
-            </h2>
+          {/* Form / Threshold Configuration */}
+          <div className="lg:col-span-7 bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl flex flex-col justify-between">
+            <div>
+              <h2 className="text-lg font-bold text-white mb-6 font-mono flex items-center gap-2.5">
+                <Lock className="w-4 h-4 text-emerald-400" />
+                UMBRAL MÍNIMO CONFIGURADO
+              </h2>
 
-            <div className="bg-[#12131a] border border-zinc-800/80 rounded-xl p-6 mb-6">
-              <label className="font-mono text-xs text-zinc-400 uppercase tracking-wider block mb-3 font-semibold">
-                Base Anual Mínima
-              </label>
-              
-              {/* Flex input group guaranteeing separation between currency badge and value */}
-              <div className="flex bg-[#050507] border border-zinc-700/80 rounded-lg overflow-hidden focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
-                <div className="bg-emerald-500/10 text-emerald-400 border-r border-zinc-700/80 px-5 py-4 font-mono font-bold text-sm flex items-center justify-center select-none">
-                  € EUR
+              <div className="bg-[#12131a] border border-zinc-800/80 rounded-2xl p-6 mb-6">
+                <label className="font-mono text-xs text-zinc-400 uppercase tracking-wider block mb-3 font-semibold">
+                  Base Anual Mínima
+                </label>
+                
+                {/* Desacoplamiento de Divisa e Input para Eliminar la Superposición */}
+                <div className="flex items-center bg-[#050507] border border-zinc-700/80 rounded-xl overflow-hidden focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition">
+                  <div className="bg-emerald-500/10 text-emerald-400 border-r border-zinc-700/80 px-5 py-4 font-mono font-extrabold text-sm flex items-center gap-1.5 shrink-0 select-none">
+                    <span>€</span>
+                    <span className="text-xs opacity-80">EUR</span>
+                  </div>
+                  <input 
+                    type="text" 
+                    defaultValue="85.000"
+                    className="w-full bg-transparent py-4 px-6 text-2xl font-mono font-black text-white focus:outline-none tracking-tight"
+                  />
                 </div>
-                <input 
-                  type="text" 
-                  defaultValue="85.000"
-                  className="w-full bg-transparent py-4 px-5 text-2xl font-mono font-extrabold text-white focus:outline-none"
-                />
+                <span className="font-mono text-[11px] text-zinc-500 mt-3 block">
+                  *Cualquier oferta inferior a este monto será bloqueada por el Smart Contract.
+                </span>
               </div>
             </div>
 
-            <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-bold uppercase tracking-wider py-4 rounded-lg transition shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+            <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-extrabold uppercase tracking-widest py-4 rounded-xl transition shadow-[0_0_25px_rgba(16,185,129,0.25)] active:scale-[0.99]">
               Fijar Valor En Red
             </button>
           </div>
 
-          <div className="lg:col-span-5 bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-bold text-white font-mono">Pujas Activas</h2>
-              <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold rounded">
-                1 PENDIENTE
-              </span>
+          {/* Active Bids Panel */}
+          <div className="lg:col-span-5 bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-lg font-bold text-white font-mono">Pujas Activas</h2>
+                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold rounded-md">
+                  1 PENDIENTE
+                </span>
+              </div>
+
+              <div className="bg-[#12131a] border border-zinc-800/80 rounded-2xl p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-white text-lg">CyberShield Solutions</h3>
+                  <span className="font-mono text-xl font-black text-emerald-400">€95.000</span>
+                </div>
+                <p className="text-xs text-zinc-400 font-mono mb-6">Senior SecOps Engineer • 100% Remote</p>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <button className="bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-extrabold text-xs py-3.5 rounded-xl transition text-center uppercase tracking-wider shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                    Desencriptar
+                  </button>
+                  <button className="bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 font-mono text-xs font-bold py-3.5 rounded-xl transition text-center uppercase tracking-wider border border-zinc-700/50">
+                    Ignorar
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-[#12131a] border border-zinc-800/80 rounded-xl p-5">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="font-bold text-white text-base">CyberShield Solutions</h3>
-                <span className="font-mono text-lg font-extrabold text-emerald-400">€95.000</span>
-              </div>
-              <p className="text-xs text-zinc-400 font-mono mb-6">Senior SecOps Engineer • 100% Remote</p>
-
-              <div className="grid grid-cols-2 gap-3">
-                <button className="bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs py-3 rounded-lg transition text-center uppercase tracking-wider">
-                  Desencriptar
-                </button>
-                <button className="bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 font-mono text-xs font-bold py-3 rounded-lg transition text-center uppercase tracking-wider border border-zinc-700/50">
-                  Ignorar
-                </button>
-              </div>
+            <div className="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono text-zinc-500">
+              <span className="flex items-center gap-1">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" /> Verificación Criptográfica
+              </span>
+              <a href="#rules" className="text-emerald-400 hover:underline flex items-center gap-0.5">
+                Reglas de Subasta <ArrowUpRight className="w-3 h-3" />
+              </a>
             </div>
           </div>
         </div>
