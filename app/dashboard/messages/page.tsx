@@ -4,8 +4,8 @@ import { Send, Shield, Lock, ExternalLink } from 'lucide-react';
 export default function Messages() {
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
-      {/* Fixed height E2E Chat Shell */}
-      <div className="max-w-[1440px] mx-auto bg-[#0c0d12] border border-zinc-800/80 rounded-xl overflow-hidden shadow-2xl grid grid-cols-12 h-[750px]">
+      {/* Structural Fix: Fixed Height Container with Integrated Input Terminal */}
+      <div className="max-w-[1440px] mx-auto bg-[#0c0d12] border border-zinc-800/80 rounded-xl overflow-hidden shadow-2xl grid grid-cols-12 h-[720px]">
         {/* Sidebar Channels */}
         <div className="col-span-4 border-r border-zinc-800/80 bg-[#090a0f] p-4 flex flex-col justify-between">
           <div>
@@ -38,9 +38,9 @@ export default function Messages() {
           </div>
         </div>
 
-        {/* Main Conversation Stream */}
+        {/* Chat Stream Viewport */}
         <div className="col-span-8 flex flex-col justify-between bg-[#0c0d12]">
-          {/* Channel Header */}
+          {/* Header Bar */}
           <div className="p-6 border-b border-zinc-800/80 flex justify-between items-center bg-[#090a0f]/50">
             <div>
               <h2 className="text-base font-bold text-white">Elena Rostova</h2>
@@ -54,7 +54,7 @@ export default function Messages() {
             </button>
           </div>
 
-          {/* Chat Stream Viewport */}
+          {/* Conversation Stream */}
           <div className="p-6 space-y-4 overflow-y-auto flex-1">
             <div className="max-w-xl bg-[#12131a] border border-zinc-800/80 rounded-xl p-5 shadow-md">
               <p className="text-sm text-zinc-200 leading-relaxed font-mono">
@@ -64,7 +64,7 @@ export default function Messages() {
             </div>
           </div>
 
-          {/* Persistent Terminal Input Bar */}
+          {/* Fixed Terminal Input Bar */}
           <div className="p-4 border-t border-zinc-800/80 bg-[#090a0f]">
             <div className="flex gap-3">
               <input 

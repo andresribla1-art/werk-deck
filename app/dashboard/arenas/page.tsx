@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Zap, Cpu, Award } from 'lucide-react';
+import { ShieldAlert, Zap } from 'lucide-react';
 
 export default function Arenas() {
   const arenas = [
@@ -35,7 +35,7 @@ export default function Arenas() {
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
       <div className="max-w-[1440px] mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 pb-6 border-b border-zinc-800/80 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-zinc-800/80 gap-4">
           <div>
             <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest font-bold block mb-1">
               COMPETITIVE ARENAS
@@ -52,10 +52,9 @@ export default function Arenas() {
           </div>
         </div>
 
-        {/* 3-Column Responsive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {arenas.map((arena) => (
-            <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/40 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.08)] group">
+            <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/40 rounded-xl p-6 flex flex-col justify-between transition duration-300 hover:shadow-[0_0_25px_rgba(16,185,129,0.08)] group">
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <span className="px-2.5 py-1 bg-zinc-800/80 text-zinc-300 border border-zinc-700/50 font-mono text-[10px] font-bold rounded">
@@ -67,7 +66,7 @@ export default function Arenas() {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors leading-snug">
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors leading-snug">
                   {arena.title}
                 </h3>
                 <p className="text-zinc-400 text-xs leading-relaxed mb-6">
@@ -87,7 +86,7 @@ export default function Arenas() {
                   </div>
                 </div>
 
-                <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)]">
+                <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition shadow-[0_0_15px_rgba(16,185,129,0.25)]">
                   <Zap className="w-4 h-4 fill-black" />
                   Iniciar Secuencia
                 </button>
