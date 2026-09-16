@@ -1,11 +1,10 @@
 import React from 'react';
-import { Activity, Terminal, GitCommit, ShieldCheck } from 'lucide-react';
+import { Activity, Terminal, GitCommit } from 'lucide-react';
 
 export default function ExecutionFeed() {
   return (
-    <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans selection:bg-emerald-500/30 relative">
+    <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans selection:bg-emerald-500/30">
       <div className="max-w-[1440px] mx-auto px-6 py-8">
-        {/* Main Header */}
         <header className="mb-8 border-b border-zinc-800/80 pb-6 flex justify-between items-end">
           <div>
             <div className="flex items-center gap-2 mb-2">
@@ -22,17 +21,15 @@ export default function ExecutionFeed() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Identity Side Panel - Fixed Avatar Overlap */}
           <aside className="lg:col-span-3">
-            <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl overflow-hidden shadow-2xl relative">
+            <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl overflow-hidden shadow-2xl">
               <div className="h-16 bg-gradient-to-r from-emerald-950/40 to-zinc-900 border-b border-zinc-800/80 p-3 flex justify-end">
-                <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 font-mono text-[10px] text-emerald-400 font-bold">
+                <span className="h-fit px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 font-mono text-[10px] text-emerald-400 font-bold">
                   VERIFIED DECK
                 </span>
               </div>
               
               <div className="px-6 pb-6 pt-0 relative">
-                {/* Avatar container strictly positioned above content without text overlap */}
                 <div className="w-16 h-16 bg-[#12131a] border-2 border-emerald-500/40 rounded-xl -mt-8 mb-4 flex items-center justify-center shadow-lg relative z-10">
                   <span className="font-mono text-xl font-bold text-emerald-400">JD</span>
                 </div>
@@ -59,7 +56,6 @@ export default function ExecutionFeed() {
             </div>
           </aside>
 
-          {/* Activity Feed */}
           <main className="lg:col-span-6 space-y-6">
             <article className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 hover:border-emerald-500/30 transition shadow-xl">
               <div className="flex justify-between items-start mb-4">
@@ -106,7 +102,6 @@ export default function ExecutionFeed() {
             </article>
           </main>
 
-          {/* Network Telemetry */}
           <aside className="lg:col-span-3">
             <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 shadow-xl">
               <h4 className="font-mono text-xs text-zinc-300 font-bold uppercase tracking-widest mb-4 pb-3 border-b border-zinc-800/80 flex items-center gap-2">

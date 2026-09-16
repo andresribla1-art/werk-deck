@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock } from 'lucide-react';
+import { Lock, Check } from 'lucide-react';
 
 export default function TalentBidding() {
   return (
@@ -16,7 +16,7 @@ export default function TalentBidding() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Salary Input Box - Collision Bug Fixed */}
+          {/* Input Box - Absolute zero collision architecture */}
           <div className="lg:col-span-7 bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl">
             <h2 className="text-lg font-bold text-white mb-6 font-mono flex items-center gap-2">
               <Lock className="w-4 h-4 text-emerald-400" />
@@ -28,15 +28,15 @@ export default function TalentBidding() {
                 Base Anual Mínima
               </label>
               
-              {/* Isolated Badge Container prevents overlap with digits */}
-              <div className="relative flex items-center">
-                <div className="absolute left-4 z-10 flex items-center gap-1 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded font-mono text-emerald-400 text-sm font-bold pointer-events-none">
+              {/* Flex input group guaranteeing separation between currency badge and value */}
+              <div className="flex bg-[#050507] border border-zinc-700/80 rounded-lg overflow-hidden focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition">
+                <div className="bg-emerald-500/10 text-emerald-400 border-r border-zinc-700/80 px-5 py-4 font-mono font-bold text-sm flex items-center justify-center select-none">
                   € EUR
                 </div>
                 <input 
                   type="text" 
                   defaultValue="85.000"
-                  className="w-full bg-[#050507] border border-zinc-700/80 rounded-lg py-4 pl-28 pr-4 text-2xl font-mono font-extrabold text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                  className="w-full bg-transparent py-4 px-5 text-2xl font-mono font-extrabold text-white focus:outline-none"
                 />
               </div>
             </div>
@@ -46,7 +46,6 @@ export default function TalentBidding() {
             </button>
           </div>
 
-          {/* Active Bids */}
           <div className="lg:col-span-5 bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg font-bold text-white font-mono">Pujas Activas</h2>

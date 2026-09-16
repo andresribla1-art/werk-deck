@@ -5,7 +5,6 @@ export default function ProofProfile() {
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
       <div className="max-w-[1440px] mx-auto space-y-8">
-        {/* Profile Header */}
         <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl relative overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="flex items-center gap-6">
@@ -36,7 +35,6 @@ export default function ProofProfile() {
           </div>
         </div>
 
-        {/* Modular Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 shadow-2xl">
             <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
