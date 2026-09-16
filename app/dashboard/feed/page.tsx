@@ -4,7 +4,6 @@ import { Activity, ShieldCheck, Terminal, Cpu, GitCommit, ArrowUpRight } from 'l
 export default function ExecutionFeed() {
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans selection:bg-emerald-500/30 relative overflow-hidden">
-      {/* Background Grid Accent */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
       
       <div className="max-w-[1440px] mx-auto px-6 py-8 relative z-10">
@@ -26,7 +25,7 @@ export default function ExecutionFeed() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Identity Panel */}
+          {/* Identity Panel: Avatar position bug fixed */}
           <aside className="lg:col-span-3">
             <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-md">
               <div className="h-20 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-zinc-900 border-b border-zinc-800/80 relative">
@@ -35,10 +34,12 @@ export default function ExecutionFeed() {
                 </div>
               </div>
               <div className="px-6 pb-6 relative">
-                <div className="w-16 h-16 bg-[#12131a] border-2 border-emerald-500/40 rounded-xl absolute -top-8 flex items-center justify-center shadow-2xl shadow-emerald-950/50">
+                {/* Fixed Avatar Placement */}
+                <div className="w-16 h-16 bg-[#12131a] border-2 border-emerald-500/40 rounded-xl absolute -top-8 left-6 flex items-center justify-center shadow-2xl shadow-emerald-950/50">
                   <span className="font-mono text-xl font-bold text-emerald-400">JD</span>
                 </div>
-                <div className="mt-10">
+                {/* Compensated Margin to prevent overlap */}
+                <div className="mt-12">
                   <h2 className="text-xl font-bold text-white tracking-tight">John Doe</h2>
                   <p className="font-mono text-xs text-zinc-400 mt-1 flex items-center gap-1.5 font-medium">
                     <Terminal className="w-3.5 h-3.5 text-emerald-400" />
@@ -60,7 +61,7 @@ export default function ExecutionFeed() {
             </div>
           </aside>
 
-          {/* Main Feed Activity */}
+          {/* Activity Feed */}
           <main className="lg:col-span-6 space-y-6">
             <article className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 hover:border-emerald-500/30 transition-all duration-300 shadow-2xl relative group">
               <div className="flex justify-between items-start mb-4">

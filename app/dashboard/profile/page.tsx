@@ -1,11 +1,11 @@
 import React from 'react';
-import { Award, CheckCircle2, Cpu, BarChart2 } from 'lucide-react';
+import { Award, BarChart2, CheckCircle2 } from 'lucide-react';
 
 export default function ProofProfile() {
   return (
     <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
       <div className="max-w-[1440px] mx-auto space-y-8">
-        {/* Main Identity Banner */}
+        {/* Profile Hero Header */}
         <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 relative overflow-hidden shadow-2xl">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
             <div className="flex items-center gap-6">
@@ -13,7 +13,10 @@ export default function ProofProfile() {
                 JD
               </div>
               <div>
-                <h1 className="text-3xl font-extrabold text-white tracking-tight">John Doe</h1>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-3xl font-extrabold text-white tracking-tight">John Doe</h1>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
                 <p className="font-mono text-xs text-zinc-400 mt-1 font-semibold">ID: WDK-8894-A</p>
                 <p className="text-sm text-zinc-300 mt-3 max-w-xl leading-relaxed">
                   Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
@@ -21,20 +24,20 @@ export default function ProofProfile() {
               </div>
             </div>
 
-            {/* Score HUD Circular Representation */}
+            {/* ProofScore HUD Visualizer */}
             <div className="bg-[#12131a] border border-zinc-800/80 p-6 rounded-xl flex items-center gap-6 shadow-inner">
               <div className="text-right">
                 <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest block font-bold">PROOFSCORE</span>
                 <span className="font-mono text-4xl font-black text-emerald-400 tracking-tight drop-shadow-[0_0_12px_rgba(16,185,129,0.3)]">890</span>
               </div>
-              <div className="w-16 h-16 rounded-full border-4 border-emerald-500/20 border-t-emerald-400 animate-spin-slow flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full border-4 border-emerald-500/20 border-t-emerald-400 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                 <Award className="w-6 h-6 text-emerald-400" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Metrics Grid */}
+        {/* Modular Metrics & Arena History Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 shadow-2xl">
             <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
@@ -42,7 +45,7 @@ export default function ProofProfile() {
               MÉTRICAS DE EJECUCIÓN
             </h2>
             
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-lg flex justify-between items-center">
                 <div>
                   <span className="font-mono text-[10px] text-zinc-400 uppercase block">Commits Verificados</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldAlert, Zap, Cpu, Award, ChevronRight } from 'lucide-react';
+import { ShieldAlert, Zap, Cpu, Award } from 'lucide-react';
 
 export default function Arenas() {
   const arenas = [
@@ -8,7 +8,7 @@ export default function Arenas() {
       title: "Zero-Latency Agentic Workflow Engine",
       category: "AI-NATIVE",
       difficulty: "EXTREME",
-      description: "Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.",
+      description: "Sandbox optimizado. Desarrolla, compila y despliega agentes autónomos con auditoría algorítmica en tiempo real.",
       reward: "1,500 USDC",
       devs: 48,
     },
@@ -17,9 +17,18 @@ export default function Arenas() {
       title: "Rust Memory Leak Extractor",
       category: "PURE CODE",
       difficulty: "INSANE",
-      description: "Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.",
+      description: "Aísla y elimina fugas de memoria en rutinas concurrentes sin afectar el rendimiento global del hilo maestro.",
       reward: "2,200 USDC",
       devs: 31,
+    },
+    {
+      id: "03",
+      title: "E2E Encrypted Mesh Telemetry",
+      category: "CYBERSEC",
+      difficulty: "HARD",
+      description: "Diseña un protocolo de comunicación entre nodos sin revelar direcciones IP ni firmas de metadatos.",
+      reward: "3,000 USDC",
+      devs: 64,
     }
   ];
 
@@ -43,6 +52,7 @@ export default function Arenas() {
           </div>
         </div>
 
+        {/* 3-Column Responsive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {arenas.map((arena) => (
             <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/40 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.08)] group">

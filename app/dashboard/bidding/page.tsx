@@ -1,5 +1,5 @@
 import React from 'react';
-import { DollarSign, ShieldCheck, Lock, ArrowRight } from 'lucide-react';
+import { Lock, ShieldCheck, DollarSign } from 'lucide-react';
 
 export default function TalentBidding() {
   return (
@@ -16,7 +16,7 @@ export default function TalentBidding() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Salary Threshold Control */}
+          {/* Salary Threshold Control - Input Collision Fixed */}
           <div className="lg:col-span-7 bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 shadow-2xl">
             <h2 className="text-lg font-bold text-white mb-6 font-mono flex items-center gap-2">
               <Lock className="w-4 h-4 text-emerald-400" />
@@ -25,19 +25,23 @@ export default function TalentBidding() {
 
             <div className="bg-[#12131a] border border-zinc-800/80 rounded-xl p-6 mb-6">
               <label className="font-mono text-xs text-zinc-400 uppercase tracking-wider block mb-3 font-semibold">
-                Base Anual (EUR)
+                Base Anual Mínima
               </label>
+              
+              {/* Isolated Currency Badge & Padding */}
               <div className="relative flex items-center">
-                <span className="absolute left-4 font-mono text-2xl text-emerald-400 font-bold">€</span>
+                <div className="absolute left-4 z-10 flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded font-mono text-emerald-400 text-sm font-bold">
+                  € EUR
+                </div>
                 <input 
                   type="text" 
                   defaultValue="85.000"
-                  className="w-full bg-[#050507] border border-zinc-700/80 rounded-lg py-4 pl-10 pr-4 text-2xl font-mono font-extrabold text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+                  className="w-full bg-[#050507] border border-zinc-700/80 rounded-lg py-4 pl-28 pr-4 text-2xl font-mono font-extrabold text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
                 />
               </div>
             </div>
 
-            <button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-mono text-xs font-bold uppercase tracking-wider py-4 rounded-lg border border-zinc-700/80 transition-all shadow-md">
+            <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-bold uppercase tracking-wider py-4 rounded-lg transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)]">
               Fijar Valor En Red
             </button>
           </div>
@@ -54,7 +58,7 @@ export default function TalentBidding() {
             <div className="bg-[#12131a] border border-zinc-800/80 rounded-xl p-5 hover:border-emerald-500/40 transition">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-bold text-white text-base">CyberShield Solutions</h3>
-                <span className="font-mono text-lg font-extrabold text-emerald-400">€95k</span>
+                <span className="font-mono text-lg font-extrabold text-emerald-400">€95.000</span>
               </div>
               <p className="text-xs text-zinc-400 font-mono mb-6">Senior SecOps Engineer • 100% Remote</p>
 
