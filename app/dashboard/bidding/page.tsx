@@ -1,10 +1,24 @@
 import React from 'react';
 import { Lock, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { WerkDeckNavbarLogo } from './WerkDeckNavbarLogo';
 
 export default function TalentBidding() {
   return (
-    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans p-6 md:p-8">
-      <div className="max-w-[1440px] mx-auto space-y-8">
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans">
+      <nav className="border-b border-zinc-800/80 bg-[#08090d]/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-10">
+          <WerkDeckNavbarLogo />
+          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
+            <a href="#feed" className="hover:text-zinc-200 transition">Execution Feed</a>
+            <a href="#arenas" className="hover:text-zinc-200 transition">Arenas</a>
+            <a href="#bidding" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Talent Bidding</a>
+            <a href="#profile" className="hover:text-zinc-200 transition">Proof Profile</a>
+            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
         <header className="pb-6 border-b border-zinc-800/80">
           <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.2em] font-bold block mb-1">
             TALENT DISCOVERY ENGINE
@@ -16,7 +30,6 @@ export default function TalentBidding() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Form / Threshold Configuration */}
           <div className="lg:col-span-7 bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl flex flex-col justify-between">
             <div>
               <h2 className="text-lg font-bold text-white mb-6 font-mono flex items-center gap-2.5">
@@ -29,7 +42,7 @@ export default function TalentBidding() {
                   Base Anual Mínima
                 </label>
                 
-                {/* Desacoplamiento de Divisa e Input para Eliminar la Superposición */}
+                {/* Solución de Entrada Independiente para Evitar Superposiciones */}
                 <div className="flex items-center bg-[#050507] border border-zinc-700/80 rounded-xl overflow-hidden focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition">
                   <div className="bg-emerald-500/10 text-emerald-400 border-r border-zinc-700/80 px-5 py-4 font-mono font-extrabold text-sm flex items-center gap-1.5 shrink-0 select-none">
                     <span>€</span>
@@ -52,7 +65,6 @@ export default function TalentBidding() {
             </button>
           </div>
 
-          {/* Active Bids Panel */}
           <div className="lg:col-span-5 bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl flex flex-col justify-between">
             <div>
               <div className="flex justify-between items-center mb-6">

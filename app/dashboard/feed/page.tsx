@@ -1,18 +1,32 @@
 import React from 'react';
 import { Activity, Terminal, GitCommit, ShieldCheck, Zap } from 'lucide-react';
+import { WerkDeckNavbarLogo } from './WerkDeckNavbarLogo';
 
 export default function ExecutionFeed() {
   return (
-    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans selection:bg-emerald-500/30 p-6 md:p-8">
-      <div className="max-w-[1440px] mx-auto space-y-8">
-        {/* Header HUD Style Ready Player One */}
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans selection:bg-emerald-500/30">
+      {/* Navigation Bar Unificada */}
+      <nav className="border-b border-zinc-800/80 bg-[#08090d]/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-10">
+          <WerkDeckNavbarLogo />
+          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
+            <a href="#feed" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Execution Feed</a>
+            <a href="#arenas" className="hover:text-zinc-200 transition">Arenas</a>
+            <a href="#bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
+            <a href="#profile" className="hover:text-zinc-200 transition">Proof Profile</a>
+            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+          </div>
+        </div>
+        <div className="font-mono text-[11px] text-zinc-500 flex items-center gap-2">
+          <span>PROOFSCORE SYSTEM</span>
+          <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400 font-bold">JD</div>
+        </div>
+      </nav>
+
+      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
         <header className="border-b border-zinc-800/80 pb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_12px_#10b981]"></span>
-              </span>
               <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-emerald-400 font-bold">
                 KERNEL SYNC // REAL-TIME HUD
               </span>
@@ -28,7 +42,6 @@ export default function ExecutionFeed() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* User Side Deck */}
           <aside className="lg:col-span-3">
             <div className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/30 rounded-2xl overflow-hidden shadow-2xl transition duration-300">
               <div className="h-20 bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-zinc-900 border-b border-zinc-800/80 p-3 flex justify-end">
@@ -64,7 +77,6 @@ export default function ExecutionFeed() {
             </div>
           </aside>
 
-          {/* Main Feed Activity */}
           <main className="lg:col-span-6 space-y-6">
             <article className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/40 rounded-2xl p-6 transition duration-300 shadow-2xl group">
               <div className="flex justify-between items-start mb-4">
@@ -111,7 +123,6 @@ export default function ExecutionFeed() {
             </article>
           </main>
 
-          {/* Telemetry Teleport */}
           <aside className="lg:col-span-3">
             <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-6 shadow-2xl">
               <h4 className="font-mono text-xs text-zinc-300 font-bold uppercase tracking-widest mb-5 pb-3 border-b border-zinc-800/80 flex items-center gap-2">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldAlert, Zap, Flame } from 'lucide-react';
+import { WerkDeckNavbarLogo } from './WerkDeckNavbarLogo';
 
 export default function Arenas() {
   const arenas = [
@@ -33,8 +34,21 @@ export default function Arenas() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans p-6 md:p-8">
-      <div className="max-w-[1440px] mx-auto space-y-8">
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans">
+      <nav className="border-b border-zinc-800/80 bg-[#08090d]/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-10">
+          <WerkDeckNavbarLogo />
+          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
+            <a href="#feed" className="hover:text-zinc-200 transition">Execution Feed</a>
+            <a href="#arenas" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Arenas</a>
+            <a href="#bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
+            <a href="#profile" className="hover:text-zinc-200 transition">Proof Profile</a>
+            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
         <header className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-zinc-800/80 gap-6">
           <div>
             <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.2em] font-bold block mb-1">

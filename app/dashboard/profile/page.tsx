@@ -1,11 +1,24 @@
 import React from 'react';
 import { Award, BarChart2, CheckCircle2, ShieldCheck, Terminal } from 'lucide-react';
+import { WerkDeckNavbarLogo } from '@/components/WerkDeckNavbarLogo';
 
 export default function ProofProfile() {
   return (
-    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans p-6 md:p-8">
-      <div className="max-w-[1440px] mx-auto space-y-8">
-        {/* User Card */}
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans">
+      <nav className="border-b border-zinc-800/80 bg-[#08090d]/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-10">
+          <WerkDeckNavbarLogo />
+          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
+            <a href="#feed" className="hover:text-zinc-200 transition">Execution Feed</a>
+            <a href="#arenas" className="hover:text-zinc-200 transition">Arenas</a>
+            <a href="#bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
+            <a href="#profile" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Proof Profile</a>
+            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
         <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
             <div className="flex items-center gap-6">
@@ -38,7 +51,6 @@ export default function ProofProfile() {
           </div>
         </div>
 
-        {/* Dash Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-7 shadow-2xl">
             <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
