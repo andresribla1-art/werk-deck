@@ -502,3 +502,10 @@ input, select, textarea {
   color: #f4f4f5 !important;            /* text-zinc-100 */
   border-color: #27272a !important;      /* border-zinc-800 */
 }
+@theme {
+  --font-display: var(--font-display), sans-serif;
+  --font-mono: var(--font-mono), monospace;
+  --color-oasis-dark: #030712;
+  --color-oasis-panel: rgba(255, 255, 255, 0.03);
+  --color-oasis-emerald: #00FF88;
+}

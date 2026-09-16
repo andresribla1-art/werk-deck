@@ -1,33 +1,34 @@
-import type { Metadata, Viewport } from "next"
-import { DM_Mono, Geist } from "next/font/google"
-import "./globals.css"
-import { SafeClerkProvider } from "../components/clerk-safe"
+import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
 
-const dmMono = DM_Mono({ weight: ["400", "500"], subsets: ["latin"], variable: "--font-dm-mono" })
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
+const fontDisplay = Inter({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
-export const viewport: Viewport = {
-  themeColor: "#050505",
-}
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "WerkDeck — Dein Code spricht für sich",
-  description: "Die erste Plattform wo Fähigkeiten durch echte Evidenz verifiziert werden.",
-  openGraph: {
-    title: "WerkDeck",
-    description: "Tu Código Habla por Ti",
-    locale: "de_DE",
-  },
-}
+  title: "WerkDeck | Sistema de Ejecución",
+  description: "Sistema HUD e Identidad",
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="de">
-      <body className={`${dmMono.variable} ${geist.variable}`}><SafeClerkProvider>{children}</SafeClerkProvider></body>
+    <html lang="es" className={`${fontDisplay.variable} ${fontMono.variable} dark`}>
+      <body className="font-display bg-oasis-dark text-white antialiased selection:bg-oasis-emerald selection:text-black min-h-screen">
+        {children}
+      </body>
     </html>
-  )
+  );
 }
