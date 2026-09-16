@@ -3,7 +3,6 @@ export default function ExecutionFeed() {
     <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-emerald-500/30">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        {/* Cabecera del Shell */}
         <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-white/5 pb-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -21,10 +20,8 @@ export default function ExecutionFeed() {
           </div>
         </header>
 
-        {/* Arquitectura de 3 Columnas estilo LinkedIn pero Cyber-Minimalista */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Columna Izquierda: Snapshot de Identidad (Yo) */}
           <aside className="hidden lg:block lg:col-span-3">
             <div className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden sticky top-8">
               <div className="h-16 bg-gradient-to-r from-zinc-900 to-[#0a0a0a] border-b border-white/5"></div>
@@ -34,15 +31,18 @@ export default function ExecutionFeed() {
                 </div>
                 <div className="mt-10">
                   <h2 className="text-lg font-medium text-white tracking-tight">John Doe</h2>
-                  <p className="font-mono text-[11px] text-zinc-500 tracking-wider mt-1">SYS.ARCHITECT // Lvl 4</p>
+                  {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                  <p className="font-mono text-[11px] text-zinc-400 tracking-wider mt-1">SYS.ARCHITECT // Lvl 4</p>
                 </div>
                 <div className="mt-6 pt-6 border-t border-white/5 space-y-4">
                   <div className="flex justify-between items-end">
-                    <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">ProofScore</span>
+                    {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                    <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">ProofScore</span>
                     <span className="font-mono text-sm text-emerald-400">890</span>
                   </div>
                   <div className="flex justify-between items-end">
-                    <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">Global Rank</span>
+                    {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                    <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">Global Rank</span>
                     <span className="font-mono text-sm text-zinc-300">Top 2%</span>
                   </div>
                 </div>
@@ -50,9 +50,7 @@ export default function ExecutionFeed() {
             </div>
           </aside>
 
-          {/* Columna Central: Timeline Algorítmico */}
           <main className="lg:col-span-6 space-y-6">
-            {/* Componente de Feed: Ejecución Verificada */}
             <article className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6 hover:border-white/10 transition-colors duration-300 group">
               <div className="flex justify-between items-start mb-4">
                 <div className="flex gap-4 items-center">
@@ -64,10 +62,12 @@ export default function ExecutionFeed() {
                       @alex_vortex 
                       <span className="px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 text-[9px] font-mono rounded-sm border border-emerald-500/20">PRO</span>
                     </h3>
-                    <p className="font-mono text-[10px] text-zinc-500 tracking-wider mt-0.5">Hace 2 min • Despliegue en Producción</p>
+                    {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                    <p className="font-mono text-[10px] text-zinc-400 tracking-wider mt-0.5">Hace 2 min • Despliegue en Producción</p>
                   </div>
                 </div>
-                <button className="text-zinc-600 hover:text-zinc-300 transition-colors">
+                {/* FIX: text-zinc-600 -> text-zinc-400 para accesibilidad de botones */}
+                <button className="text-zinc-400 hover:text-zinc-200 transition-colors">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
                 </button>
               </div>
@@ -78,15 +78,16 @@ export default function ExecutionFeed() {
                 </p>
               </div>
 
-              {/* Contenedor Estructurado de Metadatos (El "Adjunto" del Post) */}
               <div className="bg-[#050505] border border-white/5 rounded-sm p-4 flex flex-col sm:flex-row gap-6">
                 <div className="flex-1">
-                  <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Target Repo</p>
+                  {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                  <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Target Repo</p>
                   <p className="font-mono text-xs text-zinc-300">werkdeck/core-engine</p>
                 </div>
                 <div className="w-px bg-white/5 hidden sm:block"></div>
                 <div className="flex-1">
-                  <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Commit Hash</p>
+                  {/* FIX: text-zinc-500 -> text-zinc-400 */}
+                  <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Commit Hash</p>
                   <p className="font-mono text-xs text-emerald-500 flex items-center gap-2">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     a4f89b2
@@ -96,7 +97,6 @@ export default function ExecutionFeed() {
             </article>
           </main>
 
-          {/* Columna Derecha: Módulos de Telemetría (Productos/Noticias) */}
           <aside className="hidden lg:block lg:col-span-3 space-y-6">
             <div className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6">
               <h4 className="font-mono text-[10px] text-zinc-100 uppercase tracking-[0.2em] mb-6 flex items-center justify-between">
@@ -105,6 +105,7 @@ export default function ExecutionFeed() {
               </h4>
               <ul className="space-y-5">
                 <li className="flex justify-between items-baseline">
+                  {/* FIX: text-zinc-400 está bien aquí por el peso de fuente, lo mantengo */}
                   <span className="text-xs text-zinc-400 font-light">Nodos Activos</span>
                   <span className="font-mono text-sm text-zinc-100">2,462</span>
                 </li>
