@@ -1,6 +1,6 @@
 import React from 'react';
-import { Award, BarChart2, CheckCircle2, ShieldCheck, Terminal } from 'lucide-react';
 import { WerkDeckNavbarLogo } from '@/components/WerkDeckNavbarLogo';
+import { Award, BarChart2, CheckCircle2, ShieldCheck, Terminal } from 'lucide-react';
 
 export default function ProofProfile() {
   return (
@@ -9,17 +9,17 @@ export default function ProofProfile() {
         <div className="flex items-center gap-10">
           <WerkDeckNavbarLogo />
           <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
-            <a href="#feed" className="hover:text-zinc-200 transition">Execution Feed</a>
-            <a href="#arenas" className="hover:text-zinc-200 transition">Arenas</a>
-            <a href="#bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
-            <a href="#profile" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Proof Profile</a>
-            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+            <a href="/dashboard/feed" className="hover:text-zinc-200 transition">Execution Feed</a>
+            <a href="/dashboard/arenas" className="hover:text-zinc-200 transition">Arenas</a>
+            <a href="/dashboard/bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
+            <a href="/dashboard/profile" className="text-emerald-400 font-bold border-b-2 border-emerald-400 pb-0.5">Proof Profile</a>
+            <a href="/dashboard/messages" className="hover:text-zinc-200 transition">Messages</a>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
-        <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+      <div className="max-w-[1600px] mx-auto p-6 md:p-10 space-y-8">
+        <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
             <div className="flex items-center gap-6">
               <div className="w-24 h-24 bg-[#12131a] border-2 border-emerald-500/50 rounded-2xl flex items-center justify-center font-mono text-3xl font-black text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.2)] shrink-0">
@@ -33,13 +33,13 @@ export default function ProofProfile() {
                 <p className="font-mono text-xs text-zinc-400 mt-1 font-semibold flex items-center gap-2">
                   <Terminal className="w-3.5 h-3.5 text-emerald-400" /> ID: WDK-8894-A
                 </p>
-                <p className="text-sm text-zinc-300 mt-3 max-w-2xl leading-relaxed font-normal">
+                <p className="text-sm text-zinc-300 mt-3 max-w-2xl leading-relaxed">
                   Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
                 </p>
               </div>
             </div>
 
-            <div className="bg-[#12131a] border border-zinc-800/80 p-6 rounded-2xl flex items-center gap-6 shadow-xl shrink-0">
+            <div className="bg-[#12131a] border border-zinc-800 p-6 rounded-2xl flex items-center gap-6 shadow-xl shrink-0">
               <div className="text-right">
                 <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest block font-bold">PROOFSCORE</span>
                 <span className="font-mono text-4xl font-black text-emerald-400 tracking-tight">890</span>
@@ -52,14 +52,14 @@ export default function ProofProfile() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-7 shadow-2xl">
+          <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-7 shadow-2xl">
             <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
               <BarChart2 className="w-4 h-4 text-emerald-400" />
               MÉTRICAS DE EJECUCIÓN
             </h2>
             
             <div className="space-y-4">
-              <div className="bg-[#12131a] border border-zinc-800/80 p-5 rounded-xl flex justify-between items-center">
+              <div className="bg-[#12131a] border border-zinc-800 p-5 rounded-xl flex justify-between items-center">
                 <div>
                   <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">Commits Verificados</span>
                   <span className="font-mono text-3xl font-black text-white">342</span>
@@ -69,7 +69,7 @@ export default function ProofProfile() {
                 </span>
               </div>
 
-              <div className="bg-[#12131a] border border-zinc-800/80 p-5 rounded-xl flex justify-between items-center">
+              <div className="bg-[#12131a] border border-zinc-800 p-5 rounded-xl flex justify-between items-center">
                 <div>
                   <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">Deploy Success Rate</span>
                   <span className="font-mono text-3xl font-black text-emerald-400">98.4%</span>
@@ -79,14 +79,14 @@ export default function ProofProfile() {
             </div>
           </div>
 
-          <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-2xl p-7 shadow-2xl">
+          <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-7 shadow-2xl">
             <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               HISTORIAL DE ARENAS
             </h2>
 
             <div className="space-y-4 font-mono">
-              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-xl flex justify-between items-center">
+              <div className="bg-[#12131a] border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
                 <div>
                   <h3 className="text-sm font-bold text-white">Zero-Latency Router</h3>
                   <span className="text-[10px] text-emerald-400 font-extrabold">1ER LUGAR</span>
@@ -94,7 +94,7 @@ export default function ProofProfile() {
                 <span className="text-sm font-black text-zinc-200">1,500 USDC</span>
               </div>
 
-              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-xl flex justify-between items-center">
+              <div className="bg-[#12131a] border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
                 <div>
                   <h3 className="text-sm font-bold text-white">SecOps CTF Challenge</h3>
                   <span className="text-[10px] text-amber-400 font-extrabold">2DO LUGAR</span>

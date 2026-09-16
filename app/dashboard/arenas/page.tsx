@@ -1,6 +1,6 @@
 import React from 'react';
-import { ShieldAlert, Zap, Flame } from 'lucide-react';
-import { WerkDeckNavbarLogo } from './WerkDeckNavbarLogo';
+import { WerkDeckNavbarLogo } from '@/components/WerkDeckNavbarLogo';
+import { Flame, ShieldAlert, Zap } from 'lucide-react';
 
 export default function Arenas() {
   const arenas = [
@@ -39,25 +39,25 @@ export default function Arenas() {
         <div className="flex items-center gap-10">
           <WerkDeckNavbarLogo />
           <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
-            <a href="#feed" className="hover:text-zinc-200 transition">Execution Feed</a>
-            <a href="#arenas" className="text-emerald-400 font-bold border-b border-emerald-400 pb-0.5">Arenas</a>
-            <a href="#bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
-            <a href="#profile" className="hover:text-zinc-200 transition">Proof Profile</a>
-            <a href="#messages" className="hover:text-zinc-200 transition">Messages</a>
+            <a href="/dashboard/feed" className="hover:text-zinc-200 transition">Execution Feed</a>
+            <a href="/dashboard/arenas" className="text-emerald-400 font-bold border-b-2 border-emerald-400 pb-0.5">Arenas</a>
+            <a href="/dashboard/bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
+            <a href="/dashboard/profile" className="hover:text-zinc-200 transition">Proof Profile</a>
+            <a href="/dashboard/messages" className="hover:text-zinc-200 transition">Messages</a>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-[1440px] mx-auto p-6 md:p-8 space-y-8">
+      <div className="max-w-[1600px] mx-auto p-6 md:p-10 space-y-8">
         <header className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-zinc-800/80 gap-6">
           <div>
-            <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.2em] font-bold block mb-1">
-              COMPETITIVE ARENAS
+            <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.25em] font-bold block mb-1">
+              // COMPETITIVE ARENAS
             </span>
             <h1 className="text-4xl font-extrabold text-white tracking-tight">Arenas de Competición</h1>
           </div>
           
-          <div className="flex bg-[#0c0d12] border border-zinc-800/80 p-1.5 rounded-xl font-mono text-xs shadow-xl">
+          <div className="flex bg-[#0c0d12] border border-zinc-800 p-1.5 rounded-xl font-mono text-xs shadow-xl">
             <button className="px-5 py-2 rounded-lg bg-emerald-500 text-black font-extrabold shadow-[0_0_15px_rgba(16,185,129,0.3)]">
               TODOS
             </button>
@@ -68,7 +68,7 @@ export default function Arenas() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {arenas.map((arena) => (
-            <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/50 rounded-2xl p-7 flex flex-col justify-between transition duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] group">
+            <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800 hover:border-emerald-500/50 rounded-2xl p-7 flex flex-col justify-between transition duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.12)] group">
               <div>
                 <div className="flex justify-between items-center mb-5">
                   <span className="px-3 py-1 bg-zinc-800/80 text-zinc-300 border border-zinc-700/60 font-mono text-[10px] font-bold rounded-md tracking-wider">
@@ -89,7 +89,7 @@ export default function Arenas() {
               </div>
 
               <div>
-                <div className="bg-[#12131a] border border-zinc-800/80 rounded-xl p-4 mb-6 flex justify-between items-center font-mono">
+                <div className="bg-[#12131a] border border-zinc-800 rounded-xl p-4 mb-6 flex justify-between items-center font-mono">
                   <div>
                     <span className="text-[10px] text-zinc-500 uppercase tracking-wider block mb-0.5">Recompensa</span>
                     <span className="text-lg text-emerald-400 font-black">{arena.reward}</span>

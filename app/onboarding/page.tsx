@@ -1,191 +1,171 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import React, { useState } from 'react';
+import { WerkDeckNavbarLogo } from '@/components/WerkDeckNavbarLogo';
+import { ArrowRight, CheckCircle2, Github, Shield, Terminal, Zap } from 'lucide-react';
 
-const developerRepos = [
-  { name: "werkdeck-platform", language: "TypeScript", stars: 42, updated: "2d ago" },
-  { name: "signal-processor", language: "Rust", stars: 18, updated: "5d ago" },
-  { name: "infra-blueprints", language: "HCL", stars: 9, updated: "1w ago" },
-]
+export default function Onboarding() {
+  const [step, setStep] = useState(1);
+  const [role, setRole] = useState<'developer' | 'company'>('developer');
+  const [selectedRepos, setSelectedRepos] = useState<string[]>(['werkdeck-platform']);
 
-export default function OnboardingPage() {
-  const router = useRouter()
-  const [flow, setFlow] = useState<"developer" | "company">("developer")
-  const [step, setStep] = useState(1)
-  const [selectedRepos, setSelectedRepos] = useState<string[]>(["werkdeck-platform"])
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const repos = [
+    { id: 'werkdeck-platform', name: 'werkdeck-platform', lang: 'TypeScript', updated: '2d ago' },
+    { id: 'signal-processor', name: 'signal-processor', lang: 'Rust', updated: '5d ago' },
+    { id: 'infra-blueprints', name: 'infra-blueprints', lang: 'HCL', updated: '1w ago' },
+  ];
 
-  const toggleRepo = (name: string) => {
-    setSelectedRepos((current) =>
-      current.includes(name) ? current.filter((repo) => repo !== name) : [...current, name]
-    )
-  }
-
-  const handleNext = () => setStep((current) => Math.min(current + 1, 3))
-
-  const handleGenerateScore = () => {
-    setIsAnalyzing(true)
-    setTimeout(() => {
-      router.push("/dashboard")
-    }, 2000)
-  }
+  const toggleRepo = (id: string) => {
+    setSelectedRepos(prev => 
+      prev.includes(id) ? prev.filter(r => r !== id) : [...prev, id]
+    );
+  };
 
   return (
-    <div className="min-h-screen w-full bg-black text-white font-sans antialiased selection:bg-emerald-500 selection:text-black flex flex-col relative overflow-hidden">
-      
-      {/* Immersive OASIS Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.05)_0%,transparent_70%)] z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)] z-0 pointer-events-none" />
+    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans flex flex-col justify-between selection:bg-emerald-500/30 relative overflow-hidden">
+      {/* Fondo de Malla Grid OASIS */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
 
-      {/* Minimalist Top HUD */}
-      <header className="absolute top-0 w-full px-8 py-8 flex justify-between items-center z-20">
-        <div className="font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase flex items-center gap-3">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#10b981]" />
-          Initialization Sequence
-        </div>
-        <div className="font-mono text-[10px] tracking-[0.2em] text-emerald-400/70 uppercase">
-          Step 0{step} / 03
+      {/* Header Onboarding */}
+      <header className="border-b border-zinc-800/60 bg-[#08090d]/80 backdrop-blur-xl sticky top-0 z-50 px-8 py-5 flex items-center justify-between">
+        <WerkDeckNavbarLogo />
+        <div className="flex items-center gap-3 font-mono text-xs">
+          <span className="text-zinc-500 uppercase tracking-widest">INITIALIZATION SEQUENCE</span>
+          <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+            STEP 0{step} / 03
+          </span>
         </div>
       </header>
 
-      {/* The Central Monolith */}
-      <main className="flex-1 flex flex-col items-center justify-center relative z-10 w-full max-w-2xl mx-auto px-6 mt-10">
-        
-        {/* Step 1: Identity & Role */}
+      {/* Pantallas Dinámicas */}
+      <main className="max-w-4xl mx-auto w-full px-6 py-12 relative z-10 flex-1 flex flex-col justify-center">
         {step === 1 && (
-          <div className="w-full text-center space-y-10 animate-in fade-in zoom-in-95 duration-700">
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white">
-                Sincroniza tu <br className="md:hidden" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Identidad</span>
+          <div className="space-y-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div>
+              <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.3em] font-bold block mb-3">
+                // PROTOCOL INITIALIZATION
+              </span>
+              <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                Sincroniza tu <span className="text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Identidad</span>
               </h1>
-              <div className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto flex flex-col items-center justify-center text-center">
-                <span>Selecciona tu nodo de acceso. El sistema adaptará el entorno</span> 
-                <span>según tu objetivo en la red.</span>
-              </div>
+              <p className="text-zinc-400 text-base mt-4 max-w-xl mx-auto leading-relaxed">
+                Selecciona tu nodo de acceso. El sistema adaptará el entorno según tu objetivo en la red.
+              </p>
             </div>
 
-            {/* Apple-Style Segmented Control (Fixed Contrast) */}
-            <div className="flex p-1.5 bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 rounded-full max-w-sm mx-auto shadow-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto pt-4">
               <button
-                onClick={() => setFlow("developer")}
-                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
-                  flow === "developer" ? "bg-white text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
+                onClick={() => setRole('developer')}
+                className={`p-8 rounded-2xl border text-left transition-all duration-300 relative ${
+                  role === 'developer'
+                    ? 'bg-[#0c0d12] border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.15)] scale-[1.02]'
+                    : 'bg-[#08090d]/60 border-zinc-800 hover:border-zinc-700'
                 }`}
               >
-                Developer
+                <Terminal className={`w-8 h-8 mb-4 ${role === 'developer' ? 'text-emerald-400' : 'text-zinc-500'}`} />
+                <h3 className="text-xl font-bold text-white mb-1">DEVELOPER</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">Demuestra capacidad técnica con pruebas de código verificado.</p>
               </button>
+
               <button
-                onClick={() => setFlow("company")}
-                className={`flex-1 py-3 px-6 rounded-full font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 ${
-                  flow === "company" ? "bg-white text-black shadow-md" : "text-zinc-500 hover:text-zinc-300"
+                onClick={() => setRole('company')}
+                className={`p-8 rounded-2xl border text-left transition-all duration-300 relative ${
+                  role === 'company'
+                    ? 'bg-[#0c0d12] border-emerald-500/80 shadow-[0_0_30px_rgba(16,185,129,0.15)] scale-[1.02]'
+                    : 'bg-[#08090d]/60 border-zinc-800 hover:border-zinc-700'
                 }`}
               >
-                Company
+                <Shield className={`w-8 h-8 mb-4 ${role === 'company' ? 'text-emerald-400' : 'text-zinc-500'}`} />
+                <h3 className="text-xl font-bold text-white mb-1">COMPANY</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">Publica desafíos en Arenas y subasta talento sin sesgos.</p>
               </button>
             </div>
 
-            {/* Main Call to Action (The Visual Magnet) */}
-            <button 
-              onClick={handleNext}
-              className="mt-8 group relative bg-emerald-400 hover:bg-emerald-300 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase w-full max-w-sm mx-auto py-5 rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(16,185,129,0.25)] hover:shadow-[0_0_50px_rgba(16,185,129,0.4)] flex items-center justify-center gap-3"
+            <button
+              onClick={() => setStep(2)}
+              className="mt-8 bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-extrabold text-sm uppercase tracking-wider py-4 px-10 rounded-xl transition shadow-[0_0_25px_rgba(16,185,129,0.3)] inline-flex items-center gap-3 active:scale-95"
             >
-              <span className="relative z-10">{flow === "developer" ? "Conectar GitHub Signal" : "Configurar Entidad"}</span>
-              <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
+              Conectar Señal Github <Github className="w-5 h-5 fill-black" />
             </button>
           </div>
         )}
 
-        {/* Step 2: Calibrate Signal (Developer Flow) */}
-        {step === 2 && flow === "developer" && (
-          <div className="w-full space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white">
-                Calibrando <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Señal</span>
-              </h2>
-              <p className="text-zinc-400 text-sm font-light tracking-wide max-w-sm mx-auto">
+        {step === 2 && (
+          <div className="space-y-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div>
+              <span className="font-mono text-xs text-emerald-400 uppercase tracking-[0.3em] font-bold block mb-3">
+                // CRYPTOGRAPHIC PROOF ENGINE
+              </span>
+              <h1 className="text-5xl font-extrabold text-white tracking-tight">
+                Calibrando <span className="text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Señal</span>
+              </h1>
+              <p className="text-zinc-400 text-base mt-3 max-w-lg mx-auto">
                 Selecciona los repositorios que formarán la base criptográfica de tu ProofScore.
               </p>
             </div>
 
-            <div className="space-y-3 max-w-md mx-auto">
-              {developerRepos.map((repo) => (
-                <div 
-                  key={repo.name}
-                  onClick={() => toggleRepo(repo.name)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all duration-300 flex items-center justify-between backdrop-blur-sm ${
-                    selectedRepos.includes(repo.name) 
-                      ? "bg-emerald-950/30 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
-                      : "bg-zinc-950/50 border-zinc-800/50 hover:border-zinc-700"
-                  }`}
-                >
-                  <div>
-                    <h3 className={`font-mono text-sm ${selectedRepos.includes(repo.name) ? "text-emerald-400" : "text-zinc-300"}`}>
-                      {repo.name}
-                    </h3>
-                    <p className="text-xs text-zinc-600 mt-1 font-sans">{repo.language} • {repo.updated}</p>
+            <div className="space-y-4 max-w-xl mx-auto text-left">
+              {repos.map((repo) => {
+                const isSelected = selectedRepos.includes(repo.id);
+                return (
+                  <div
+                    key={repo.id}
+                    onClick={() => toggleRepo(repo.id)}
+                    className={`p-5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
+                      isSelected
+                        ? 'bg-[#0c0d12] border-emerald-500/70 shadow-[0_0_20px_rgba(16,185,129,0.12)]'
+                        : 'bg-[#08090d]/60 border-zinc-800 hover:border-zinc-700'
+                    }`}
+                  >
+                    <div>
+                      <h4 className="font-mono text-sm font-bold text-emerald-400">{repo.name}</h4>
+                      <p className="font-mono text-xs text-zinc-500 mt-1">{repo.lang} • {repo.updated}</p>
+                    </div>
+                    <CheckCircle2 className={`w-6 h-6 transition ${isSelected ? 'text-emerald-400 fill-emerald-500/20' : 'text-zinc-700'}`} />
                   </div>
-                  <div className={`h-4 w-4 rounded-full border flex items-center justify-center transition-colors ${
-                    selectedRepos.includes(repo.name) ? "border-emerald-500 bg-emerald-500" : "border-zinc-700"
-                  }`}>
-                    {selectedRepos.includes(repo.name) && <div className="h-1.5 w-1.5 bg-black rounded-full" />}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="flex justify-center pt-6">
-              <button 
-                onClick={handleNext}
-                disabled={selectedRepos.length === 0}
-                className="bg-white text-black hover:bg-emerald-400 disabled:opacity-50 disabled:hover:bg-white font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-4 rounded-full transition-all duration-500 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(16,185,129,0.3)]"
-              >
-                Confirmar Selección
-              </button>
-            </div>
+            <button
+              onClick={() => setStep(3)}
+              className="mt-6 bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-extrabold text-sm uppercase tracking-wider py-4 px-10 rounded-xl transition shadow-[0_0_25px_rgba(16,185,129,0.3)] inline-flex items-center gap-3 active:scale-95"
+            >
+              Confirmar Selección <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         )}
 
-        {/* Step 3: Genesis / ProofScore Generation */}
         {step === 3 && (
-          <div className="w-full text-center space-y-10 animate-in zoom-in-95 duration-1000">
-            <div className="relative w-32 h-32 mx-auto flex items-center justify-center">
-              <div className={`absolute inset-0 border-[1px] rounded-full transition-all duration-1000 ${isAnalyzing ? 'border-emerald-500 animate-[spin_2s_linear_infinite]' : 'border-zinc-800'}`} />
-              <div className={`absolute inset-2 border-[1px] border-dashed rounded-full transition-all duration-1000 ${isAnalyzing ? 'border-emerald-400/50 animate-[spin_3s_linear_infinite_reverse]' : 'border-zinc-800/50'}`} />
-              <span className="font-mono text-[10px] text-emerald-400 tracking-[0.2em] uppercase">
-                {isAnalyzing ? "Syncing..." : "Ready"}
-              </span>
+          <div className="space-y-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="relative inline-block">
+              <div className="w-24 h-24 rounded-full border-2 border-emerald-500/40 border-t-emerald-400 animate-spin mx-auto flex items-center justify-center"></div>
+              <Zap className="w-8 h-8 text-emerald-400 absolute inset-0 m-auto" />
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white drop-shadow-lg">
-                Génesis del <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-600">Sistema</span>
-              </h2>
-              <div className="text-zinc-400 text-sm md:text-base font-light tracking-wide max-w-md mx-auto flex flex-col items-center justify-center text-center">
-                <span>Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.</span>
-              </div>
+            <div>
+              <h1 className="text-5xl font-extrabold text-white tracking-tight">
+                Génesis del <span className="text-emerald-400 drop-shadow-[0_0_20px_rgba(16,185,129,0.35)]">Sistema</span>
+              </h1>
+              <p className="text-zinc-400 text-base mt-3 max-w-lg mx-auto">
+                Todos los protocolos están listos. Generando tu huella criptográfica en el coliseo.
+              </p>
             </div>
 
-            <button 
-              onClick={handleGenerateScore}
-              disabled={isAnalyzing}
-              className="relative group bg-emerald-500 hover:bg-emerald-400 text-black font-sans text-xs font-bold tracking-[0.2em] uppercase px-12 py-5 rounded-full transition-all duration-500 overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.3)] disabled:opacity-80"
+            <a
+              href="/dashboard/feed"
+              className="inline-flex bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-extrabold text-sm uppercase tracking-wider py-4 px-10 rounded-xl transition shadow-[0_0_25px_rgba(16,185,129,0.3)] items-center gap-3 active:scale-95"
             >
-              <span className="relative z-10">{isAnalyzing ? "CREANDO ACCESO..." : "ENTRAR AL OASIS"}</span>
-            </button>
+              Acceder al Kernel Global <ArrowRight className="w-5 h-5" />
+            </a>
           </div>
         )}
       </main>
 
-      {/* Ultra-Thin Progress Line at Bottom */}
-      <div className="absolute bottom-0 left-0 h-[2px] bg-zinc-900 w-full">
-        <div 
-          className="h-full bg-emerald-500 transition-all duration-1000 ease-in-out shadow-[0_0_15px_#10b981]"
-          style={{ width: `${(step / 3) * 100}%` }}
-        />
-      </div>
-
+      {/* Progress Footer */}
+      <footer className="border-t border-zinc-800/60 py-4 px-8 text-center font-mono text-xs text-zinc-600">
+        WERKDECK PROTOCOL // ALL SIGNALS ENCRYPTED
+      </footer>
     </div>
-  )
+  );
 }
