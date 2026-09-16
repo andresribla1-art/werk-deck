@@ -1,56 +1,84 @@
+import React from 'react';
+import { ShieldAlert, Zap, Cpu, Award, ChevronRight } from 'lucide-react';
+
 export default function Arenas() {
   const arenas = [
-    { title: "Zero-Latency Agentic Workflow Engine", category: "AI-NATIVE", diff: "EXTREME", bounty: "1,500 USDC", active: 48 },
-    { title: "Rust Memory Leak Extractor", category: "PURE CODE", diff: "INSANE", bounty: "2,200 USDC", active: 31 }
+    {
+      id: "01",
+      title: "Zero-Latency Agentic Workflow Engine",
+      category: "AI-NATIVE",
+      difficulty: "EXTREME",
+      description: "Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.",
+      reward: "1,500 USDC",
+      devs: 48,
+    },
+    {
+      id: "02",
+      title: "Rust Memory Leak Extractor",
+      category: "PURE CODE",
+      difficulty: "INSANE",
+      description: "Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.",
+      reward: "2,200 USDC",
+      devs: 31,
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-emerald-500/30">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-          <h1 className="text-4xl font-light text-zinc-100 tracking-tight">Arenas de Competición</h1>
-          <div className="flex bg-[#0a0a0a] border border-white/5 p-1 rounded-sm">
-            <button className="px-6 py-2 bg-[#111] text-zinc-100 text-xs font-mono tracking-widest rounded-sm border border-white/5 shadow-sm">TODOS</button>
-            {/* FIX: text-zinc-500 -> text-zinc-400 en botones */}
-            <button className="px-6 py-2 text-zinc-400 hover:text-zinc-200 text-xs font-mono tracking-widest transition-colors">PURE CODE</button>
-            <button className="px-6 py-2 text-zinc-400 hover:text-zinc-200 text-xs font-mono tracking-widest transition-colors">AI-NATIVE</button>
+    <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 pb-6 border-b border-zinc-800/80 gap-4">
+          <div>
+            <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest font-bold block mb-1">
+              COMPETITIVE ARENAS
+            </span>
+            <h1 className="text-4xl font-extrabold text-white tracking-tight">Arenas de Competición</h1>
+          </div>
+          
+          <div className="flex bg-[#0c0d12] border border-zinc-800/80 p-1 rounded-lg font-mono text-xs">
+            <button className="px-4 py-2 rounded-md bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+              TODOS
+            </button>
+            <button className="px-4 py-2 rounded-md text-zinc-400 hover:text-white transition">PURE CODE</button>
+            <button className="px-4 py-2 rounded-md text-zinc-400 hover:text-white transition">AI-NATIVE</button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {arenas.map((arena, i) => (
-            <div key={i} className="group flex flex-col bg-[#0a0a0a] border border-white/5 hover:border-emerald-500/30 rounded-sm p-8 transition-all duration-500 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-emerald-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"></div>
-              
-              <div className="flex justify-between items-center mb-8 relative z-10">
-                <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-[0.2em] border border-white/10 px-2 py-1 rounded-sm">{arena.category}</span>
-                <span className="font-mono text-[10px] text-red-400 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                  {arena.diff}
-                </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {arenas.map((arena) => (
+            <div key={arena.id} className="bg-[#0c0d12] border border-zinc-800/80 hover:border-emerald-500/40 rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.08)] group">
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="px-2.5 py-1 bg-zinc-800/80 text-zinc-300 border border-zinc-700/50 font-mono text-[10px] font-bold rounded">
+                    {arena.category}
+                  </span>
+                  <span className="text-rose-400 font-mono text-[10px] tracking-wider font-bold flex items-center gap-1 bg-rose-950/30 px-2 py-0.5 rounded border border-rose-900/40">
+                    <ShieldAlert className="w-3 h-3" />
+                    {arena.difficulty}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors leading-snug">
+                  {arena.title}
+                </h3>
+                <p className="text-zinc-400 text-xs leading-relaxed mb-6">
+                  {arena.description}
+                </p>
               </div>
-              
-              <div className="flex-1 relative z-10">
-                <h2 className="text-xl text-zinc-100 font-medium leading-snug mb-3 tracking-tight group-hover:text-emerald-400 transition-colors">{arena.title}</h2>
-                {/* FIX: Párrafo de texto text-zinc-500 -> text-zinc-400 */}
-                <p className="text-sm font-light text-zinc-400 leading-relaxed">Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.</p>
-              </div>
-              
-              <div className="mt-8 pt-6 border-t border-white/5 relative z-10">
-                <div className="flex justify-between items-end mb-6">
+
+              <div>
+                <div className="bg-[#12131a] border border-zinc-800/80 rounded-lg p-3.5 mb-5 flex justify-between items-center font-mono">
                   <div>
-                    {/* FIX: text-zinc-500 -> text-zinc-400 */}
-                    <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Recompensa</p>
-                    <p className="font-mono text-lg text-emerald-400">{arena.bounty}</p>
+                    <span className="text-[10px] text-zinc-500 uppercase block">Recompensa</span>
+                    <span className="text-base text-emerald-400 font-extrabold">{arena.reward}</span>
                   </div>
                   <div className="text-right">
-                    {/* FIX: text-zinc-500 -> text-zinc-400 */}
-                    <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Nodos Activos</p>
-                    <p className="font-mono text-sm text-zinc-300">{arena.active} devs</p>
+                    <span className="text-[10px] text-zinc-500 uppercase block">Nodos Activos</span>
+                    <span className="text-sm text-zinc-200 font-bold">{arena.devs} devs</span>
                   </div>
                 </div>
-                <button className="w-full bg-white/5 hover:bg-emerald-500 text-zinc-300 hover:text-black font-mono text-xs py-3 tracking-[0.2em] uppercase rounded-sm transition-all duration-300">
+
+                <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(16,185,129,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)]">
+                  <Zap className="w-4 h-4 fill-black" />
                   Iniciar Secuencia
                 </button>
               </div>

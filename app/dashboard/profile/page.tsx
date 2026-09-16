@@ -1,87 +1,91 @@
+import React from 'react';
+import { Award, CheckCircle2, Cpu, BarChart2 } from 'lucide-react';
+
 export default function ProofProfile() {
   return (
-    <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-emerald-500/30">
-      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
-        <div className="bg-[#0a0a0a] border border-white/5 rounded-sm p-8 md:p-12 mb-8 flex flex-col md:flex-row justify-between items-center gap-10">
-          <div>
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-20 h-20 bg-black border border-white/10 flex items-center justify-center rounded-sm">
-                <span className="font-mono text-2xl text-zinc-100">JD</span>
+    <div className="min-h-screen bg-[#050507] text-zinc-100 font-sans p-8">
+      <div className="max-w-[1440px] mx-auto space-y-8">
+        {/* Main Identity Banner */}
+        <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-8 relative overflow-hidden shadow-2xl">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+            <div className="flex items-center gap-6">
+              <div className="w-20 h-20 bg-[#12131a] border-2 border-emerald-500/50 rounded-2xl flex items-center justify-center font-mono text-2xl font-bold text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                JD
               </div>
               <div>
-                <h1 className="text-3xl font-light text-zinc-100 tracking-tight">John Doe</h1>
-                {/* FIX: ID de zinc-500 a zinc-400 */}
-                <p className="font-mono text-xs text-zinc-400 tracking-widest mt-1">ID: WDK-8894-A</p>
+                <h1 className="text-3xl font-extrabold text-white tracking-tight">John Doe</h1>
+                <p className="font-mono text-xs text-zinc-400 mt-1 font-semibold">ID: WDK-8894-A</p>
+                <p className="text-sm text-zinc-300 mt-3 max-w-xl leading-relaxed">
+                  Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
+                </p>
               </div>
             </div>
-            {/* FIX: Biografía de zinc-400 a zinc-300 para legibilidad absoluta */}
-            <p className="text-sm font-light text-zinc-300 max-w-md leading-relaxed">
-              Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
-            </p>
-          </div>
-          
-          <div className="flex flex-col items-center">
-            {/* FIX: Etiqueta de zinc-500 a zinc-400 */}
-            <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-[0.3em] mb-4">ProofScore</span>
-            <div className="relative flex items-center justify-center">
-              <svg className="w-32 h-32 transform -rotate-90">
-                <circle cx="64" cy="64" r="60" stroke="#111" strokeWidth="2" fill="transparent" />
-                <circle cx="64" cy="64" r="60" stroke="#10b981" strokeWidth="4" fill="transparent" strokeDasharray="377" strokeDashoffset="75" className="drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-              </svg>
-              <span className="absolute font-mono text-4xl text-zinc-100 font-light tracking-tighter">890</span>
+
+            {/* Score HUD Circular Representation */}
+            <div className="bg-[#12131a] border border-zinc-800/80 p-6 rounded-xl flex items-center gap-6 shadow-inner">
+              <div className="text-right">
+                <span className="font-mono text-xs text-zinc-400 uppercase tracking-widest block font-bold">PROOFSCORE</span>
+                <span className="font-mono text-4xl font-black text-emerald-400 tracking-tight drop-shadow-[0_0_12px_rgba(16,185,129,0.3)]">890</span>
+              </div>
+              <div className="w-16 h-16 rounded-full border-4 border-emerald-500/20 border-t-emerald-400 animate-spin-slow flex items-center justify-center">
+                <Award className="w-6 h-6 text-emerald-400" />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          
-          <section>
-            <h3 className="font-mono text-[10px] text-zinc-100 uppercase tracking-[0.2em] mb-4 border-b border-white/5 pb-2">Métricas de Ejecución</h3>
-            <div className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6 space-y-6">
-              <div>
-                {/* FIX: zinc-500 a zinc-400 */}
-                <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Commits Verificados</p>
-                <div className="flex items-end gap-3">
-                  <span className="font-mono text-3xl text-zinc-100 font-light leading-none">342</span>
-                  <span className="font-mono text-[10px] text-emerald-400 mb-1">100% HASH VALIDATED</span>
+        {/* Metrics Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 shadow-2xl">
+            <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+              <BarChart2 className="w-4 h-4 text-emerald-400" />
+              MÉTRICAS DE EJECUCIÓN
+            </h2>
+            
+            <div className="space-y-6">
+              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-lg flex justify-between items-center">
+                <div>
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">Commits Verificados</span>
+                  <span className="font-mono text-2xl font-extrabold text-white">342</span>
                 </div>
+                <span className="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold rounded">
+                  100% HASH VALIDATED
+                </span>
               </div>
-              <div className="w-full h-px bg-white/5"></div>
-              <div>
-                {/* FIX: zinc-500 a zinc-400 */}
-                <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest mb-1">Deploy Success Rate</p>
-                <div className="flex items-end gap-3">
-                  <span className="font-mono text-3xl text-zinc-100 font-light leading-none">98.4%</span>
-                  {/* FIX: zinc-500 a zinc-400 */}
-                  <span className="font-mono text-[10px] text-zinc-400 mb-1">30D AVERAGE</span>
+
+              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-lg flex justify-between items-center">
+                <div>
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">Deploy Success Rate</span>
+                  <span className="font-mono text-2xl font-extrabold text-emerald-400">98.4%</span>
                 </div>
+                <span className="font-mono text-xs text-zinc-400">30D AVERAGE</span>
               </div>
             </div>
-          </section>
+          </div>
 
-          <section>
-            <h3 className="font-mono text-[10px] text-zinc-100 uppercase tracking-[0.2em] mb-4 border-b border-white/5 pb-2">Historial de Arenas</h3>
-            <div className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6 space-y-4">
-              <div className="flex justify-between items-center p-3 bg-black border border-white/5 rounded-sm">
+          <div className="bg-[#0c0d12] border border-zinc-800/80 rounded-xl p-6 shadow-2xl">
+            <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6">
+              HISTORIAL DE ARENAS
+            </h2>
+
+            <div className="space-y-4 font-mono">
+              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-lg flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-zinc-100">Zero-Latency Router</p>
-                  <p className="font-mono text-[9px] text-emerald-500 tracking-widest mt-1">1ER LUGAR</p>
+                  <h3 className="text-sm font-bold text-white">Zero-Latency Router</h3>
+                  <span className="text-[10px] text-emerald-400 font-bold">1ER LUGAR</span>
                 </div>
-                {/* FIX: zinc-500 a zinc-400 */}
-                <span className="font-mono text-xs text-zinc-400">1,500 USDC</span>
+                <span className="text-sm font-extrabold text-zinc-200">1,500 USDC</span>
               </div>
-              <div className="flex justify-between items-center p-3 bg-black border border-white/5 rounded-sm">
+
+              <div className="bg-[#12131a] border border-zinc-800/80 p-4 rounded-lg flex justify-between items-center">
                 <div>
-                  <p className="text-sm text-zinc-100">SecOps CTF Challenge</p>
-                  <p className="font-mono text-[9px] text-emerald-500 tracking-widest mt-1">2DO LUGAR</p>
+                  <h3 className="text-sm font-bold text-white">SecOps CTF Challenge</h3>
+                  <span className="text-[10px] text-amber-400 font-bold">2DO LUGAR</span>
                 </div>
-                {/* FIX: zinc-500 a zinc-400 */}
-                <span className="font-mono text-xs text-zinc-400">800 USDC</span>
+                <span className="text-sm font-extrabold text-zinc-200">800 USDC</span>
               </div>
             </div>
-          </section>
-
+          </div>
         </div>
       </div>
     </div>
