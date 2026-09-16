@@ -1,106 +1,59 @@
-import React from 'react';
-import { WerkDeckNavbarLogo } from '@/components/WerkDeckNavbarLogo';
-import { Award, BarChart2, CheckCircle2, ShieldCheck, Terminal } from 'lucide-react';
+"use client";
 
-export default function ProofProfile() {
+export default function ProofProfilePage() {
   return (
-    <div className="min-h-screen bg-[#030406] text-zinc-100 font-sans">
-      <nav className="border-b border-zinc-800/80 bg-[#08090d]/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-10">
-          <WerkDeckNavbarLogo />
-          <div className="hidden md:flex items-center gap-6 font-mono text-xs text-zinc-400">
-            <a href="/dashboard/feed" className="hover:text-zinc-200 transition">Execution Feed</a>
-            <a href="/dashboard/arenas" className="hover:text-zinc-200 transition">Arenas</a>
-            <a href="/dashboard/bidding" className="hover:text-zinc-200 transition">Talent Bidding</a>
-            <a href="/dashboard/profile" className="text-emerald-400 font-bold border-b-2 border-emerald-400 pb-0.5">Proof Profile</a>
-            <a href="/dashboard/messages" className="hover:text-zinc-200 transition">Messages</a>
+    <div className="space-y-6 max-w-7xl mx-auto p-4 md:p-8">
+      {/* Identity Card */}
+      <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center space-x-6">
+          <div className="w-20 h-20 rounded-2xl bg-emerald-950/40 border-2 border-[#00FF88] flex items-center justify-center font-mono text-2xl font-bold text-[#00FF88] shadow-[0_0_20px_rgba(0,255,136,0.15)]">
+            JD
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2">
+              <h1 className="text-2xl font-semibold text-white">John Doe</h1>
+              <span className="text-[#00FF88]">✓</span>
+            </div>
+            <p className="text-xs font-mono text-zinc-400">&gt;_ ID: WDK-8894-A</p>
+            <p className="text-xs text-zinc-300 max-w-lg font-sans">
+              Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
+            </p>
           </div>
         </div>
-      </nav>
 
-      <div className="max-w-[1600px] mx-auto p-6 md:p-10 space-y-8">
-        <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
-            <div className="flex items-center gap-6">
-              <div className="w-24 h-24 bg-[#12131a] border-2 border-emerald-500/50 rounded-2xl flex items-center justify-center font-mono text-3xl font-black text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.2)] shrink-0">
-                JD
-              </div>
-              <div>
-                <div className="flex items-center gap-2.5">
-                  <h1 className="text-3xl font-extrabold text-white tracking-tight">John Doe</h1>
-                  <CheckCircle2 className="w-6 h-6 text-emerald-400 fill-emerald-500/20" />
-                </div>
-                <p className="font-mono text-xs text-zinc-400 mt-1 font-semibold flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-emerald-400" /> ID: WDK-8894-A
-                </p>
-                <p className="text-sm text-zinc-300 mt-3 max-w-2xl leading-relaxed">
-                  Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
-                </p>
-              </div>
+        <div className="bg-black/50 border border-white/10 rounded-2xl p-5 text-center min-w-[160px]">
+          <p className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest">PROOFSCORE</p>
+          <p className="text-4xl font-mono font-bold text-[#00FF88] my-1 tabular-nums">890</p>
+          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">TOP 2% GLOBAL</span>
+        </div>
+      </div>
+
+      {/* Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 space-y-4">
+          <p className="text-[10px] font-mono text-[#00FF88] uppercase tracking-widest">📊 MÉTRICAS DE EJECUCIÓN</p>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5 font-mono">
+              <p className="text-[9px] text-zinc-500 uppercase">COMMITS VERIFICADOS</p>
+              <p className="text-2xl font-bold text-white mt-1 tabular-nums">342</p>
             </div>
-
-            <div className="bg-[#12131a] border border-zinc-800 p-6 rounded-2xl flex items-center gap-6 shadow-xl shrink-0">
-              <div className="text-right">
-                <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest block font-bold">PROOFSCORE</span>
-                <span className="font-mono text-4xl font-black text-emerald-400 tracking-tight">890</span>
-              </div>
-              <div className="w-16 h-16 rounded-full border-4 border-emerald-500/20 border-t-emerald-400 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                <Award className="w-7 h-7 text-emerald-400" />
-              </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5 font-mono">
+              <p className="text-[9px] text-zinc-500 uppercase">DEPLOY SUCCESS RATE</p>
+              <p className="text-2xl font-bold text-[#00FF88] mt-1 tabular-nums">98.4%</p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-7 shadow-2xl">
-            <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
-              <BarChart2 className="w-4 h-4 text-emerald-400" />
-              MÉTRICAS DE EJECUCIÓN
-            </h2>
-            
-            <div className="space-y-4">
-              <div className="bg-[#12131a] border border-zinc-800 p-5 rounded-xl flex justify-between items-center">
-                <div>
-                  <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">Commits Verificados</span>
-                  <span className="font-mono text-3xl font-black text-white">342</span>
-                </div>
-                <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold rounded-md">
-                  100% HASH VALIDATED
-                </span>
-              </div>
-
-              <div className="bg-[#12131a] border border-zinc-800 p-5 rounded-xl flex justify-between items-center">
-                <div>
-                  <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block mb-1">Deploy Success Rate</span>
-                  <span className="font-mono text-3xl font-black text-emerald-400">98.4%</span>
-                </div>
-                <span className="font-mono text-xs text-zinc-400 font-semibold">30D AVERAGE</span>
-              </div>
+        <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 space-y-4">
+          <p className="text-[10px] font-mono text-[#00FF88] uppercase tracking-widest">🛡️ HISTORIAL DE ARENAS</p>
+          <div className="space-y-3 font-mono text-xs">
+            <div className="flex justify-between items-center p-3 bg-black/40 rounded-xl border border-white/5">
+              <span>Zero-Latency Router</span>
+              <span className="text-[#00FF88] font-bold">1,500 USDC</span>
             </div>
-          </div>
-
-          <div className="bg-[#0c0d12] border border-zinc-800 rounded-2xl p-7 shadow-2xl">
-            <h2 className="font-mono text-xs text-zinc-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              HISTORIAL DE ARENAS
-            </h2>
-
-            <div className="space-y-4 font-mono">
-              <div className="bg-[#12131a] border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
-                <div>
-                  <h3 className="text-sm font-bold text-white">Zero-Latency Router</h3>
-                  <span className="text-[10px] text-emerald-400 font-extrabold">1ER LUGAR</span>
-                </div>
-                <span className="text-sm font-black text-zinc-200">1,500 USDC</span>
-              </div>
-
-              <div className="bg-[#12131a] border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
-                <div>
-                  <h3 className="text-sm font-bold text-white">SecOps CTF Challenge</h3>
-                  <span className="text-[10px] text-amber-400 font-extrabold">2DO LUGAR</span>
-                </div>
-                <span className="text-sm font-black text-zinc-200">800 USDC</span>
-              </div>
+            <div className="flex justify-between items-center p-3 bg-black/40 rounded-xl border border-white/5">
+              <span>SecOps CTF Challenge</span>
+              <span className="text-amber-400 font-bold">800 USDC</span>
             </div>
           </div>
         </div>
