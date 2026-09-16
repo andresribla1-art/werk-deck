@@ -1,27 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 
-type Language = "es" | "en" | "fr" | "de" | "ja";
+export type Language = "es" | "en" | "fr" | "de" | "ja";
 
-type TranslationKeys = {
-  onboardingTitle: string;
-  onboardingSub: string;
-  devTitle: string;
-  devDesc: string;
-  companyTitle: string;
-  companyDesc: string;
-  connecting: string;
-  redirecting: string;
-  minFloor: string;
-  baseSalary: string;
-  activeBids: string;
-  setRate: string;
-  decrypt: string;
-  ignore: string;
-};
-
-const translations: Record<Language, TranslationKeys> = {
+const translations: Record<Language, Record<string, string>> = {
   es: {
+    // Nav
+    feedNav: "Execution Feed",
+    arenasNav: "Arenas",
+    biddingNav: "Talent Bidding",
+    profileNav: "Proof Profile",
+    messagesNav: "Messages",
+    // Onboarding
     onboardingTitle: "Sincroniza tu Identidad",
     onboardingSub: "Selecciona tu nodo de acceso. El sistema adaptará la física del entorno según tu objetivo en la red.",
     devTitle: "Developer",
@@ -29,15 +19,47 @@ const translations: Record<Language, TranslationKeys> = {
     companyTitle: "Company",
     companyDesc: "Lanza desafíos de código, audita ejecución técnica real y puja por talento calificado.",
     connecting: "ESTABLECIENDO ENLACE CRIPTOGRÁFICO...",
-    redirecting: "INGRESANDO AL FEED...",
+    // Feed
+    feedTitle: "Muro de Ejecución Global",
+    feedSub: "STREAM DE EJECUCIÓN EN TIEMPO REAL",
+    nodesActive: "Nodos Activos",
+    latency: "Latencia",
+    currentBlock: "Bloque Actual",
+    // Arenas
+    arenasTitle: "Arenas de Competición",
+    arenasSub: "ARENAS COMPETITIVAS",
+    filterAll: "TODOS",
+    filterPure: "CÓDIGO PURO",
+    filterAI: "IA-NATIVA",
+    startSequence: "INICIAR SECUENCIA",
+    // Bidding
+    biddingTitle: "Control Salarial & Pujas Globales",
+    biddingSub: "MOTOR DE DESCUBRIMIENTO DE TALENTO",
     minFloor: "UMBRAL MÍNIMO CONFIGURADO",
     baseSalary: "BASE ANUAL MÍNIMA",
-    activeBids: "Pujas Activas",
     setRate: "FIJAR VALOR EN RED",
+    activeBids: "Pujas Activas",
     decrypt: "DESENCRIPTAR",
-    ignore: "IGNORAR"
+    ignore: "IGNORAR",
+    // Profile
+    profileTitle: "Perfil de Ejecución Verificado",
+    metricsTitle: "MÉTRICAS DE EJECUCIÓN",
+    commitsVerified: "COMMITS VERIFICADOS",
+    deploySuccess: "TASA DE ÉXITO DE DEPLOY",
+    arenaHistory: "HISTORIAL DE ARENAS",
+    // Messages
+    messagesTitle: "Comunicaciones Encriptadas",
+    secureChannels: "CANALES SEGUROS",
+    originalOffer: "VER OFERTA ORIGINAL",
+    typePlaceholder: "Escribe un mensaje encriptado...",
+    send: "ENVIAR",
   },
   en: {
+    feedNav: "Execution Feed",
+    arenasNav: "Arenas",
+    biddingNav: "Talent Bidding",
+    profileNav: "Proof Profile",
+    messagesNav: "Messages",
     onboardingTitle: "Synchronize Your Identity",
     onboardingSub: "Select your access node. The system will adapt environment physics based on your network objective.",
     devTitle: "Developer",
@@ -45,62 +67,165 @@ const translations: Record<Language, TranslationKeys> = {
     companyTitle: "Company",
     companyDesc: "Launch code challenges, audit real technical execution, and bid on verified talent.",
     connecting: "ESTABLISHING CRYPTOGRAPHIC LINK...",
-    redirecting: "ENTERING FEED...",
+    feedTitle: "Global Execution Wall",
+    feedSub: "REAL-TIME EXECUTION STREAM",
+    nodesActive: "Active Nodes",
+    latency: "Latency",
+    currentBlock: "Current Block",
+    arenasTitle: "Competitive Arenas",
+    arenasSub: "COMPETITIVE ARENAS",
+    filterAll: "ALL",
+    filterPure: "PURE CODE",
+    filterAI: "AI-NATIVE",
+    startSequence: "START SEQUENCE",
+    biddingTitle: "Salary Floor & Global Bids",
+    biddingSub: "TALENT DISCOVERY ENGINE",
     minFloor: "MINIMUM FLOOR CONFIGURED",
     baseSalary: "MINIMUM ANNUAL BASE",
-    activeBids: "Active Bids",
     setRate: "SET NETWORK FLOOR",
+    activeBids: "Active Bids",
     decrypt: "DECRYPT",
-    ignore: "IGNORE"
+    ignore: "IGNORE",
+    profileTitle: "Verified Proof Profile",
+    metricsTitle: "EXECUTION METRICS",
+    commitsVerified: "VERIFIED COMMITS",
+    deploySuccess: "DEPLOY SUCCESS RATE",
+    arenaHistory: "ARENA HISTORY",
+    messagesTitle: "Encrypted Communications",
+    secureChannels: "SECURE CHANNELS",
+    originalOffer: "VIEW ORIGINAL OFFER",
+    typePlaceholder: "Type an encrypted message...",
+    send: "SEND",
   },
   fr: {
+    feedNav: "Flux d'Exécution",
+    arenasNav: "Arènes",
+    biddingNav: "Enchères de Talents",
+    profileNav: "Profil de Preuve",
+    messagesNav: "Messages",
     onboardingTitle: "Synchronisez Votre Identité",
-    onboardingSub: "Sélectionnez votre nœud d'accès. Le système adaptera l'environnement selon votre objectif.",
+    onboardingSub: "Sélectionnez votre nœud d'accès. Le système adaptera la physique de l'environnement selon votre objectif.",
     devTitle: "Développeur",
     devDesc: "Prouvez l'exécution avec du code pur, affrontez-vous dans les Arènes et verrouillez votre salaire.",
     companyTitle: "Entreprise",
     companyDesc: "Lancez des défis de code, auditez l'exécution technique et misez sur des talents vérifiés.",
     connecting: "ÉTABLISSEMENT DU LIEN CRYPTOGRAPHIQUE...",
-    redirecting: "ENTRÉE DANS LE FLUX...",
+    feedTitle: "Mur d'Exécution Global",
+    feedSub: "FLUX D'EXÉCUTION EN TEMPS REEL",
+    nodesActive: "Nœuds Actifs",
+    latency: "Latenz",
+    currentBlock: "Bloc Actuel",
+    arenasTitle: "Arènes Compétitives",
+    arenasSub: "ARÈNES COMPÉTITIVES",
+    filterAll: "TOUS",
+    filterPure: "CODE PUR",
+    filterAI: "IA-NATIVE",
+    startSequence: "LANCER SÉQUENCE",
+    biddingTitle: "Contrôle Salarial & Offres",
+    biddingSub: "MOTEUR DE DÉCOUVERTE DE TALENTS",
     minFloor: "SEUIL MINIMUM CONFIGURÉ",
     baseSalary: "BASE ANNUELLE MINIMALE",
-    activeBids: "Offres Actives",
     setRate: "FIXER LE SEUIL RÉSEAU",
+    activeBids: "Offres Actives",
     decrypt: "DÉCRYPTAGE",
-    ignore: "IGNORER"
+    ignore: "IGNORER",
+    profileTitle: "Profil de Preuve Vérifié",
+    metricsTitle: "MÉTRIQUES D'EXÉCUTION",
+    commitsVerified: "COMMITS VÉRIFIÉS",
+    deploySuccess: "TAUX DE SUCCÈS DÉPLOIEMENT",
+    arenaHistory: "HISTORIQUE DES ARÈNES",
+    messagesTitle: "Communications Cryptées",
+    secureChannels: "CANAUX SÉCURISÉS",
+    originalOffer: "VOIR L'OFFRE ORIGINALE",
+    typePlaceholder: "Écrivez un message crypté...",
+    send: "ENVOYER",
   },
   de: {
-    onboardingTitle: "Synchronisieren Sie Ihre Identität",
+    feedNav: "Ausführungs-Feed",
+    arenasNav: "Arenen",
+    biddingNav: "Talent-Bieten",
+    profileNav: "Proof-Profil",
+    messagesNav: "Nachrichten",
+    onboardingTitle: "Identität Synchronisieren",
     onboardingSub: "Wählen Sie Ihren Zugangsknoten. Das System passt die Umgebung basierend auf Ihrem Ziel an.",
     devTitle: "Entwickler",
     devDesc: "Beweisen Sie die Ausführung mit reinem Code und sichern Sie Ihr Gehalt.",
     companyTitle: "Unternehmen",
     companyDesc: "Starten Sie Code-Herausforderungen und bieten Sie auf verifizierte Talente.",
     connecting: "KRYPTOGRAPHISCHE VERBINDUNG WIRD HERGESTELLT...",
-    redirecting: "EINGANG IN DEN FEED...",
+    feedTitle: "Globale Ausführungswand",
+    feedSub: "ECHTZEIT-AUSFÜHRUNGS-STREAM",
+    nodesActive: "Aktive Knoten",
+    latency: "Latenz",
+    currentBlock: "Aktueller Block",
+    arenasTitle: "Wettbewerbs-Arenen",
+    arenasSub: "WETTBEWERBS-ARENEN",
+    filterAll: "ALLE",
+    filterPure: "REINER CODE",
+    filterAI: "KI-NATIV",
+    startSequence: "SEQUENZ STARTEN",
+    biddingTitle: "Gehaltsuntergrenze & Gebote",
+    biddingSub: "TALENT-ENTDECKUNGSMOTOR",
     minFloor: "MINIMALER SCHWELLENWERT KONFIGURIERT",
     baseSalary: "JÄHRLICHE MINDESTBASIS",
+    setRate: "NETZWERKWERT FESTLEGEN",
     activeBids: "Aktive Gebote",
-    setRate: "NETZWERKSCHWELLENWERT FESTLEGEN",
     decrypt: "ENTSCHLÜSSELN",
-    ignore: "IGNORIEREN"
+    ignore: "IGNORIEREN",
+    profileTitle: "Verifiziertes Proof-Profil",
+    metricsTitle: "AUSFÜHRUNGSMETRIKEN",
+    commitsVerified: "VERIFIZIERTE COMMITS",
+    deploySuccess: "DEPLOY-ERFOLGSQUOTE",
+    arenaHistory: "ARENEN-HISTORIE",
+    messagesTitle: "Verschlüsselte Nachrichten",
+    secureChannels: "SICHERE KANÄLE",
+    originalOffer: "ORIGINALANGEBOT ANSEHEN",
+    typePlaceholder: "Schreiben Sie eine verschlüsselte Nachricht...",
+    send: "SENDEN",
   },
   ja: {
+    feedNav: "実行フィード",
+    arenasNav: "アリーナ",
+    biddingNav: "タレント入札",
+    profileNav: "証明プロファイル",
+    messagesNav: "メッセージ",
     onboardingTitle: "アイデンティティを同期する",
-    onboardingSub: "アクセスノードを選択します。システムは目的 premium に合わせて環境を適応させます。",
+    onboardingSub: "アクセスノードを選択します。システムは目的に合わせて環境を適応させます。",
     devTitle: "デベロッパー",
     devDesc: "純粋なコードで実行を証明し、アリーナで競い合い、希望最低給与を保護します。",
     companyTitle: "企業",
     companyDesc: "コードチャレンジを公開し、技術的な実行を監査して検証された人材に入札します。",
     connecting: "暗号化リンクを確立中...",
-    redirecting: "フィードに移動中...",
+    feedTitle: "グローバル実行ウォール",
+    feedSub: "リアルタイム実行ストリーム",
+    nodesActive: "アクティブノード",
+    latency: "レイテンシ",
+    currentBlock: "現在のブロック",
+    arenasTitle: "競技アリーナ",
+    arenasSub: "競技アリーナ",
+    filterAll: "すべて",
+    filterPure: "ピュアコード",
+    filterAI: "AIネイティブ",
+    startSequence: "シーケンス開始",
+    biddingTitle: "給与の下限とグローバル入札",
+    biddingSub: "タレントディスカバリーエンジン",
     minFloor: "設定された最低しきい値",
     baseSalary: "最低年額ベース",
-    activeBids: "アクティブな入札",
     setRate: "ネットワーク値を設定",
+    activeBids: "アクティブな入札",
     decrypt: "復号化",
-    ignore: "無視"
-  }
+    ignore: "無視",
+    profileTitle: "検証済み証明プロファイル",
+    metricsTitle: "実行メトリクス",
+    commitsVerified: "検証済みコミット",
+    deploySuccess: "デプロイ成功率",
+    arenaHistory: "アリーナ履歴",
+    messagesTitle: "暗号化通信",
+    secureChannels: "安全なチャネル",
+    originalOffer: "元のオファーを表示",
+    typePlaceholder: "暗号化メッセージを入力...",
+    send: "送信",
+  },
 };
 
 export function useSystemLanguage() {
@@ -117,5 +242,9 @@ export function useSystemLanguage() {
     }
   }, []);
 
-  return { lang, t: translations[lang] || translations.en };
+  const t = (key: string): string => {
+    return translations[lang]?.[key] || translations["en"]?.[key] || key;
+  };
+
+  return { lang, t };
 }

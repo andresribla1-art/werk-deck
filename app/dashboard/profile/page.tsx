@@ -1,58 +1,70 @@
 "use client";
+import { ShieldCheck, Terminal, Award, CheckCircle2 } from "lucide-react";
+import { useSystemLanguage } from "@/hooks/useSystemLanguage";
 
-export default function ProofProfilePage() {
+export default function ProfilePage() {
+  const { t } = useSystemLanguage();
+
   return (
-    <div className="space-y-6 max-w-7xl mx-auto p-4 md:p-8">
-      {/* Identity Card */}
-      <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center space-x-6">
-          <div className="w-20 h-20 rounded-2xl bg-emerald-950/40 border-2 border-[#00FF88] flex items-center justify-center font-mono text-2xl font-bold text-[#00FF88] shadow-[0_0_20px_rgba(0,255,136,0.15)]">
+    <div className="space-y-8 p-6 max-w-7xl mx-auto">
+      <div className="border border-zinc-800 bg-zinc-950/60 p-8 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+        <div className="flex items-center gap-5">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-mono font-bold text-xl shadow-[0_0_20px_rgba(16,185,129,0.2)]">
             JD
           </div>
-          <div className="space-y-1">
-            <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-semibold text-white">John Doe</h1>
-              <span className="text-[#00FF88]">✓</span>
+          <div>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl font-extrabold text-white">John Doe</h1>
+              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
             </div>
-            <p className="text-xs font-mono text-zinc-400">&gt;_ ID: WDK-8894-A</p>
-            <p className="text-xs text-zinc-300 max-w-lg font-sans">
+            <p className="text-xs font-mono text-zinc-500 mt-0.5">&gt;_ ID: WDK-8894-A</p>
+            <p className="text-zinc-300 text-sm mt-2 max-w-xl font-sans">
               Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
             </p>
           </div>
         </div>
 
-        <div className="bg-black/50 border border-white/10 rounded-2xl p-5 text-center min-w-[160px]">
-          <p className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest">PROOFSCORE</p>
-          <p className="text-4xl font-mono font-bold text-[#00FF88] my-1 tabular-nums">890</p>
-          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">TOP 2% GLOBAL</span>
+        <div className="border border-zinc-800 bg-zinc-900/80 p-4 rounded-xl text-center font-mono min-w-[140px]">
+          <span className="text-[10px] text-zinc-500 block tracking-widest">PROOFSCORE</span>
+          <span className="text-3xl font-extrabold text-emerald-400">890</span>
+          <span className="inline-block mt-1 px-2 py-0.5 text-[10px] bg-emerald-950 text-emerald-300 rounded border border-emerald-800">
+            TOP 2% GLOBAL
+          </span>
         </div>
       </div>
 
-      {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 space-y-4">
-          <p className="text-[10px] font-mono text-[#00FF88] uppercase tracking-widest">📊 MÉTRICAS DE EJECUCIÓN</p>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5 font-mono">
-              <p className="text-[9px] text-zinc-500 uppercase">COMMITS VERIFICADOS</p>
-              <p className="text-2xl font-bold text-white mt-1 tabular-nums">342</p>
+        <div className="border border-zinc-800 bg-zinc-950/60 p-6 rounded-xl space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 border-b border-zinc-800/80 pb-3">
+            <Terminal className="w-4 h-4" />
+            <span>{t("metricsTitle")}</span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 pt-2 font-mono">
+            <div className="p-4 bg-zinc-900/60 rounded-lg border border-zinc-800">
+              <span className="text-[10px] text-zinc-500 block">{t("commitsVerified")}</span>
+              <span className="text-2xl font-extrabold text-white mt-1 block">342</span>
             </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5 font-mono">
-              <p className="text-[9px] text-zinc-500 uppercase">DEPLOY SUCCESS RATE</p>
-              <p className="text-2xl font-bold text-[#00FF88] mt-1 tabular-nums">98.4%</p>
+            <div className="p-4 bg-zinc-900/60 rounded-lg border border-zinc-800">
+              <span className="text-[10px] text-zinc-500 block">{t("deploySuccess")}</span>
+              <span className="text-2xl font-extrabold text-emerald-400 mt-1 block">98.4%</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white/[0.02] border border-white/10 backdrop-blur-xl rounded-2xl p-6 space-y-4">
-          <p className="text-[10px] font-mono text-[#00FF88] uppercase tracking-widest">🛡️ HISTORIAL DE ARENAS</p>
-          <div className="space-y-3 font-mono text-xs">
-            <div className="flex justify-between items-center p-3 bg-black/40 rounded-xl border border-white/5">
-              <span>Zero-Latency Router</span>
-              <span className="text-[#00FF88] font-bold">1,500 USDC</span>
+        <div className="border border-zinc-800 bg-zinc-950/60 p-6 rounded-xl space-y-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 border-b border-zinc-800/80 pb-3">
+            <Award className="w-4 h-4" />
+            <span>{t("arenaHistory")}</span>
+          </div>
+
+          <div className="space-y-3 pt-2 font-mono text-xs">
+            <div className="p-3 bg-zinc-900/60 rounded-lg border border-zinc-800 flex justify-between items-center">
+              <span className="text-zinc-200 font-bold">Zero-Latency Router</span>
+              <span className="text-emerald-400 font-bold">1,500 USDC</span>
             </div>
-            <div className="flex justify-between items-center p-3 bg-black/40 rounded-xl border border-white/5">
-              <span>SecOps CTF Challenge</span>
+            <div className="p-3 bg-zinc-900/60 rounded-lg border border-zinc-800 flex justify-between items-center">
+              <span className="text-zinc-200 font-bold">SecOps CTF Challenge</span>
               <span className="text-amber-400 font-bold">800 USDC</span>
             </div>
           </div>
