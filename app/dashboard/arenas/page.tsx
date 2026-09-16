@@ -1,49 +1,60 @@
-export default function CompetitionArenas() {
-  return (
-    <div className="min-h-[calc(100vh-4rem)] bg-black text-zinc-300 p-6 md:p-12 font-sans max-w-[1600px] mx-auto">
-      <header className="mb-12 border-b border-zinc-900/80 pb-8 flex justify-between items-end">
-        <div>
-          <p className="text-emerald-400 font-mono text-xs tracking-[0.3em] mb-3 uppercase">
-            // Sandboxes Aislados 24/7
-          </p>
-          <h1 className="text-4xl md:text-6xl font-light text-white tracking-tight">Arenas de Competición</h1>
-        </div>
-        <div className="hidden md:block font-mono text-xs text-zinc-500">
-          ESTADO DEL KERNEL: <span className="text-emerald-400">OPTIMIZADO</span>
-        </div>
-      </header>
+export default function Arenas() {
+  const arenas = [
+    { title: "Zero-Latency Agentic Workflow Engine", category: "AI-NATIVE", diff: "EXTREME", bounty: "1,500 USDC", active: 48 },
+    { title: "Rust Memory Leak Extractor", category: "PURE CODE", diff: "INSANE", bounty: "2,200 USDC", active: 31 }
+  ];
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div className="group relative bg-zinc-950 border border-zinc-900 p-8 flex flex-col justify-between h-[450px] hover:border-emerald-500/50 transition-all duration-500">
-          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <span className="bg-emerald-950 text-emerald-400 font-mono text-xs px-3 py-1 uppercase tracking-widest border border-emerald-900/50">AI-Native</span>
-              <span className="text-red-500 font-mono text-xs uppercase tracking-widest animate-pulse">Extreme</span>
-            </div>
-            <h2 className="text-2xl text-white font-medium leading-snug mb-4">Zero-Latency Agentic Workflow Engine</h2>
-            <p className="text-sm font-light text-zinc-400 leading-relaxed">Construye y optimiza un enrutador de agentes autónomos con latencia inferior a 50ms bajo alta carga concurrente.</p>
+  return (
+    <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-emerald-500/30">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        {/* Indexador Global (Filtros) */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <h1 className="text-4xl font-light text-zinc-100 tracking-tight">Arenas de Competición</h1>
+          <div className="flex bg-[#0a0a0a] border border-white/5 p-1 rounded-sm">
+            <button className="px-6 py-2 bg-[#111] text-zinc-100 text-xs font-mono tracking-widest rounded-sm border border-white/5 shadow-sm">TODOS</button>
+            <button className="px-6 py-2 text-zinc-500 hover:text-zinc-300 text-xs font-mono tracking-widest transition-colors">PURE CODE</button>
+            <button className="px-6 py-2 text-zinc-500 hover:text-zinc-300 text-xs font-mono tracking-widest transition-colors">AI-NATIVE</button>
           </div>
-          
-          <div className="space-y-6 pt-6 border-t border-zinc-900">
-            <div className="flex justify-between items-center font-mono text-sm">
-              <span className="text-zinc-500">RECOMPENSA:</span>
-              <span className="text-emerald-400 font-bold text-lg">1,500 USDC</span>
-            </div>
-            <div className="flex justify-between items-center font-mono text-xs">
-              <span className="text-zinc-500">DEV ACTIVOS:</span>
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </div>
+
+        {/* Grid de Subsistemas (Tarjetas) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {arenas.map((arena, i) => (
+            <div key={i} className="group flex flex-col bg-[#0a0a0a] border border-white/5 hover:border-emerald-500/30 rounded-sm p-8 transition-all duration-500 relative overflow-hidden">
+              {/* Efecto visual de 'energía' en hover */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-emerald-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"></div>
+              
+              <div className="flex justify-between items-center mb-8 relative z-10">
+                <span className="font-mono text-[10px] text-zinc-400 uppercase tracking-[0.2em] border border-white/10 px-2 py-1 rounded-sm">{arena.category}</span>
+                <span className="font-mono text-[10px] text-red-400 uppercase tracking-[0.2em] flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                  {arena.diff}
                 </span>
-                <span className="text-white">48 concursantes</span>
+              </div>
+              
+              <div className="flex-1 relative z-10">
+                <h2 className="text-xl text-zinc-100 font-medium leading-snug mb-3 tracking-tight group-hover:text-emerald-400 transition-colors">{arena.title}</h2>
+                <p className="text-sm font-light text-zinc-500 leading-relaxed">Sandbox optimizado. Desarrolla, compila y despliega sin salir del navegador. Auditoría algorítmica en tiempo real.</p>
+              </div>
+              
+              <div className="mt-8 pt-6 border-t border-white/5 relative z-10">
+                <div className="flex justify-between items-end mb-6">
+                  <div>
+                    <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Recompensa</p>
+                    <p className="font-mono text-lg text-emerald-400">{arena.bounty}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Nodos Activos</p>
+                    <p className="font-mono text-sm text-zinc-300">{arena.active} devs</p>
+                  </div>
+                </div>
+                <button className="w-full bg-white/5 hover:bg-emerald-500 text-zinc-300 hover:text-black font-mono text-xs py-3 tracking-[0.2em] uppercase rounded-sm transition-all duration-300">
+                  Iniciar Secuencia
+                </button>
               </div>
             </div>
-            <button className="w-full bg-zinc-900 border border-zinc-800 text-white font-mono text-xs py-4 uppercase tracking-[0.2em] group-hover:bg-emerald-400 group-hover:text-black group-hover:border-emerald-400 transition-all duration-300 font-bold">
-              Entrar al Sandbox →
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </div>

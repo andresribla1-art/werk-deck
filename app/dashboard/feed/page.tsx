@@ -1,61 +1,126 @@
 export default function ExecutionFeed() {
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-black text-zinc-300 p-6 md:p-12 font-sans selection:bg-emerald-500/30 max-w-[1600px] mx-auto">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-zinc-900/80 pb-8 mb-12 gap-4">
-        <div>
-          <p className="text-emerald-400 font-mono text-xs tracking-[0.3em] mb-3 flex items-center gap-2">
-            <span className="h-2 w-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]"></span>
-            // LIVE NETWORK TELEMETRY
-          </p>
-          <h1 className="text-4xl md:text-6xl font-light text-white tracking-tight">Muro de Ejecución Global</h1>
-        </div>
-        <div className="bg-zinc-950 border border-zinc-900 px-6 py-3 rounded-none flex items-center gap-6">
+    <div className="min-h-screen bg-[#030303] text-zinc-300 font-sans selection:bg-emerald-500/30">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Cabecera del Shell */}
+        <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between border-b border-white/5 pb-6">
           <div>
-            <p className="font-mono text-[10px] text-zinc-500 tracking-wider">NODOS ACTIVOS</p>
-            <p className="font-mono text-2xl text-emerald-400 font-medium">2,462</p>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald-500 font-semibold">
+                Kernel Sync: Real-Time
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-light text-zinc-100 tracking-tight leading-none">
+              Muro de Ejecución Global
+            </h1>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <main className="lg:col-span-8 space-y-4">
-          <div className="group bg-zinc-950/70 border border-zinc-900 hover:border-emerald-500/40 p-8 transition-all duration-300 relative">
-            <div className="absolute top-0 left-0 w-[2px] h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-4">
-                <div className="bg-emerald-950/80 text-emerald-400 font-mono text-xs px-3 py-2 border border-emerald-900/50">AL</div>
-                <div>
-                  <h3 className="text-white font-medium text-base">@alex_vortex</h3>
-                  <p className="text-[11px] font-mono text-zinc-500 tracking-wide">HACE 2 MIN</p>
+        {/* Arquitectura de 3 Columnas estilo LinkedIn pero Cyber-Minimalista */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* Columna Izquierda: Snapshot de Identidad (Yo) */}
+          <aside className="hidden lg:block lg:col-span-3">
+            <div className="bg-[#0a0a0a] border border-white/5 rounded-sm overflow-hidden sticky top-8">
+              <div className="h-16 bg-gradient-to-r from-zinc-900 to-[#0a0a0a] border-b border-white/5"></div>
+              <div className="px-6 pb-6 relative">
+                <div className="w-16 h-16 bg-black border border-white/10 rounded-sm absolute -top-8 flex items-center justify-center backdrop-blur-md">
+                  <span className="font-mono text-xl text-zinc-100">JD</span>
+                </div>
+                <div className="mt-10">
+                  <h2 className="text-lg font-medium text-white tracking-tight">John Doe</h2>
+                  <p className="font-mono text-[11px] text-zinc-500 tracking-wider mt-1">SYS.ARCHITECT // Lvl 4</p>
+                </div>
+                <div className="mt-6 pt-6 border-t border-white/5 space-y-4">
+                  <div className="flex justify-between items-end">
+                    <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">ProofScore</span>
+                    <span className="font-mono text-sm text-emerald-400">890</span>
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">Global Rank</span>
+                    <span className="font-mono text-sm text-zinc-300">Top 2%</span>
+                  </div>
                 </div>
               </div>
-              <span className="bg-zinc-900/80 text-emerald-400 font-mono text-xs px-3 py-1 border border-zinc-800">SCORE: 942</span>
             </div>
-            <p className="text-base font-light text-zinc-300 leading-relaxed mb-6">
-              Despliegue verificado en producción: enrutador de agentes autónomos con latencia <span className="text-emerald-400 font-mono">{'< 15ms'}</span>.
-            </p>
-            <div className="flex flex-wrap gap-6 font-mono text-xs text-zinc-500 border-t border-zinc-900/80 pt-4">
-              <span><strong className="text-emerald-500">TARGET:</strong> werkdeck/core-engine</span>
-              <span><strong className="text-emerald-500">HASH:</strong> a4f89b2</span>
-            </div>
-          </div>
-        </main>
+          </aside>
 
-        <aside className="lg:col-span-4 space-y-6">
-          <div className="bg-zinc-950 border border-zinc-900 p-8">
-            <h4 className="font-mono text-xs text-emerald-400 tracking-[0.2em] mb-6">// NETWORK STATUS</h4>
-            <div className="space-y-6 font-mono text-sm">
-              <div className="flex justify-between items-center border-b border-zinc-900 pb-4">
-                <span className="text-zinc-500 text-xs">LATENCIA GLOBAL</span>
-                <span className="text-white text-base">12ms</span>
+          {/* Columna Central: Timeline Algorítmico */}
+          <main className="lg:col-span-6 space-y-6">
+            {/* Componente de Feed: Ejecución Verificada */}
+            <article className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6 hover:border-white/10 transition-colors duration-300 group">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex gap-4 items-center">
+                  <div className="w-10 h-10 bg-black border border-white/10 flex items-center justify-center">
+                    <span className="font-mono text-xs text-emerald-500">AV</span>
+                  </div>
+                  <div>
+                    <h3 className="text-zinc-100 font-medium text-sm flex items-center gap-2">
+                      @alex_vortex 
+                      <span className="px-1.5 py-0.5 bg-emerald-500/10 text-emerald-500 text-[9px] font-mono rounded-sm border border-emerald-500/20">PRO</span>
+                    </h3>
+                    <p className="font-mono text-[10px] text-zinc-500 tracking-wider mt-0.5">Hace 2 min • Despliegue en Producción</p>
+                  </div>
+                </div>
+                <button className="text-zinc-600 hover:text-zinc-300 transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+                </button>
               </div>
-              <div className="flex justify-between items-center border-b border-zinc-900 pb-4">
-                <span className="text-zinc-500 text-xs">BLOQUES VALIDADOS</span>
-                <span className="text-emerald-400 text-base">#849,201</span>
+              
+              <div className="mt-4 mb-6">
+                <p className="text-sm font-light text-zinc-300 leading-relaxed">
+                  Implementación del enrutador de agentes autónomos completada. Reducción de latencia a <span className="font-mono text-emerald-400 bg-emerald-400/10 px-1 rounded-sm">&lt; 15ms</span> bajo carga concurrente extrema.
+                </p>
               </div>
+
+              {/* Contenedor Estructurado de Metadatos (El "Adjunto" del Post) */}
+              <div className="bg-[#050505] border border-white/5 rounded-sm p-4 flex flex-col sm:flex-row gap-6">
+                <div className="flex-1">
+                  <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Target Repo</p>
+                  <p className="font-mono text-xs text-zinc-300">werkdeck/core-engine</p>
+                </div>
+                <div className="w-px bg-white/5 hidden sm:block"></div>
+                <div className="flex-1">
+                  <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Commit Hash</p>
+                  <p className="font-mono text-xs text-emerald-500 flex items-center gap-2">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    a4f89b2
+                  </p>
+                </div>
+              </div>
+            </article>
+          </main>
+
+          {/* Columna Derecha: Módulos de Telemetría (Productos/Noticias) */}
+          <aside className="hidden lg:block lg:col-span-3 space-y-6">
+            <div className="bg-[#0a0a0a] border border-white/5 rounded-sm p-6">
+              <h4 className="font-mono text-[10px] text-zinc-100 uppercase tracking-[0.2em] mb-6 flex items-center justify-between">
+                Network Telemetry
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              </h4>
+              <ul className="space-y-5">
+                <li className="flex justify-between items-baseline">
+                  <span className="text-xs text-zinc-400 font-light">Nodos Activos</span>
+                  <span className="font-mono text-sm text-zinc-100">2,462</span>
+                </li>
+                <li className="flex justify-between items-baseline">
+                  <span className="text-xs text-zinc-400 font-light">Latencia Promedio</span>
+                  <span className="font-mono text-sm text-emerald-400">12ms</span>
+                </li>
+                <li className="flex justify-between items-baseline">
+                  <span className="text-xs text-zinc-400 font-light">Bloques</span>
+                  <span className="font-mono text-sm text-zinc-100">#849,201</span>
+                </li>
+              </ul>
             </div>
-          </div>
-        </aside>
+          </aside>
+
+        </div>
       </div>
     </div>
   );
