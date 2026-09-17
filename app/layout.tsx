@@ -1,34 +1,17 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
-const fontDisplay = Inter({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-export const metadata: Metadata = {
-  title: "WerkDeck | Sistema de Ejecución",
-  description: "Sistema HUD e Identidad",
-};
+export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <ClerkProvider>
-      <html lang="es" className={`${fontDisplay.variable} ${fontMono.variable} dark`}>
-        <body className="font-display bg-oasis-dark text-white antialiased selection:bg-oasis-emerald selection:text-black min-h-screen">
+      <html lang="es">
+        <body className="bg-black text-white antialiased">
           {children}
         </body>
       </html>

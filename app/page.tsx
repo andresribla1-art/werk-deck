@@ -1,40 +1,55 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function LandingPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className="h-screen w-screen bg-black text-white font-sans antialiased selection:bg-emerald-500 selection:text-black flex flex-col overflow-hidden relative">
       
-      {/* Cinematic Oasis Background: Deep center glow with micro-grid */}
+      {/* Cinematic Oasis Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.08)_0%,transparent_60%)] z-0 pointer-events-none" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)] z-0 pointer-events-none" />
 
-      {/* Ultra-Minimal Top Bar */}
+      {/* Top Bar */}
       <header className="absolute top-0 w-full px-8 md:px-12 py-8 flex items-center justify-between z-20">
         <div className="flex items-center gap-3">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_12px_#10b981]" />
           <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-400 uppercase">System Active</span>
         </div>
         
-        <button 
-          onClick={() => router.push("/onboarding")}
-          className="font-mono text-[10px] tracking-[0.2em] text-zinc-300 hover:text-emerald-400 transition-all uppercase py-2.5 px-6 border border-zinc-800 hover:border-emerald-500/50 rounded-full bg-black/50 backdrop-blur-md"
-        >
-          Iniciar Sesión
-        </button>
+        <div>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="font-mono text-[10px] tracking-[0.2em] text-zinc-300 hover:text-emerald-400 transition-all uppercase py-2.5 px-6 border border-zinc-800 hover:border-emerald-500/50 rounded-full bg-black/50 backdrop-blur-md cursor-pointer">
+                Iniciar Sesión
+              </button>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <div className="flex items-center gap-4">
+              <button 
+                onClick={() => router.push("/dashboard/feed")}
+                className="font-mono text-[10px] tracking-[0.2em] text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/10 transition-all uppercase py-2 px-4 rounded-full cursor-pointer"
+              >
+                Dashboard
+              </button>
+              <UserButton />
+            </div>
+          </SignedIn>
+        </div>
       </header>
 
-      {/* Center Monolith - Steve Jobs Presentation Style */}
+      {/* Center Monolith */}
       <main className="flex-1 flex flex-col items-center justify-center text-center px-6 relative z-10 w-full max-w-5xl mx-auto mt-12">
         
         <div className="inline-block font-mono text-[9px] tracking-[0.5em] text-emerald-400 uppercase mb-8 border border-emerald-500/20 px-4 py-1.5 rounded-full bg-emerald-950/20 backdrop-blur-sm">
           The Ultimate Execution Arena
         </div>
         
-        {/* Apple-esque Typography: Massive, tight tracking, flawless contrast */}
         <h1 className="text-7xl sm:text-8xl md:text-[10rem] font-medium tracking-tight text-white leading-none drop-shadow-2xl">
           Werk<span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-300 to-emerald-600">Deck</span>
         </h1>
@@ -48,26 +63,37 @@ export default function LandingPage() {
           Cero currículums. Cero entrevistas teóricas. Conectamos la ejecución real de tu código con un ecosistema global donde las empresas pujan por tu talento.
         </p>
 
-        {/* Cinematic Action Buttons */}
+        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-5 mt-12">
-          <button 
-            onClick={() => router.push("/onboarding")}
-            className="group relative bg-white hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.15)] hover:shadow-[0_0_60px_rgba(16,185,129,0.4)] rounded-full flex items-center gap-3 overflow-hidden"
-          >
-            <span className="relative z-10">Conectar Señal GitHub</span>
-            <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
-          </button>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="group relative bg-white hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.15)] hover:shadow-[0_0_60px_rgba(16,185,129,0.4)] rounded-full flex items-center gap-3 overflow-hidden cursor-pointer">
+                <span className="relative z-10">Conectar Señal GitHub</span>
+                <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <button 
+              onClick={() => router.push("/dashboard/feed")}
+              className="group relative bg-emerald-500 hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.3)] rounded-full flex items-center gap-3 cursor-pointer"
+            >
+              <span className="relative z-10">Ir a la Terminal</span>
+              <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+          </SignedIn>
           
           <button 
             onClick={() => router.push("/dashboard/arenas")}
-            className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30"
+            className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30 cursor-pointer"
           >
             Entrar al Coliseo
           </button>
         </div>
       </main>
 
-      {/* Structural Base (Pillars) */}
+      {/* Structural Base */}
       <footer className="w-full border-t border-zinc-900/50 bg-black/40 backdrop-blur-lg relative z-20">
         <div className="max-w-7xl mx-auto px-8 md:px-12 py-8 grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="space-y-2 text-left">
@@ -92,5 +118,5 @@ export default function LandingPage() {
       </footer>
 
     </div>
-  )
+  );
 }
