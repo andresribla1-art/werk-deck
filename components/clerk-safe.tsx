@@ -10,26 +10,41 @@ export function SafeClerkProvider({ children }: { children: ReactNode }) {
 }
 
 export function SafeSignInButton({ children, mode = "modal" }: { children: ReactNode; mode?: "modal" | "redirect" }) {
-  return hasClerkKey ? <ClerkSignInButton mode={mode} fallbackRedirectUrl="/dev/demo">{children}</ClerkSignInButton> : <>{children}</>
+  return hasClerkKey ? (
+    <ClerkSignInButton mode={mode} fallbackRedirectUrl="/onboarding">
+      {children}
+    </ClerkSignInButton>
+  ) : <>{children}</>
 }
 
-export function SafeSignUpButton({ children, forceRedirectUrl = "/dev/demo" }: { children: ReactNode; forceRedirectUrl?: "/dev/demo" | "/console" }) {
+export function SafeSignUpButton({ children }: { children: ReactNode }) {
   if (!hasClerkKey) return <>{children}</>
-  return <ClerkSignUpButton mode="modal" forceRedirectUrl={forceRedirectUrl} signInForceRedirectUrl={forceRedirectUrl}>{children}</ClerkSignUpButton>
+  return (
+    <ClerkSignUpButton mode="modal" forceRedirectUrl="/onboarding" signInForceRedirectUrl="/onboarding">
+      {children}
+    </ClerkSignUpButton>
+  )
 }
 
 export function SafeAuthCallback() {
   if (!hasClerkKey) return <span>AUTHENTICATION CONFIGURATION REQUIRED</span>
-  return <AuthenticateWithRedirectCallback signUpForceRedirectUrl="/dev/demo" signInForceRedirectUrl="/dev/demo" />
+  return <AuthenticateWithRedirectCallback signUpForceRedirectUrl="/onboarding" signInForceRedirectUrl="/onboarding" />
 }
 
 export function SafeUserButton() {
-  return hasClerkKey ? <ClerkUserButton /> : <span className="clerk-fallback-user" aria-label="Authentication unavailable">MM</span>
+  return hasClerkKey ? <ClerkUserButton /> : (
+    <span className="clerk-fallback-user" aria-label="Authentication unavailable">MM</span>
+  )
 }
 
 function ClerkIdentity({ children }: { children: (identity: { name: string; email: string; avatarUrl: string; username: string | null }) => ReactNode }) {
   const { isLoaded, user } = useUser()
-  return children({ name: isLoaded ? user?.fullName || user?.username || "Developer profile" : "Loading identity", email: user?.primaryEmailAddress?.emailAddress || "Connect GitHub to unlock verified identity", avatarUrl: user?.imageUrl || "https://github.com/mayashavin.png?size=160", username: user?.username || null })
+  return children({
+    name: isLoaded ? user?.fullName || user?.username || "Developer profile" : "Loading identity",
+    email: user?.primaryEmailAddress?.emailAddress || "Connect GitHub to unlock verified identity",
+    avatarUrl: user?.imageUrl || "https://github.com/mayashavin.png?size=160",
+    username: user?.username || null
+  })
 }
 
 export function SafeIdentity({ children }: { children: (identity: { name: string; email: string; avatarUrl: string; username: string | null }) => ReactNode }) {
