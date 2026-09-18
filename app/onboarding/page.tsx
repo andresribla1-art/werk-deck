@@ -1,34 +1,75 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cpu, Loader2 } from "lucide-react";
 import { useSystemLanguage } from "@/hooks/useSystemLanguage";
+import { getSupabaseClient } from "@/lib/supabase";
 
 export default function OnboardingPage() {
   const router = useRouter();
   const { t } = useSystemLanguage();
+  const { isLoaded, user } = useUser();
   const [selectedRole, setSelectedRole] = useState<"developer" | "company" | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [checking, setChecking] = useState(true);
 
-  const handleSelectRole = (role: "developer" | "company") => {
+  // Si el usuario ya completó el onboarding, redirigir directo
+  useEffect(() => {
+    if (!isLoaded || !user) return;
+
+    const checkOnboarding = async () => {
+      const supabase = getSupabaseClient();
+      const { data } = await supabase
+        .from("profiles")
+        .select("role, onboarding_completed")
+        .eq("id", user.id)
+        .single();
+
+      if (data?.onboarding_completed && data?.role) {
+        router.replace("/dashboard/feed");
+      } else {
+        setChecking(false);
+      }
+    };
+
+    checkOnboarding();
+  }, [isLoaded, user, router]);
+
+  const handleSelectRole = async (role: "developer" | "company") => {
+    if (!user || isConnecting) return;
     setSelectedRole(role);
     setIsConnecting(true);
 
-    if (typeof window !== "undefined") {
-      localStorage.setItem("werkdeck_role", role);
-      document.cookie = `werkdeck_role=${role}; path=/; max-age=31536000; SameSite=Lax`;
+    try {
+      const supabase = getSupabaseClient();
+      await supabase
+        .from("profiles")
+        .upsert({
+          id: user.id,
+          role,
+          onboarding_completed: true,
+          full_name: user.fullName ?? user.username ?? null,
+          avatar_url: user.imageUrl ?? null,
+          github_username: user.username ?? null,
+        }, { onConflict: "id" });
+    } catch (err) {
+      console.error("Error saving role:", err);
     }
 
     setTimeout(() => {
       router.push("/dashboard/feed");
-      setTimeout(() => {
-        if (window.location.pathname.includes("/onboarding")) {
-          window.location.href = "/dashboard/feed";
-        }
-      }, 500);
     }, 1200);
   };
+
+  if (!isLoaded || checking) {
+    return (
+      <div className="min-h-screen bg-[#030712] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-[#030712] text-zinc-100 flex flex-col items-center justify-center relative overflow-hidden px-4 select-none">
@@ -41,100 +82,66 @@ export default function OnboardingPage() {
           <span>INITIALIZATION SEQUENCE // STEP 01</span>
         </div>
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight">
-          {t("onboardingTitle").split(" ")[0]} {t("onboardingTitle").split(" ")[1]}{" "}
+          {t("onboardingTitle").split(" ")[0]}{" "}
+          {t("onboardingTitle").split(" ")[1]}{" "}
           <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
             {t("onboardingTitle").split(" ")[2] || "Identidad"}
           </span>
         </h1>
-        <p className="text-zinc-400 text-sm sm:text-base max-w-lg mx-auto font-sans leading-relaxed text-center">
+        <p className="text-zinc-400 text-sm sm:text-base max-w-lg mx-auto font-sans leading-relaxed">
           {t("onboardingSub")}
         </p>
       </div>
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full">
-        <motion.div
-          whileHover={{ scale: isConnecting ? 1 : 1.02 }}
-          whileTap={{ scale: isConnecting ? 1 : 0.98 }}
-          onClick={() => !isConnecting && handleSelectRole("developer")}
-          className={`relative group rounded-xl border p-8 cursor-pointer transition-all duration-300 overflow-hidden ${
-            selectedRole === "developer"
-              ? "border-emerald-500 bg-emerald-950/30 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
-              : "border-zinc-800 bg-zinc-950/60 hover:border-emerald-500/50 hover:bg-zinc-900/80 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
-          }`}
-        >
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-xs font-mono text-emerald-400 tracking-wider">NODE // 01</span>
-            <div className={`w-2.5 h-2.5 rounded-full ${selectedRole === "developer" ? "bg-emerald-400 animate-ping" : "bg-zinc-700 group-hover:bg-emerald-400"}`} />
-          </div>
+        {(["developer", "company"] as const).map((role) => (
+          <motion.div
+            key={role}
+            whileHover={{ scale: isConnecting ? 1 : 1.02 }}
+            whileTap={{ scale: isConnecting ? 1 : 0.98 }}
+            onClick={() => !isConnecting && handleSelectRole(role)}
+            className={`relative group rounded-xl border p-8 cursor-pointer transition-all duration-300 overflow-hidden ${
+              selectedRole === role
+                ? "border-emerald-500 bg-emerald-950/30 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
+                : "border-zinc-800 bg-zinc-950/60 hover:border-emerald-500/50 hover:bg-zinc-900/80"
+            }`}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-xs font-mono text-emerald-400 tracking-wider">
+                {role === "developer" ? "NODE // 01" : "NODE // 02"}
+              </span>
+              <div className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                selectedRole === role ? "bg-emerald-400 animate-ping" : "bg-zinc-700 group-hover:bg-emerald-400"
+              }`} />
+            </div>
 
-          <AnimatePresence mode="wait">
-            {isConnecting && selectedRole === "developer" ? (
-              <motion.div
-                key="loading-dev"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="py-6 flex flex-col items-center justify-center space-y-3"
-              >
-                <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
-                <p className="text-xs font-mono text-emerald-400 text-center tracking-wider">
-                  {t("connecting")}
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div key="content-dev" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
-                  {t("devTitle")}
-                </h3>
-                <p className="text-zinc-400 text-sm leading-relaxed font-sans">
-                  {t("devDesc")}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ scale: isConnecting ? 1 : 1.02 }}
-          whileTap={{ scale: isConnecting ? 1 : 0.98 }}
-          onClick={() => !isConnecting && handleSelectRole("company")}
-          className={`relative group rounded-xl border p-8 cursor-pointer transition-all duration-300 overflow-hidden ${
-            selectedRole === "company"
-              ? "border-emerald-500 bg-emerald-950/30 shadow-[0_0_30px_rgba(16,185,129,0.25)]"
-              : "border-zinc-800 bg-zinc-950/60 hover:border-emerald-500/50 hover:bg-zinc-900/80 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
-          }`}
-        >
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-xs font-mono text-emerald-400 tracking-wider">NODE // 02</span>
-            <div className={`w-2.5 h-2.5 rounded-full ${selectedRole === "company" ? "bg-emerald-400 animate-ping" : "bg-zinc-700 group-hover:bg-emerald-400"}`} />
-          </div>
-
-          <AnimatePresence mode="wait">
-            {isConnecting && selectedRole === "company" ? (
-              <motion.div
-                key="loading-company"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="py-6 flex flex-col items-center justify-center space-y-3"
-              >
-                <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
-                <p className="text-xs font-mono text-emerald-400 text-center tracking-wider">
-                  {t("connecting")}
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div key="content-company" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
-                  {t("companyTitle")}
-                </h3>
-                <p className="text-zinc-400 text-sm leading-relaxed font-sans">
-                  {t("companyDesc")}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+            <AnimatePresence mode="wait">
+              {isConnecting && selectedRole === role ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="py-6 flex flex-col items-center justify-center space-y-3"
+                >
+                  <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+                  <p className="text-xs font-mono text-emerald-400 tracking-wider">
+                    {t("connecting")}
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div key="content" initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                    {t(role === "developer" ? "devTitle" : "companyTitle")}
+                  </h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed font-sans">
+                    {t(role === "developer" ? "devDesc" : "companyDesc")}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        ))}
       </div>
     </main>
   );
