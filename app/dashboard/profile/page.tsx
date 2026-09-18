@@ -1,72 +1,161 @@
 "use client";
-import { ShieldCheck, Terminal, Award, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Terminal, Award } from "lucide-react";
 import { useSystemLanguage } from "@/hooks/useSystemLanguage";
 
 export default function ProfilePage() {
   const { t } = useSystemLanguage();
 
   return (
-    <div className="space-y-8 p-6 max-w-7xl mx-auto">
-      <div className="border border-zinc-800 bg-zinc-950/60 p-8 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
-        <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-mono font-bold text-xl shadow-[0_0_20px_rgba(16,185,129,0.2)]">
-            JD
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-extrabold text-white">John Doe</h1>
-              <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-            </div>
-            <p className="text-xs font-mono text-zinc-500 mt-0.5">&gt;_ ID: WDK-8894-A</p>
-            <p className="text-zinc-300 text-sm mt-2 max-w-xl font-sans">
-              Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen px-6 pt-8 pb-24 max-w-6xl mx-auto space-y-6">
 
-        <div className="border border-zinc-800 bg-zinc-900/80 p-4 rounded-xl text-center font-mono min-w-[140px]">
-          <span className="text-[10px] text-zinc-500 block tracking-widest">PROOFSCORE</span>
-          <span className="text-3xl font-extrabold text-emerald-400">890</span>
-          <span className="inline-block mt-1 px-2 py-0.5 text-[10px] bg-emerald-950 text-emerald-300 rounded border border-emerald-800">
-            TOP 2% GLOBAL
-          </span>
+      {/* Hero identity card */}
+      <div
+        className="rounded-2xl p-8 relative overflow-hidden"
+        style={{
+          background: "rgba(255,255,255,0.02)",
+          border: "1px solid rgba(255,255,255,0.07)",
+        }}
+      >
+        {/* Ambient glow */}
+        <div
+          className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex items-center gap-5">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center font-mono font-black text-xl flex-shrink-0"
+              style={{
+                background: "rgba(0,255,136,0.08)",
+                border: "2px solid rgba(0,255,136,0.3)",
+                color: "#00FF88",
+                boxShadow: "0 0 30px rgba(0,255,136,0.2), inset 0 0 20px rgba(0,255,136,0.05)",
+              }}
+            >
+              JD
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h1 className="text-2xl font-black text-white" style={{ letterSpacing: "-0.03em" }}>
+                  John Doe
+                </h1>
+                <ShieldCheck className="w-5 h-5" style={{ color: "#00FF88" }} />
+              </div>
+              <p className="font-mono text-[11px] mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                &gt;_ ID: WDK-8894-A
+              </p>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)", lineHeight: "1.6", maxWidth: "460px" }}>
+                Ingeniero de Sistemas Distribuidos. Especialista en arquitecturas Rust de baja latencia y mitigación de vulnerabilidades Zero-Day.
+              </p>
+            </div>
+          </div>
+
+          {/* ProofScore — el elemento dominante */}
+          <div
+            className="flex-shrink-0 text-center px-8 py-5 rounded-2xl"
+            style={{
+              background: "rgba(0,0,0,0.4)",
+              border: "1px solid rgba(0,255,136,0.15)",
+              boxShadow: "0 0 40px rgba(0,255,136,0.08)",
+            }}
+          >
+            <p className="font-mono text-[9px] tracking-[0.3em] mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+              PROOFSCORE
+            </p>
+            <p
+              className="font-black leading-none"
+              style={{
+                fontSize: "4rem",
+                letterSpacing: "-0.05em",
+                color: "#00FF88",
+                textShadow: "0 0 40px rgba(0,255,136,0.6)",
+              }}
+            >
+              890
+            </p>
+            <div
+              className="mt-2 px-3 py-1 rounded-full font-mono text-[9px] font-bold tracking-widest"
+              style={{
+                background: "rgba(0,255,136,0.1)",
+                border: "1px solid rgba(0,255,136,0.2)",
+                color: "#00FF88",
+              }}
+            >
+              TOP 2% GLOBAL
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="border border-zinc-800 bg-zinc-950/60 p-6 rounded-xl space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 border-b border-zinc-800/80 pb-3">
-            <Terminal className="w-4 h-4" />
-            <span>{t("metricsTitle")}</span>
+      {/* Metrics grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div
+          className="rounded-2xl p-6 space-y-5"
+          style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <div className="flex items-center gap-2 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+            <Terminal className="w-4 h-4" style={{ color: "#00FF88" }} />
+            <span className="font-mono text-[10px] tracking-widest" style={{ color: "#00FF88" }}>
+              {t("metricsTitle")}
+            </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-2 font-mono">
-            <div className="p-4 bg-zinc-900/60 rounded-lg border border-zinc-800">
-              <span className="text-[10px] text-zinc-500 block">{t("commitsVerified")}</span>
-              <span className="text-2xl font-extrabold text-white mt-1 block">342</span>
+          <div className="grid grid-cols-2 gap-4">
+            <div
+              className="rounded-xl p-4"
+              style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.04)" }}
+            >
+              <p className="font-mono text-[9px] tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                {t("commitsVerified")}
+              </p>
+              <p className="text-3xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>342</p>
             </div>
-            <div className="p-4 bg-zinc-900/60 rounded-lg border border-zinc-800">
-              <span className="text-[10px] text-zinc-500 block">{t("deploySuccess")}</span>
-              <span className="text-2xl font-extrabold text-emerald-400 mt-1 block">98.4%</span>
+            <div
+              className="rounded-xl p-4"
+              style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.04)" }}
+            >
+              <p className="font-mono text-[9px] tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                {t("deploySuccess")}
+              </p>
+              <p className="text-3xl font-black" style={{ color: "#00FF88", letterSpacing: "-0.04em" }}>98.4%</p>
             </div>
           </div>
         </div>
 
-        <div className="border border-zinc-800 bg-zinc-950/60 p-6 rounded-xl space-y-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 border-b border-zinc-800/80 pb-3">
-            <Award className="w-4 h-4" />
-            <span>{t("arenaHistory")}</span>
+        <div
+          className="rounded-2xl p-6 space-y-4"
+          style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.06)",
+          }}
+        >
+          <div className="flex items-center gap-2 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+            <Award className="w-4 h-4" style={{ color: "#00FF88" }} />
+            <span className="font-mono text-[10px] tracking-widest" style={{ color: "#00FF88" }}>
+              {t("arenaHistory")}
+            </span>
           </div>
 
-          <div className="space-y-3 pt-2 font-mono text-xs">
-            <div className="p-3 bg-zinc-900/60 rounded-lg border border-zinc-800 flex justify-between items-center">
-              <span className="text-zinc-200 font-bold">Zero-Latency Router</span>
-              <span className="text-emerald-400 font-bold">1,500 USDC</span>
-            </div>
-            <div className="p-3 bg-zinc-900/60 rounded-lg border border-zinc-800 flex justify-between items-center">
-              <span className="text-zinc-200 font-bold">SecOps CTF Challenge</span>
-              <span className="text-amber-400 font-bold">800 USDC</span>
-            </div>
+          <div className="space-y-3">
+            {[
+              { name: "Zero-Latency Router", reward: "1,500 USDC", color: "#00FF88" },
+              { name: "SecOps CTF Challenge", reward: "800 USDC", color: "#F59E0B" },
+            ].map(({ name, reward, color }) => (
+              <div
+                key={name}
+                className="flex items-center justify-between p-4 rounded-xl"
+                style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.04)" }}
+              >
+                <span className="font-mono text-sm font-semibold text-white">{name}</span>
+                <span className="font-mono text-sm font-bold" style={{ color }}>{reward}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
