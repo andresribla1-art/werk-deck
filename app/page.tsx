@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { SafeSignInButton } from "@/components/clerk-safe";
 
 export default function LandingPage() {
+  const { isSignedIn, isLoaded } = useUser();
+
   return (
     <div className="h-screen w-screen bg-black text-white font-sans antialiased selection:bg-emerald-500 selection:text-black flex flex-col overflow-hidden relative">
       
@@ -19,15 +22,15 @@ export default function LandingPage() {
         </div>
         
         <div>
-          <SignedOut>
-            <SignInButton mode="modal">
+          {isLoaded && !isSignedIn && (
+            <SafeSignInButton>
               <button className="font-mono text-[10px] tracking-[0.2em] text-zinc-300 hover:text-emerald-400 transition-all uppercase py-2.5 px-6 border border-zinc-800 hover:border-emerald-500/50 rounded-full bg-black/50 backdrop-blur-md cursor-pointer">
                 Iniciar Sesión
               </button>
-            </SignInButton>
-          </SignedOut>
+            </SafeSignInButton>
+          )}
 
-          <SignedIn>
+          {isLoaded && isSignedIn && (
             <div className="flex items-center gap-4">
               <Link 
                 href="/dashboard/feed"
@@ -35,9 +38,8 @@ export default function LandingPage() {
               >
                 Dashboard
               </Link>
-              <UserButton />
             </div>
-          </SignedIn>
+          )}
         </div>
       </header>
 
@@ -63,37 +65,41 @@ export default function LandingPage() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-5 mt-12">
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="group relative bg-white hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.15)] hover:shadow-[0_0_60px_rgba(16,185,129,0.4)] rounded-full flex items-center gap-3 overflow-hidden cursor-pointer">
-                <span className="relative z-10">Conectar Señal GitHub</span>
+          {isLoaded && !isSignedIn && (
+            <>
+              <SafeSignInButton>
+                <button className="group relative bg-white hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.15)] hover:shadow-[0_0_60px_rgba(16,185,129,0.4)] rounded-full flex items-center gap-3 overflow-hidden cursor-pointer">
+                  <span className="relative z-10">Conectar Señal GitHub</span>
+                  <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+              </SafeSignInButton>
+
+              <SafeSignInButton>
+                <button className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30 cursor-pointer">
+                  Entrar al Coliseo
+                </button>
+              </SafeSignInButton>
+            </>
+          )}
+
+          {isLoaded && isSignedIn && (
+            <>
+              <Link 
+                href="/dashboard/feed"
+                className="group relative bg-emerald-500 hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.3)] rounded-full flex items-center gap-3 cursor-pointer"
+              >
+                <span className="relative z-10">Ir a la Terminal</span>
                 <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
-              </button>
-            </SignInButton>
+              </Link>
 
-            <SignInButton mode="modal">
-              <button className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30 cursor-pointer">
+              <Link 
+                href="/dashboard/arenas"
+                className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30 cursor-pointer"
+              >
                 Entrar al Coliseo
-              </button>
-            </SignInButton>
-          </SignedOut>
-
-          <SignedIn>
-            <Link 
-              href="/dashboard/feed"
-              className="group relative bg-emerald-500 hover:bg-emerald-400 text-black font-sans text-xs font-semibold tracking-[0.15em] uppercase px-10 py-4 transition-all duration-500 shadow-[0_0_40px_rgba(16,185,129,0.3)] rounded-full flex items-center gap-3 cursor-pointer"
-            >
-              <span className="relative z-10">Ir a la Terminal</span>
-              <span className="relative z-10 group-hover:translate-x-1 transition-transform">→</span>
-            </Link>
-
-            <Link 
-              href="/dashboard/arenas"
-              className="font-sans text-xs font-medium tracking-[0.15em] text-zinc-400 hover:text-white transition-colors uppercase px-10 py-4 border border-zinc-800 hover:border-zinc-500 rounded-full backdrop-blur-sm bg-zinc-950/30 cursor-pointer"
-            >
-              Entrar al Coliseo
-            </Link>
-          </SignedIn>
+              </Link>
+            </>
+          )}
         </div>
       </main>
 
